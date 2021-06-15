@@ -1,0 +1,27 @@
+const constants = {
+  font_family: 'Montserrat-Regular',
+  font_family_bold: 'Montserrat-Bold',
+  font_family_semi_bold: 'Montserrat-SemiBold',
+  font_family_medium: 'Montserrat-Medium',
+  font_family_light: 'Montserrat-Light',
+  height_ten_pix_pc: '1%',
+  height_two_dot_five: '2.5%',
+  height_three_pc: '3%',
+  height_four_pc: '4%',
+  height_small_pc: '6%',
+  height_eight_pc: '7%',
+  height_ten_pc: '9%',
+  height_eight_correct_pc: '8%',
+  height_ten_pc_two: '10%',
+  height_eleven_pc: '12%',
+  height_fifteen_pc: '15%',
+  height_twent_five_pc: '30%',
+  height_fifty_pc: '45%',
+  font_size_sm_pc: '1.8%',
+  font_size_pc_two: '1.6%',
+  font_size_pc: '2%',
+  font_size_md_pc: '2.3%',
+  font_size_xl_pc: '3%',
+};
+
+export default constants;
