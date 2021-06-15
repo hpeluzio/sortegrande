@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-import { Text, View } from 'react-native';
+import { Container, Back, Logo, Label, Username, Password } from './styles';
 
 export default function Login({ navigation }) {
   useEffect(() => {
@@ -8,8 +8,14 @@ export default function Login({ navigation }) {
   }, [navigation]);
 
   return (
-    <View>
-      <Text>Sorte Grande - Login</Text>
-    </View>
+    <Container>
+      {/* <Label>Sorte Grande - Login</Label> */}
+      <Back />
+      <Logo />
+      <Label>Usuário</Label>
+      <Username />
+      <Label>Senha</Label>
+      <Password />
+    </Container>
   );
 }
