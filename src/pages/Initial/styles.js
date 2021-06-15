@@ -4,7 +4,6 @@ import {
 } from 'react-native-responsive-screen';
 import styled from 'styled-components';
 
-import { Text, SafeAreaView } from 'react-native';
 import { colors, constants } from '~/styles';
 
 export const Container = styled.SafeAreaView`
@@ -12,7 +11,7 @@ export const Container = styled.SafeAreaView`
   flex-direction: row;
   height: ${hp('100%')}px;
   height: ${wp('100%')}px;
-  background: ${colors.primaryDark};
+  background: ${colors.primary};
 
   align-items: center;
   justify-content: center;
@@ -28,8 +27,8 @@ export const Container = styled.SafeAreaView`
 
 export const Welcome = styled.Text`
   color: ${colors.white};
-  font-size: ${hp('5%')}px;
-  /* font-family: ${constants.font_family_bold}; */
+  font-size: ${hp('6%')}px;
+  font-family: ${constants.font_family_semi_bold};
   /* align-items: center;
   justify-content: center;
   min-height: ${wp('20%')}px;

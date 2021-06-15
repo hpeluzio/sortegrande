@@ -3,6 +3,8 @@ import { useSelector } from 'react-redux';
 
 import { Container, Welcome } from './styles';
 
+import TrevoSVG from '~/components/TrevoSVG';
+
 export default function Initial({ navigation }) {
   const token = useSelector(s => s.session.token);
 
@@ -18,7 +20,8 @@ export default function Initial({ navigation }) {
 
   return (
     <Container>
-      <Welcome>Sorte Grande</Welcome>
+      <TrevoSVG />
+      {/* <Welcome>Sorte Grande</Welcome> */}
       {/* <Button
         title="Go Login"
         onPress={() => {

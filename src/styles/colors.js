@@ -1,6 +1,7 @@
 export default {
   primary: '#3CB24A',
   primaryDark: '#008000',
+  secondaryDark: '#004d00',
   accent: '#aff44e',
   backgroundHeader: '#007b1f',
 
