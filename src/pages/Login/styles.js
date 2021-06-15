@@ -1,24 +1,26 @@
-import React from 'react';
-
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
 import styled from 'styled-components';
+import LinearGradient from 'react-native-linear-gradient';
+
+import Feather from 'react-native-vector-icons/Feather';
 
 import { colors, constants } from '~/styles';
-// import TrevoSVG from '~/components/TrevoSVG';
 import Trevo from '~/images/trevo.png';
 
-export const Container = styled.SafeAreaView`
+export const ScrollView = styled.ScrollView`
+  flex: 1;
+  background-color: ${colors.white};
+`;
+
+export const InputContainer = styled.SafeAreaView`
   flex: 1;
   flex-direction: column;
-  height: ${hp('100%')}px;
-  width: ${wp('100%')}px;
   background: ${colors.white};
-  /* align-items: center; */
-  justify-content: center;
   padding: ${wp('10%')}px;
+  padding-top: ${wp('25%')}px;
 `;
 
 export const Back = styled.View`
@@ -27,7 +29,7 @@ export const Back = styled.View`
   background: ${colors.primary};
   position: absolute;
   top: -${hp('90%')}px;
-  right: 0;
+  left: 0;
   border-radius: ${hp('10%')}px;
 `;
 
@@ -43,22 +45,8 @@ export const Logo = styled.Image.attrs({
   background-color: 'rgba(52, 52, 52, 0.0)';
 `;
 
-// export const Logo = styled(TrevoSVG)`
-//   align-self: center;
-//   justify-content: center;
-//   background: ${colors.white};
-// `;
-
-// export const Logo = styled.View`
-//   height: ${wp('30%')}px;
-//   width: ${wp('100%')}px;
-//   background: ${colors.black};
-//   align-items: center;
-//   justify-content: center;
-//   padding: ${wp('10%')}px;
-// `;
-
-export const Label = styled.Text`
+//Input
+export const InputLabel = styled.Text`
   font-size: ${hp(constants.font_size_pc)};
   font-family: ${constants.font_family_medium};
   color: ${colors.primaryDark};
@@ -89,4 +77,62 @@ export const Password = styled.TextInput.attrs({
   font-family: ${constants.font_family};
   color: ${colors.mediumGray};
   padding: 0 ${hp(constants.font_size_pc_two)}px;
+`;
+
+//Account
+export const AccountContainer = styled.View`
+  flex: 1;
+  flex-direction: row;
+  background: ${colors.white};
+  align-items: center;
+  justify-content: center;
+`;
+
+export const AccountLabel = styled.Text`
+  font-size: ${hp(constants.font_size_pc)};
+  font-family: ${constants.font_family_medium};
+  color: ${colors.mediumGray};
+  margin-bottom: ${hp('0.25%')}px;
+  margin-left: ${hp(constants.font_size_pc_two)}px;
+  margin-top: ${hp('1%')}px;
+`;
+
+export const LockIcon = styled(Feather).attrs({
+  name: 'unlock',
+  color: colors.mediumGray,
+  size: hp('3%'),
+})`
+  background-color: ${colors.white};
+`;
+
+export const Gradient = styled(LinearGradient).attrs({
+  colors: ['#1a9929', '#3cb24a'],
+  start: { x: 0, y: 1 },
+  end: { x: 1, y: 0 },
+})`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const Loader = styled.ActivityIndicator`
+  color: ${colors.white};
+`;
+
+export const Button = styled.TouchableOpacity`
+  height: ${hp(constants.height_small_pc)}px;
+  width: ${wp('60%')}px;
+  border-radius: ${wp('1%')}px;
+  overflow: hidden;
+  margin: ${wp('10%')}px ${wp('1%')}px;
+  text-align: center;
+  background: ${colors.primary};
+  align-self: center;
+`;
+
+export const ButtonText = styled.Text`
+  color: ${colors.white};
+  text-transform: uppercase;
+  font-size: ${hp(constants.font_size_pc)};
+  font-family: ${constants.font_family_semi_bold};
 `;

@@ -1,6 +1,21 @@
 import React, { useEffect } from 'react';
 
-import { Container, Back, Logo, Label, Username, Password } from './styles';
+import {
+  ScrollView,
+  InputContainer,
+  AccountContainer,
+  Back,
+  Logo,
+  InputLabel,
+  AccountLabel,
+  Username,
+  Password,
+  Gradient,
+  // Loader,
+  Button,
+  ButtonText,
+  LockIcon,
+} from './styles';
 
 export default function Login({ navigation }) {
   useEffect(() => {
@@ -8,14 +23,29 @@ export default function Login({ navigation }) {
   }, [navigation]);
 
   return (
-    <Container>
-      {/* <Label>Sorte Grande - Login</Label> */}
-      <Back />
-      <Logo />
-      <Label>Usuário</Label>
-      <Username />
-      <Label>Senha</Label>
-      <Password />
-    </Container>
+    <ScrollView>
+      <InputContainer>
+        <Back />
+        <Logo />
+        <InputLabel>Usuário</InputLabel>
+        <Username />
+        <InputLabel>Senha</InputLabel>
+        <Password />
+        <Button onPress={() => {}}>
+          <Gradient>
+            <ButtonText>Entrar</ButtonText>
+            {/* <Loader /> */}
+          </Gradient>
+        </Button>
+      </InputContainer>
+      <AccountContainer>
+        <LockIcon />
+        <InputLabel>Esqueceu a senha?</InputLabel>
+      </AccountContainer>
+      <AccountContainer>
+        <AccountLabel>Não possui uma conta?</AccountLabel>
+        <InputLabel>Criar conta</InputLabel>
+      </AccountContainer>
+    </ScrollView>
   );
 }
