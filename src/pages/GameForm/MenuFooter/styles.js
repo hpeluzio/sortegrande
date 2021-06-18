@@ -41,7 +41,7 @@ export const ButtonHighlighted = styled.TouchableOpacity`
 
   position: absolute;
   left: ${wp('40%')}px;
-  bottom: ${hp('1%')}px;
+  /* bottom: ${hp('1%')}px; */
   /* z-index: 999; */
 `;
 
@@ -55,13 +55,13 @@ export const Clover = styled(MaterialCommunityIcons).attrs({
   justify-content: center;
 `;
 
-// export const Label = styled.Text`
-//   font-size: ${hp(constants.font_size_pc)}px;
-//   font-family: ${constants.font_family};
-//   text-align: center;
-//   width: 100%;
-//   color: #999;
-// `;
+export const Label = styled.Text`
+  font-size: ${hp(constants.font_size_pc)}px;
+  font-family: ${constants.font_family};
+  text-align: center;
+  width: 100%;
+  color: #999;
+`;
 
 export const User = styled(Feather).attrs({
   name: 'user',

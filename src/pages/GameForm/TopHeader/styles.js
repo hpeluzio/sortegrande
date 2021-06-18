@@ -10,9 +10,9 @@ import { colors, constants } from '~/styles';
 
 export const Container = styled.View`
   flex-direction: row;
-  height: ${hp('6%')}px;
+  height: ${hp('8%')}px;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
   /* background-color: green; */
   border-bottom-width: ${hp('0.2%')}px;
   border-color: #ddd;
@@ -27,11 +27,11 @@ export const Button = styled.TouchableOpacity`
 `;
 
 export const Label = styled.Text`
-  font-size: ${hp(constants.font_size_pc)}px;
-  font-family: ${constants.font_family};
+  font-size: ${hp(constants.font_size_md_pc)}px;
+  font-family: ${constants.font_family_semi_bold};
   text-align: center;
   width: 100%;
-  color: #999;
+  color: ${colors.darkGray};
 `;
 
 export const User = styled(Feather).attrs({

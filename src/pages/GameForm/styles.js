@@ -97,29 +97,30 @@ export const NumbersContainer = styled.View`
   justify-content: center;
   background: ${colors.white};
   width: ${wp('80%')}px;
-  height: ${hp('42%')}px;
+  /* height: ${hp('42%')}px; */
   /* background: blue; */
 `;
 
-export const NumberSquare = styled.View`
+export const NumberSquare = styled.TouchableOpacity`
   /* flex-direction: column; */
   align-items: center;
   justify-content: center;
   /* background: orange;44 */
   width: ${wp('12%')}px;
   height: ${wp('12%')}px;
-  margin: ${hp('1%')}px ${hp('1%')}px;
+  margin: ${hp('0.25%')}px ${hp('0.25%')}px;
   border: ${hp('0.2%')}px solid ${colors.primary};
-  border-radius: ${hp(constants.font_size_pc)}px;
+  border-radius: ${hp('1%')}px;
   border-color: ${colors.lightGray};
   /* margin-bottom: ${hp('8%')}px; */
-  /* background: orange; */
+  background: ${props => (props.isNumberSelected ? 'green' : 'white')};
 `;
 
 export const TextNumber = styled.Text`
   font-size: ${hp(constants.font_size_pc)}px;
   font-family: ${constants.font_family_semi_bold};
-  color: ${colors.mediumGray};
+  /* color: ${colors.mediumGray}; */
+  color: ${props => (props.isNumberSelected ? 'white' : 'green')};
 `;
 
 export const SubmitForm = styled.View`
@@ -131,5 +132,5 @@ export const SubmitForm = styled.View`
   background: ${colors.white};
   width: ${wp('80%')}px;
   height: ${hp('10%')}px;
-  background: blue;
+  /* background: blue; */
 `;
