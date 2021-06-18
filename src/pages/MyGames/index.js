@@ -21,9 +21,9 @@ export default function MyGames({ navigation }) {
 
   return (
     <Container>
-      <TopHeader />
+      <TopHeader tittle={'Meus Jogos'} />
       <Content></Content>
-      <MenuFooter />
+      {/* <MenuFooter /> */}
     </Container>
   );
 }

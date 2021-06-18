@@ -28,11 +28,12 @@ export const Button = styled.TouchableOpacity`
 `;
 
 export const Label = styled.Text`
-  font-size: ${hp(constants.font_size_pc)}px;
-  font-family: ${constants.font_family};
+  font-size: ${hp(constants.font_size_md_pc)}px;
+  font-family: ${constants.font_family_semi_bold};
   text-align: center;
-  width: 100%;
-  color: #999;
+  /* width: 100%; */
+  color: ${colors.darkGray};
+  /* background-color: red; */
 `;
 
 export const Header = styled.Text`

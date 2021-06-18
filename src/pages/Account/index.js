@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setSession } from '~/redux/actions/session/sessionActions';
 
 import TopHeader from '~/components/TopHeader';
-import MenuFooter from '~/components/MenuFooter';
 
 import { Container, Content, Button, Logout, Label } from './styles';
 
@@ -23,14 +22,13 @@ export default function Account({ navigation }) {
 
   return (
     <Container>
-      <TopHeader />
+      <TopHeader tittle={'Perfil'} />
       <Content>
         <Button onPress={logout}>
           <Logout />
           <Label>Logout</Label>
         </Button>
       </Content>
-      <MenuFooter />
     </Container>
   );
 }

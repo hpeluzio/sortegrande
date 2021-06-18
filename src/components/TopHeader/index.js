@@ -3,9 +3,9 @@ import { withNavigation } from 'react-navigation';
 // import { useSelector, useDispatch } from 'react-redux';
 // import { setSession } from '~/redux/actions/session/sessionActions';
 
-import { Container, Button, User, Back, Header } from './styles';
+import { Container, Button, User, Back, Header, Label } from './styles';
 
-function TopHeader({ navigation, selectedNumbers }) {
+function TopHeader({ navigation, selectedNumbers, tittle }) {
   return (
     <Container>
       <Button onPress={() => navigation.goBack()}>
@@ -14,6 +14,7 @@ function TopHeader({ navigation, selectedNumbers }) {
       {selectedNumbers && (
         <Header>Selecionados: {selectedNumbers.length}</Header>
       )}
+      {tittle && <Label>{tittle}</Label>}
       <Button
         onPress={() => {
           navigation.navigate('Account');
