@@ -5,8 +5,6 @@ import {
 import styled from 'styled-components';
 import LinearGradient from 'react-native-linear-gradient';
 
-import Feather from 'react-native-vector-icons/Feather';
-
 import { colors, constants } from '~/styles';
 
 export const ScrollView = styled.ScrollView`
@@ -45,14 +43,17 @@ export const InputLabel = styled.Text`
   font-size: ${hp(constants.font_size_pc)};
   font-family: ${constants.font_family_semi_bold};
   color: ${colors.mediumGray};
+  margin-top: ${hp('1.5%')}px;
 `;
 
-export const NumberInput = styled.TextInput.attrs({
-  keyboardType: 'numeric',
+export const NameInput = styled.TextInput.attrs({
+  // keyboardType: 'numeric',
 })`
   text-align: center;
-  height: ${hp(constants.height_eight_pc)}px;
-  width: ${wp('20%')}px;
+  /* align-items: center; */
+  /* justify-content: center; */
+  height: ${hp(constants.height_small_pc)}px;
+  width: ${wp('80%')}px;
   border: ${hp('0.2%')}px solid ${colors.primary};
   border-radius: ${hp(constants.font_size_pc)}px;
   border-color: ${colors.mediumGray};
@@ -123,14 +124,16 @@ export const TextNumber = styled.Text`
   color: ${props => (props.isNumberSelected ? 'white' : 'green')};
 `;
 
-export const SubmitForm = styled.View`
-  /* flex: 1; */
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  background: ${colors.white};
-  width: ${wp('80%')}px;
-  height: ${hp('10%')}px;
-  /* background: blue; */
-`;
+// export const NumberInput = styled.TextInput.attrs({
+//   keyboardType: 'numeric',
+// })`
+//   text-align: center;
+//   height: ${hp(constants.height_eight_pc)}px;
+//   width: ${wp('20%')}px;
+//   border: ${hp('0.2%')}px solid ${colors.primary};
+//   border-radius: ${hp(constants.font_size_pc)}px;
+//   border-color: ${colors.mediumGray};
+//   font-size: ${hp(constants.font_size_xl_pc)}px;
+//   font-family: ${constants.font_family_semi_bold};
+//   color: ${colors.darkGray};
+// `;

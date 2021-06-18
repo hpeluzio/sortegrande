@@ -3,18 +3,16 @@ import { withNavigation } from 'react-navigation';
 // import { useSelector, useDispatch } from 'react-redux';
 // import { setSession } from '~/redux/actions/session/sessionActions';
 
-import { Container, Button, User, Label } from './styles';
+import { Container, Button, Label } from './styles';
 
 function TopHeader({ navigation, selectedNumbers }) {
   return (
     <Container>
-      <Label>Números adicionados: {selectedNumbers.length}</Label>
+      <Label>Selecionados: {selectedNumbers.length}</Label>
       <Button
         onPress={() => {
           navigation.navigate('Account');
-        }}>
-        {/* <User /> */}
-      </Button>
+        }}></Button>
     </Container>
   );
 }

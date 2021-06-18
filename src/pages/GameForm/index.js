@@ -1,19 +1,19 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setGameForm } from '~/redux/actions/gameForm/gameFormActions';
+import {
+  setGameForm,
+  setGameNameForm,
+} from '~/redux/actions/gameForm/gameFormActions';
 
 import TopHeader from './TopHeader';
 import MenuFooter from './MenuFooter';
 
 import { numbers } from '~/utils/numbers';
 
-import { Alert } from 'react-native';
-
 import {
   Container,
   Content,
   SubmitContainer,
-  // InputLabel,
   SubmitButton,
   Gradient,
   ButtonText,
@@ -21,50 +21,30 @@ import {
   NumbersContainer,
   NumberSquare,
   TextNumber,
-  SubmitForm,
+  InputLabel,
+  NameInput,
 } from './styles';
 
 export default function GameForm({ navigation }) {
-  // const [numbers, setNumbers] = useState(useSelector(s => s.gameForm.numbers));
   const selectedNumbers = useSelector(s => s.gameForm.selectedNumbers);
+  const name = useSelector(s => s.gameForm.name);
   const dispatch = useDispatch();
 
   useEffect(() => {
     console.log('numbers: ', numbers);
     console.log('selectedNumbers: ', selectedNumbers);
-  }, [selectedNumbers]);
+    console.log('name: ', name);
+  }, [selectedNumbers, name]);
 
   const validateNumber = useCallback(
     n => {
-      if (n === null) {
-        return false;
-      }
-
-      if (typeof parseInt(n) !== 'number') {
-        Alert.alert('Tipo diferente!', 'Insira um valor numérico.');
-        return false;
-      }
-
-      if (parseInt(n) < 1) {
-        Alert.alert('Número pequeno!', 'Insira um valor entre 1 e 60.');
-        return false;
-      }
-
-      if (parseInt(n) > 60) {
-        Alert.alert('Número grande!', 'Insira um valor entre 1 e 60.');
-        return false;
-      }
-
-      if (selectedNumbers.length >= 21) {
-        Alert.alert(
-          'Já adicionado os 21 números!',
-          'Não necessário adicionar outro.',
-        );
-        return false;
-      }
-
-      if (selectedNumbers.includes(parseInt(n))) {
-        Alert.alert('Número já adicionado!', 'Insira outro número');
+      if (
+        n === null ||
+        typeof n !== 'number' ||
+        n < 1 ||
+        n > 60 ||
+        selectedNumbers.length >= 21
+      ) {
         return false;
       }
 
@@ -75,11 +55,12 @@ export default function GameForm({ navigation }) {
 
   const addNumber = useCallback(
     n => {
-      if (selectedNumbers.includes(parseInt(n))) {
+      console.log('selectedNumbers:::', selectedNumbers);
+      if (selectedNumbers.includes(n)) {
         dispatch(
           setGameForm({
             selectedNumbers: [...selectedNumbers].filter(numberToBeDeleted => {
-              if (numberToBeDeleted == n) {
+              if (numberToBeDeleted === n) {
                 return false;
               }
               return true;
@@ -90,14 +71,9 @@ export default function GameForm({ navigation }) {
       }
 
       if (validateNumber(n)) {
-        // setNumbers(s =>
-        //   [...numbers, parseInt(number)].sort((a, b) => {
-        //     return a - b;
-        //   }),
-        // );
         dispatch(
           setGameForm({
-            selectedNumbers: [...selectedNumbers, parseInt(n)].sort((a, b) => {
+            selectedNumbers: [...selectedNumbers, n].sort((a, b) => {
               return a - b;
             }),
           }),
@@ -105,25 +81,6 @@ export default function GameForm({ navigation }) {
       }
     },
     [selectedNumbers, validateNumber, dispatch],
-  );
-
-  const removeNumber = useCallback(
-    n => {
-      // console.log('n: ');
-      // console.log('n: ', n);
-      // const a = 5;
-      dispatch(
-        setGameForm({
-          selectedNumbers: [...selectedNumbers].filter(numberToBeDeleted => {
-            if (numberToBeDeleted == n) {
-              return false;
-            }
-            return true;
-          }),
-        }),
-      );
-    },
-    [selectedNumbers, dispatch],
   );
 
   const clear = useCallback(() => {
@@ -137,10 +94,8 @@ export default function GameForm({ navigation }) {
   const isNumberSelected = useCallback(
     n => {
       if (selectedNumbers.includes(n)) {
-        console.log('Include');
         return true;
       }
-
       return false;
     },
     [selectedNumbers],
@@ -151,16 +106,6 @@ export default function GameForm({ navigation }) {
       <TopHeader selectedNumbers={selectedNumbers} />
       <ScrollView>
         <Content>
-          {/* <InputLabel>Adicionar número</InputLabel> */}
-
-          {/* <NumbersContainer>
-          {numbers.map((n, index) => (
-            <NumberSquare key={index} onPress={() => removeNumber(n)}>
-              <TextNumber>{n}</TextNumber>
-            </NumberSquare>
-          ))}
-        </NumbersContainer> */}
-
           <NumbersContainer>
             {numbers.map((n, index) => (
               <NumberSquare
@@ -173,6 +118,11 @@ export default function GameForm({ navigation }) {
               </NumberSquare>
             ))}
           </NumbersContainer>
+          <InputLabel>Nome do jogo: </InputLabel>
+          <NameInput
+            onChangeText={n => dispatch(setGameNameForm({ name: n }))}
+            value={name}
+          />
           <SubmitContainer>
             <SubmitButton onPress={clear}>
               <Gradient>
@@ -181,7 +131,7 @@ export default function GameForm({ navigation }) {
             </SubmitButton>
             <SubmitButton onPress={submitForm}>
               <Gradient>
-                <ButtonText>OK</ButtonText>
+                <ButtonText>Enviar</ButtonText>
               </Gradient>
             </SubmitButton>
           </SubmitContainer>
