@@ -6,6 +6,7 @@ import Login from '~/pages/Login';
 import Home from '~/pages/Home';
 import Account from '~/pages/Account';
 import MyGames from '~/pages/MyGames';
+import GameForm from '~/pages/GameForm';
 
 export default () => {
   return createAppContainer(
@@ -15,6 +16,7 @@ export default () => {
       Home: { screen: Home, navigationOptions: { headerShown: false } },
       Account: { screen: Account, navigationOptions: { headerShown: false } },
       MyGames: { screen: MyGames, navigationOptions: { headerShown: false } },
+      GameForm: { screen: GameForm, navigationOptions: { headerShown: false } },
     }),
   );
 };

@@ -12,7 +12,7 @@ function MenuFooter({ navigation }) {
       {/* <Button>
         <User />
       </Button> */}
-      <ButtonHighlighted>
+      <ButtonHighlighted onPress={() => navigation.navigate('GameForm')}>
         <Clover />
       </ButtonHighlighted>
       <Button onPress={() => navigation.goBack()}>

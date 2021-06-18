@@ -24,7 +24,7 @@ export default function Login({ navigation }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log('navigation', navigation);
+    // console.log('navigation', navigation);
     if (token !== null) {
       navigation.navigate('Home');
     } else {

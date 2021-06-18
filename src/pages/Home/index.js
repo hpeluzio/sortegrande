@@ -15,9 +15,9 @@ import {
 } from './styles';
 
 export default function Home({ navigation }) {
-  useEffect(() => {
-    console.log('navigation', navigation);
-  }, [navigation]);
+  // useEffect(() => {
+  //   console.log('navigation', navigation);
+  // }, [navigation]);
 
   return (
     <Container>

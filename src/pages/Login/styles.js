@@ -56,6 +56,7 @@ export const InputLabel = styled.Text`
 `;
 
 export const Username = styled.TextInput`
+  text-align: center;
   height: ${hp(constants.height_eight_pc)}px;
   width: ${wp('80%')}px;
   border: ${hp('0.2%')}px solid ${colors.primary};
@@ -69,6 +70,7 @@ export const Username = styled.TextInput`
 export const Password = styled.TextInput.attrs({
   secureTextEntry: true,
 })`
+  text-align: center;
   height: ${hp(constants.height_eight_pc)}px;
   width: ${wp('80%')}px;
   border: ${hp('0.2%')}px solid ${colors.primary};

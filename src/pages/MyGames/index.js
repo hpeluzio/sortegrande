@@ -14,9 +14,9 @@ import {
   PlayIcon,
 } from './styles';
 
-export default function Home({ navigation }) {
+export default function MyGames({ navigation }) {
   useEffect(() => {
-    console.log('navigation', navigation);
+    // console.log('navigation', navigation);
   }, [navigation]);
 
   return (
