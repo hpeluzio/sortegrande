@@ -1,4 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { setSession } from '~/redux/actions/session/sessionActions';
 
 import {
   ScrollView,
@@ -18,9 +20,21 @@ import {
 } from './styles';
 
 export default function Login({ navigation }) {
+  const token = useSelector(s => s.session.token);
+  const dispatch = useDispatch();
+
   useEffect(() => {
     console.log('navigation', navigation);
-  }, [navigation]);
+    if (token !== null) {
+      navigation.navigate('Home');
+    } else {
+      navigation.navigate('Login');
+    }
+  }, [navigation, token]);
+
+  const authentication = useCallback(() => {
+    dispatch(setSession({ user: {}, token: 'token' }));
+  }, [dispatch]);
 
   return (
     <ScrollView>
@@ -31,7 +45,7 @@ export default function Login({ navigation }) {
         <Username />
         <InputLabel>Senha</InputLabel>
         <Password />
-        <Button onPress={() => {}}>
+        <Button onPress={authentication}>
           <Gradient>
             <ButtonText>Entrar</ButtonText>
             {/* <Loader /> */}
