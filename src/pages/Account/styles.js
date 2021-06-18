@@ -11,9 +11,18 @@ import { colors, constants } from '~/styles';
 export const Container = styled.SafeAreaView`
   flex: 1;
   flex-direction: column;
+  height: auto;
+  width: auto;
   background: ${colors.white};
-  padding: ${wp('10%')}px;
-  padding-top: ${wp('25%')}px;
+`;
+
+export const Content = styled.View`
+  flex: 1;
+  flex-direction: column;
+  background: ${colors.white};
+  /* background: orange; */
+  margin-top: ${hp('8%')}px;
+  margin-bottom: ${hp('8%')}px;
 `;
 
 export const Button = styled.TouchableOpacity`

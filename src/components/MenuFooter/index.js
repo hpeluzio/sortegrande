@@ -15,9 +15,9 @@ function MenuFooter({ navigation }) {
       <ButtonHighlighted onPress={() => navigation.navigate('GameForm')}>
         <Clover />
       </ButtonHighlighted>
-      <Button onPress={() => navigation.goBack()}>
+      {/* <Button onPress={() => navigation.goBack()}>
         <Back />
-      </Button>
+      </Button> */}
     </Container>
   );
 }

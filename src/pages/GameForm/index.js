@@ -5,8 +5,7 @@ import {
   setGameNameForm,
 } from '~/redux/actions/gameForm/gameFormActions';
 
-import TopHeader from './TopHeader';
-import MenuFooter from './MenuFooter';
+import TopHeader from '~/components/TopHeader';
 
 import { numbers } from '~/utils/numbers';
 
@@ -85,6 +84,7 @@ export default function GameForm({ navigation }) {
 
   const clear = useCallback(() => {
     dispatch(setGameForm({ selectedNumbers: [] }));
+    dispatch(setGameNameForm({ name: '' }));
   }, [dispatch]);
 
   const submitForm = useCallback(() => {
@@ -137,7 +137,7 @@ export default function GameForm({ navigation }) {
           </SubmitContainer>
         </Content>
       </ScrollView>
-      <MenuFooter />
+      {/* <MenuFooter /> */}
     </Container>
   );
 }

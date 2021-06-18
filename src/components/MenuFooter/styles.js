@@ -15,8 +15,8 @@ export const Container = styled.View`
   justify-content: flex-end;
   padding-right: ${wp('15%')}px;
   /* background-color: red; */
-  border-top-width: ${hp('0.2%')}px;
-  border-color: #ddd;
+  /* border-top-width: ${hp('0.2%')}px; */
+  /* border-color: #ddd; */
 `;
 
 export const Button = styled.TouchableOpacity`
