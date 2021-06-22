@@ -1,6 +1,7 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setSession } from '~/redux/actions/session/sessionActions';
+import SessionService from '~/services/SessionService';
 
 import {
   ScrollView,
@@ -10,45 +11,61 @@ import {
   Logo,
   InputLabel,
   AccountLabel,
-  Username,
+  Email,
   Password,
   Gradient,
-  // Loader,
+  Loader,
   Button,
   ButtonText,
   LockIcon,
+  AddUserIcon,
+  SimpleButton,
 } from './styles';
 
 export default function Login({ navigation }) {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
   const token = useSelector(s => s.session.token);
+  const session = useSelector(s => s.session);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // console.log('navigation', navigation);
-    if (token !== null) {
-      navigation.navigate('Home');
-    } else {
-      navigation.navigate('Login');
-    }
-  }, [navigation, token]);
+    console.log('session: ', session);
+    // if (token !== null) {
+    //   navigation.navigate('Home');
+    // } else {
+    //   navigation.navigate('Login');
+    // }
+  }, [session]);
 
-  const authentication = useCallback(() => {
-    dispatch(setSession({ user: {}, token: 'token' }));
-  }, [dispatch]);
+  const login = useCallback(async () => {
+    setLoading(true);
+    console.log('login: ', email, password);
+    const { status, data } = await SessionService.login({ email, password });
+    console.log('response: ', data);
+    if (status === 200) {
+      dispatch(setSession({ user: data.user, token: data.token.token }));
+    }
+
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+  }, [dispatch, email, password]);
 
   return (
     <ScrollView>
       <InputContainer>
         <Back />
         <Logo />
-        <InputLabel>Usuário</InputLabel>
-        <Username />
+        <InputLabel>E-mail</InputLabel>
+        <Email onChangeText={setEmail} value={email} />
         <InputLabel>Senha</InputLabel>
-        <Password />
-        <Button onPress={authentication}>
+        <Password onChangeText={setPassword} value={password} />
+        <Button onPress={login}>
           <Gradient>
-            <ButtonText>Entrar</ButtonText>
-            {/* <Loader /> */}
+            {!loading && <ButtonText>Entrar</ButtonText>}
+            {loading && <Loader />}
           </Gradient>
         </Button>
       </InputContainer>
@@ -57,8 +74,10 @@ export default function Login({ navigation }) {
         <InputLabel>Esqueceu a senha?</InputLabel>
       </AccountContainer>
       <AccountContainer>
-        <AccountLabel>Não possui uma conta?</AccountLabel>
-        <InputLabel>Criar conta</InputLabel>
+        <SimpleButton onPress={() => navigation.navigate('Register')}>
+          <AddUserIcon />
+          <InputLabel>Criar conta</InputLabel>
+        </SimpleButton>
       </AccountContainer>
     </ScrollView>
   );

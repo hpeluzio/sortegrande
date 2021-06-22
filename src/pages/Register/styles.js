@@ -5,7 +5,6 @@ import {
 import styled from 'styled-components';
 import LinearGradient from 'react-native-linear-gradient';
 
-import Feather from 'react-native-vector-icons/Feather';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
 import { colors, constants } from '~/styles';
@@ -89,11 +88,10 @@ export const AccountContainer = styled.View`
   background: ${colors.white};
   align-items: center;
   justify-content: center;
-  margin-bottom: ${hp(constants.font_size_pc)}px;
 `;
 
 export const AccountLabel = styled.Text`
-  font-size: ${hp(constants.font_size_pc)}px;
+  font-size: ${hp(constants.font_size_pc)};
   font-family: ${constants.font_family_medium};
   color: ${colors.mediumGray};
   margin-bottom: ${hp('0.25%')}px;
@@ -101,18 +99,10 @@ export const AccountLabel = styled.Text`
   margin-top: ${hp('1%')}px;
 `;
 
-export const LockIcon = styled(Feather).attrs({
-  name: 'unlock',
+export const LoginIcon = styled(AntDesign).attrs({
+  name: 'login',
   color: colors.mediumGray,
-  size: hp('3.5%'),
-})`
-  background-color: ${colors.white};
-`;
-
-export const AddUserIcon = styled(AntDesign).attrs({
-  name: 'adduser',
-  color: colors.mediumGray,
-  size: hp('4%'),
+  size: hp('4.5%'),
 })`
   background-color: ${colors.white};
 `;
@@ -148,6 +138,14 @@ export const ButtonText = styled.Text`
   text-transform: uppercase;
   font-size: ${hp(constants.font_size_pc)};
   font-family: ${constants.font_family_semi_bold};
+`;
+
+export const Spacer = styled.View`
+  flex-direction: column;
+  height: ${hp('25%')}px;
+  background: ${colors.white};
+  align-items: center;
+  justify-content: center;
 `;
 
 export const SimpleButton = styled.TouchableOpacity`
