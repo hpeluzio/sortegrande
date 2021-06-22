@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import SessionService from '~/services/SessionService';
 
-import { Alert } from 'react-native';
+import ModalAlert from '~/components/ModalAlert';
 
 import {
   ScrollView,
@@ -22,6 +22,8 @@ import {
   SimpleButton,
 } from './styles';
 
+import { validateEmail } from '~/utils/validateEmail';
+
 export default function Register({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -29,57 +31,122 @@ export default function Register({ navigation }) {
   const [loading, setLoading] = useState(false);
   const session = useSelector(s => s.session);
 
+  const [showModal, setShowModal] = useState(false);
+  const [tittle, setTittle] = useState('');
+  const [message, setMessage] = useState('');
+  const [buttonText, setButtonText] = useState('');
+
+  //Form validation
+  const [errorEmail, setErrorEmail] = useState(null);
+  const [errorPassword, setErrorPassword] = useState(null);
+  const [errorConfirmPassword, setErrorConfirmPassword] = useState(null);
+
+  const validateFieldEmail = useCallback(() => {
+    validateEmail(email)
+      ? setErrorEmail(null)
+      : setErrorEmail('Preencha seu e-mail corretamente.');
+    return validateEmail(email);
+  }, [email]);
+
+  const validateFieldPassword = useCallback(() => {
+    password.length >= 6
+      ? setErrorPassword(null)
+      : setErrorPassword('Forneça uma senha com 6 dígitos ou maior.');
+    return password.length >= 6;
+  }, [password]);
+
+  const validateFieldConfirmPassword = useCallback(() => {
+    confirmPassword === password
+      ? setErrorConfirmPassword(null)
+      : setErrorConfirmPassword('As senhas não conferem.');
+    return confirmPassword === password;
+  }, [password, confirmPassword]);
+
   // useEffect(() => {
-  //   console.log('session: ', session);
-  //   // if (token !== null) {
-  //   //   navigation.navigate('Home');
-  //   // } else {
-  //   //   navigation.navigate('Login');
-  //   // }
-  // }, [session]);
+  // }, []);
 
   const register = useCallback(async () => {
-    setLoading(true);
-    console.log('register: ', email, password);
-    const { status, data } = await SessionService.register({
-      email,
-      password,
-      confirm_password: confirmPassword,
-    });
-    console.log('response: ', data);
-    if (status === 200) {
-      registerAlert();
+    if (validateForm()) {
+      setLoading(true);
+      console.log('register: ', email, password);
+      const response = await SessionService.register({
+        email,
+        password,
+        confirm_password: confirmPassword,
+      });
+
+      console.log('response: ', response);
+      console.log('response: ', response.data);
+
+      if (response.status === 200) {
+        setTittle('Conta criada');
+        setMessage(response.data.message);
+        setButtonText('Ok');
+        setShowModal(true);
+      } else if (response.status !== 200) {
+        setTittle('Erro ao criar conta');
+        setMessage(response.data.error[0].message);
+        setButtonText('Ok');
+        setShowModal(true);
+      }
+
+      setTimeout(() => {
+        setLoading(false);
+      }, 2000);
     }
+  }, [validateForm, email, password, confirmPassword]);
 
-    setTimeout(() => {
-      setLoading(false);
-    }, 2000);
-  }, [email, password, confirmPassword, registerAlert]);
-
-  const registerAlert = useCallback(
-    () =>
-      Alert.alert('CONTA CRIADA', 'Sua conta foi criada com sucesso', [
-        // {
-        //   text: 'Cancel',
-        //   onPress: () => console.log('Cancel Pressed'),
-        //   style: 'cancel',
-        // },
-        { text: 'Ir para login', onPress: () => navigation.navigate('Login') },
-      ]),
-    [navigation],
-  );
+  const validateForm = useCallback(() => {
+    if (
+      validateFieldEmail() &&
+      validateFieldPassword() &&
+      validateFieldConfirmPassword()
+    ) {
+      console.log(true);
+      // console.log(false);
+    } else {
+      console.log(false);
+    }
+  }, [validateFieldEmail, validateFieldPassword, validateFieldConfirmPassword]);
 
   return (
     <ScrollView>
+      <ModalAlert />
       <InputContainer>
+        <ModalAlert
+          show={showModal}
+          tittle={tittle}
+          message={message}
+          buttonText={buttonText}
+          close={setShowModal}
+          action={() => {}}
+        />
         <Back />
         {/* <Logo /> */}
         <InputLabel>E-mail</InputLabel>
-        <Email onChangeText={setEmail} value={email} />
+        <Email
+          placeholder="E-mail"
+          onChangeText={setEmail}
+          value={email}
+          errorMessage={errorEmail}
+          onBlur={validateFieldEmail}
+        />
         <InputLabel>Senha</InputLabel>
-        <Password onChangeText={setPassword} value={password} />
+        <Password
+          placeholder="Senha"
+          onChangeText={setPassword}
+          value={password}
+          errorMessage={errorPassword}
+          onBlur={validateFieldPassword}
+        />
         <InputLabel>Confirmar senha</InputLabel>
-        <Password onChangeText={setConfirmPassword} value={confirmPassword} />
+        <Password
+          placeholder="Confirmar senha"
+          onChangeText={setConfirmPassword}
+          value={confirmPassword}
+          errorMessage={errorConfirmPassword}
+          onBlur={validateFieldConfirmPassword}
+        />
         <Button onPress={register}>
           <Gradient>
             {!loading && <ButtonText>Enviar</ButtonText>}

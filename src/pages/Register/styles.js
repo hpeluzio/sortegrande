@@ -3,6 +3,7 @@ import {
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
 import styled from 'styled-components';
+import { Input } from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -55,30 +56,45 @@ export const InputLabel = styled.Text`
   margin-top: ${hp('1%')}px;
 `;
 
-export const Email = styled.TextInput`
-  text-align: center;
-  height: ${hp(constants.height_eight_pc)}px;
-  width: ${wp('80%')}px;
-  border: ${hp('0.2%')}px solid ${colors.primary};
-  border-radius: ${hp(constants.font_size_pc)}px;
-  font-size: ${hp(constants.font_size_xl_pc)}px;
+export const Email = styled(Input).attrs({
+  keyboardType: 'email-address',
+  leftIcon: {
+    type: 'Entypo',
+    name: 'mail',
+    color: colors.mediumGray,
+    size: wp('8%'),
+  },
+})`
+  /* text-align: center; */
+  /* height: ${hp(constants.height_eight_pc)}px;
+  width: ${wp('80%')}px; */
+  /* border: ${hp('0.2%')}px solid ${colors.primary};
+  border-radius: ${hp(constants.font_size_pc)}px; */
+  /* font-size: ${hp(constants.font_size_xl_pc)}px; */
   font-family: ${constants.font_family};
-  color: ${colors.mediumGray};
-  padding: 0 ${hp(constants.font_size_pc_two)}px;
+  /* color: ${colors.mediumGray}; */
+  /* padding: 0 ${hp(constants.font_size_pc_two)}px; */
+  /* margin-bottom: ${hp('2%')}px; */
 `;
 
-export const Password = styled.TextInput.attrs({
+export const Password = styled(Input).attrs({
   secureTextEntry: true,
+  leftIcon: {
+    type: 'FontAwesome',
+    name: 'lock',
+    color: colors.mediumGray,
+    size: wp('8%'),
+  },
 })`
-  text-align: center;
-  height: ${hp(constants.height_eight_pc)}px;
-  width: ${wp('80%')}px;
-  border: ${hp('0.2%')}px solid ${colors.primary};
+  /* text-align: center; */
+  /* height: ${hp(constants.height_eight_pc)}px; */
+  /* width: ${wp('80%')}px; */
+  /* border: ${hp('0.2%')}px solid ${colors.primary};
   border-radius: ${hp(constants.font_size_pc)}px;
-  font-size: ${hp(constants.font_size_xl_pc)}px;
+  font-size: ${hp(constants.font_size_xl_pc)}px; */
   font-family: ${constants.font_family};
   color: ${colors.mediumGray};
-  padding: 0 ${hp(constants.font_size_pc_two)}px;
+  /* padding: 0 ${hp(constants.font_size_pc_two)}px; */
 `;
 
 //Account
@@ -127,7 +143,7 @@ export const Button = styled.TouchableOpacity`
   width: ${wp('60%')}px;
   border-radius: ${wp('1%')}px;
   overflow: hidden;
-  margin: ${wp('10%')}px ${wp('1%')}px;
+  /* margin: ${wp('10%')}px ${wp('1%')}px; */
   text-align: center;
   background: ${colors.primary};
   align-self: center;

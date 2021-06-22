@@ -59,9 +59,13 @@ export default function Login({ navigation }) {
         <Back />
         <Logo />
         <InputLabel>E-mail</InputLabel>
-        <Email onChangeText={setEmail} value={email} />
+        <Email placeholder="E-mail " onChangeText={setEmail} value={email} />
         <InputLabel>Senha</InputLabel>
-        <Password onChangeText={setPassword} value={password} />
+        <Password
+          placeholder="Senha"
+          onChangeText={setPassword}
+          value={password}
+        />
         <Button onPress={login}>
           <Gradient>
             {!loading && <ButtonText>Entrar</ButtonText>}
