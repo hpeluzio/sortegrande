@@ -115,8 +115,8 @@ export const NumberSquare = styled.TouchableOpacity`
   align-items: center;
   justify-content: center;
   /* background: orange;44 */
-  width: ${wp('12%')}px;
-  height: ${wp('12%')}px;
+  width: ${wp('11%')}px;
+  height: ${wp('11%')}px;
   margin: ${hp('0.25%')}px ${hp('0.25%')}px;
   border: ${hp('0.2%')}px solid ${colors.primary};
   border-radius: ${hp('1%')}px;
