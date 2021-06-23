@@ -123,7 +123,7 @@ export const Loader = styled.ActivityIndicator.attrs({
   color: '#fff',
 })``;
 
-export const Button = styled.TouchableOpacity`
+export const ButtonSubmit = styled.TouchableOpacity`
   height: ${hp(constants.height_small_pc)}px;
   width: ${wp('60%')}px;
   border-radius: ${wp('1%')}px;

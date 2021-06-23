@@ -1,9 +1,7 @@
-import React, { useCallback, useEffect, useState } from 'react';
-// import { useSelector, useDispatch } from 'react-redux';
+import React, { useCallback, useState } from 'react';
 import SessionService from '~/services/SessionService';
 
 import TopHeader from '~/components/TopHeader';
-import ModalAlert from '~/components/ModalAlert';
 import { validateEmail } from '~/utils/validateEmail';
 
 import {
@@ -15,12 +13,14 @@ import {
   Password,
   Gradient,
   Loader,
-  Button,
+  ButtonSubmit,
   ButtonText,
   LoginIcon,
   Spacer,
   SimpleButton,
 } from './styles';
+
+import { Alert } from 'react-native';
 
 export default function Register({ navigation }) {
   const [email, setEmail] = useState('');
@@ -28,29 +28,24 @@ export default function Register({ navigation }) {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
-  //Modal
-  const [showModal, setShowModal] = useState(false);
-  const [tittle, setTittle] = useState('');
-  const [message, setMessage] = useState('');
-  const [buttonText, setButtonText] = useState('');
-
-  //Form validation
+  //Form validation fields
   const [errorEmail, setErrorEmail] = useState(null);
   const [errorPassword, setErrorPassword] = useState(null);
   const [errorConfirmPassword, setErrorConfirmPassword] = useState(null);
 
   const validateFieldEmail = useCallback(async () => {
-    const response = await SessionService.checkEmail({ email });
+    if (validateEmail(email)) {
+      setErrorEmail(null);
 
-    if (response.data.available === false) {
-      setErrorEmail('E-mail já cadastrado.');
-      return false;
+      const response = await SessionService.checkEmail({ email });
+      if (response.data.available === false) {
+        setErrorEmail('E-mail já cadastrado.');
+        return false;
+      }
+    } else {
+      setErrorEmail('Preencha seu e-mail corretamente.');
+      return validateEmail(email);
     }
-
-    validateEmail(email)
-      ? setErrorEmail(null)
-      : setErrorEmail('Preencha seu e-mail corretamente.');
-    return validateEmail(email);
   }, [email]);
 
   const validateFieldPassword = useCallback(() => {
@@ -67,6 +62,18 @@ export default function Register({ navigation }) {
     return confirmPassword === password;
   }, [password, confirmPassword]);
 
+  const validateForm = useCallback(() => {
+    if (
+      validateFieldEmail() &&
+      validateFieldPassword() &&
+      validateFieldConfirmPassword()
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  }, [validateFieldEmail, validateFieldPassword, validateFieldConfirmPassword]);
+
   const register = useCallback(async () => {
     if (validateForm()) {
       setLoading(true);
@@ -81,50 +88,35 @@ export default function Register({ navigation }) {
       console.log('response.data: ', response.data);
 
       if (response.status === 200) {
-        setTittle('Conta criada');
-        setMessage(response.data.message);
-        setButtonText('Ok');
-        setShowModal(true);
+        Alert.alert('Conta criada', 'Conta criada com sucesso', [
+          {
+            text: 'Fazer login',
+            onPress: () => {
+              navigation.navigate('Login');
+            },
+          },
+        ]);
       } else if (response.status !== 200) {
-        setTittle('Erro ao criar conta');
-        setMessage(response.data.error[0].message);
-        setButtonText('Ok');
-        setShowModal(true);
+        Alert.alert('Ocorreu algum erro', '', [
+          {
+            text: 'Fazer login',
+            onPress: () => {
+              navigation.navigate('Login');
+            },
+          },
+        ]);
       }
 
       setTimeout(() => {
         setLoading(false);
       }, 2000);
     }
-  }, [validateForm, email, password, confirmPassword]);
-
-  const validateForm = useCallback(() => {
-    if (
-      validateFieldEmail() &&
-      validateFieldPassword() &&
-      validateFieldConfirmPassword()
-    ) {
-      return true;
-      // console.log(false);
-    } else {
-      return false;
-    }
-  }, [validateFieldEmail, validateFieldPassword, validateFieldConfirmPassword]);
+  }, [validateForm, email, password, confirmPassword, navigation]);
 
   return (
     <ScrollView>
-      <ModalAlert />
       <TopHeader tittle={'Criar Conta'} />
       <InputContainer>
-        <ModalAlert
-          show={showModal}
-          tittle={tittle}
-          message={message}
-          buttonText={buttonText}
-          close={setShowModal}
-          action={() => {}}
-        />
-
         <Email
           label="E-mail"
           placeholder="E-mail"
@@ -150,12 +142,12 @@ export default function Register({ navigation }) {
           errorMessage={errorConfirmPassword}
           onBlur={validateFieldConfirmPassword}
         />
-        <Button onPress={register}>
+        <ButtonSubmit onPress={register}>
           <Gradient>
             {!loading && <ButtonText>Enviar</ButtonText>}
             {loading && <Loader />}
           </Gradient>
-        </Button>
+        </ButtonSubmit>
         <Spacer />
         <AccountContainer>
           <SimpleButton onPress={() => navigation.navigate('Login')}>
