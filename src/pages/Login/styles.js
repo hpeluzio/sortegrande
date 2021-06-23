@@ -17,12 +17,12 @@ export const ScrollView = styled.ScrollView`
   background-color: ${colors.white};
 `;
 
-export const InputContainer = styled.SafeAreaView`
+export const Container = styled.SafeAreaView`
   flex: 1;
   flex-direction: column;
   background: ${colors.white};
   padding: ${wp('10%')}px;
-  padding-top: ${wp('25%')}px;
+  padding-top: ${wp('7.5%')}px;
 `;
 
 export const Back = styled.View`
@@ -30,7 +30,7 @@ export const Back = styled.View`
   width: ${wp('100%')}px;
   background: ${colors.primary};
   position: absolute;
-  top: -${hp('90%')}px;
+  top: -${hp('92.5%')}px;
   left: 0;
   border-radius: ${hp('10%')}px;
 `;
@@ -45,7 +45,7 @@ export const Logo = styled.Image.attrs({
   justify-content: center;
   padding: ${wp('10%')}px;
   background-color: 'rgba(52, 52, 52, 0.0)';
-  margin-bottom: ${hp('2%')}px;
+  margin-bottom: ${hp('5%')}px;
 `;
 
 //Input
@@ -67,16 +67,8 @@ export const Email = styled(Input).attrs({
     size: wp('8%'),
   },
 })`
-  /* text-align: center; */
-  /* height: ${hp(constants.height_eight_pc)}px;
-  width: ${wp('80%')}px; */
-  /* border: ${hp('0.2%')}px solid ${colors.primary};
-  border-radius: ${hp(constants.font_size_pc)}px; */
-  /* font-size: ${hp(constants.font_size_xl_pc)}px; */
   font-family: ${constants.font_family};
-  /* color: ${colors.mediumGray}; */
-  /* padding: 0 ${hp(constants.font_size_pc_two)}px; */
-  /* margin-bottom: ${hp('2%')}px; */
+  color: ${colors.mediumGray};
 `;
 
 export const Password = styled(Input).attrs({
@@ -88,15 +80,27 @@ export const Password = styled(Input).attrs({
     size: wp('8%'),
   },
 })`
-  /* text-align: center; */
-  /* height: ${hp(constants.height_eight_pc)}px; */
-  /* width: ${wp('80%')}px; */
-  /* border: ${hp('0.2%')}px solid ${colors.primary};
-  border-radius: ${hp(constants.font_size_pc)}px;
-  font-size: ${hp(constants.font_size_xl_pc)}px; */
   font-family: ${constants.font_family};
   color: ${colors.mediumGray};
-  /* padding: 0 ${hp(constants.font_size_pc_two)}px; */
+`;
+
+export const ErrorContainer = styled.View`
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: ${hp('6%')}px;
+  width: ${wp('80%')}px;
+  background: ${colors.white};
+  border-width: ${wp('0.25%')}px;
+  border-radius: ${wp('3%')}px;
+  border-color: red;
+  margin-top: ${hp('1%')}px;
+`;
+
+export const ErrorLog = styled.Text`
+  font-size: ${hp(constants.font_size_pc)}px;
+  font-family: ${constants.font_family_medium};
+  color: red;
 `;
 
 //Account

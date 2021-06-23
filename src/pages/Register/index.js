@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+// import { useSelector, useDispatch } from 'react-redux';
 import SessionService from '~/services/SessionService';
 
 import TopHeader from '~/components/TopHeader';
@@ -10,7 +10,6 @@ import {
   ScrollView,
   InputContainer,
   AccountContainer,
-  Back,
   InputLabel,
   Email,
   Password,
@@ -28,8 +27,8 @@ export default function Register({ navigation }) {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [loading, setLoading] = useState(false);
-  const session = useSelector(s => s.session);
 
+  //Modal
   const [showModal, setShowModal] = useState(false);
   const [tittle, setTittle] = useState('');
   const [message, setMessage] = useState('');
@@ -40,7 +39,14 @@ export default function Register({ navigation }) {
   const [errorPassword, setErrorPassword] = useState(null);
   const [errorConfirmPassword, setErrorConfirmPassword] = useState(null);
 
-  const validateFieldEmail = useCallback(() => {
+  const validateFieldEmail = useCallback(async () => {
+    const response = await SessionService.checkEmail({ email });
+
+    if (response.data.available === false) {
+      setErrorEmail('E-mail já cadastrado.');
+      return false;
+    }
+
     validateEmail(email)
       ? setErrorEmail(null)
       : setErrorEmail('Preencha seu e-mail corretamente.');
@@ -71,8 +77,8 @@ export default function Register({ navigation }) {
         confirm_password: confirmPassword,
       });
 
-      console.log('response: ', response);
-      // console.log('response: ', response.data);
+      // console.log('response: ', response);
+      console.log('response.data: ', response.data);
 
       if (response.status === 200) {
         setTittle('Conta criada');

@@ -14,12 +14,13 @@ instance.defaults.headers['Content-Type'] = 'application/json';
 
 instance.interceptors.request.use(async config => {
   const state = store.getState();
-  console.log('state: ', state);
-  // const token = await state.session.token;
+  // console.log('state: ', state);
+  const token = await state.session.token;
 
-  // if (token) {
-  //   config.headers.Authorization = `bearer ${await state.session.token}`;
-  // }
+  if (token) {
+    config.headers.Authorization = `bearer ${await state.session.token}`;
+  }
+
   return config;
 });
 

@@ -3,18 +3,19 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setSession } from '~/redux/actions/session/sessionActions';
 import SessionService from '~/services/SessionService';
 
-import ModalAlert from '~/components/ModalAlert';
 import { validateEmail } from '~/utils/validateEmail';
 
 import {
   ScrollView,
-  InputContainer,
+  Container,
   AccountContainer,
   Back,
   Logo,
   InputLabel,
   Email,
   Password,
+  ErrorContainer,
+  ErrorLog,
   Gradient,
   Loader,
   Button,
@@ -35,9 +36,10 @@ export default function Login({ navigation }) {
   //Form validation
   const [errorEmail, setErrorEmail] = useState(null);
   const [errorPassword, setErrorPassword] = useState(null);
+  const [errorLog, setErrorLog] = useState('');
 
   useEffect(() => {
-    console.log('session: ', session);
+    // console.log('session: ', session);
   }, [session]);
 
   useEffect(() => {
@@ -68,22 +70,27 @@ export default function Login({ navigation }) {
       console.log('login: ', email, password);
       const { status, data } = await SessionService.login({ email, password });
       console.log('response: ', data);
+
+      if (status !== 200) {
+        setErrorLog(data.message);
+      }
+
       if (status === 200) {
+        setErrorLog('');
         dispatch(setSession({ user: data.user, token: data.token.token }));
       }
 
       setTimeout(() => {
         setLoading(false);
-      }, 2000);
+      }, 250);
     }
   }, [dispatch, email, password, validateFieldEmail, validateFieldPassword]);
 
   return (
     <ScrollView>
-      <InputContainer>
+      <Container>
         <Back />
         <Logo />
-        {/* <InputLabel>E-mail</InputLabel> */}
         <Email
           // label="E-mail"
           placeholder="E-mail "
@@ -92,8 +99,6 @@ export default function Login({ navigation }) {
           errorMessage={errorEmail}
           onBlur={validateFieldEmail}
         />
-        {/* <InputLabel>Senha</InputLabel> */}
-
         <Password
           // label="Senha"
           placeholder="Senha"
@@ -102,13 +107,18 @@ export default function Login({ navigation }) {
           errorMessage={errorPassword}
           onBlur={validateFieldPassword}
         />
+        {errorLog !== '' && (
+          <ErrorContainer>
+            <ErrorLog>{errorLog}</ErrorLog>
+          </ErrorContainer>
+        )}
         <Button onPress={login}>
           <Gradient>
             {!loading && <ButtonText>Entrar</ButtonText>}
             {loading && <Loader />}
           </Gradient>
         </Button>
-      </InputContainer>
+      </Container>
       <AccountContainer>
         <LockIcon />
         <InputLabel>Esqueceu a senha?</InputLabel>

@@ -65,16 +65,8 @@ export const Email = styled(Input).attrs({
     size: wp('8%'),
   },
 })`
-  /* text-align: center; */
-  /* height: ${hp(constants.height_eight_pc)}px;
-  width: ${wp('80%')}px; */
-  /* border: ${hp('0.2%')}px solid ${colors.primary};
-  border-radius: ${hp(constants.font_size_pc)}px; */
-  /* font-size: ${hp(constants.font_size_xl_pc)}px; */
   font-family: ${constants.font_family};
-  /* color: ${colors.mediumGray}; */
-  /* padding: 0 ${hp(constants.font_size_pc_two)}px; */
-  /* margin-bottom: ${hp('2%')}px; */
+  color: ${colors.mediumGray};
 `;
 
 export const Password = styled(Input).attrs({
@@ -86,15 +78,8 @@ export const Password = styled(Input).attrs({
     size: wp('8%'),
   },
 })`
-  /* text-align: center; */
-  /* height: ${hp(constants.height_eight_pc)}px; */
-  /* width: ${wp('80%')}px; */
-  /* border: ${hp('0.2%')}px solid ${colors.primary};
-  border-radius: ${hp(constants.font_size_pc)}px;
-  font-size: ${hp(constants.font_size_xl_pc)}px; */
   font-family: ${constants.font_family};
   color: ${colors.mediumGray};
-  /* padding: 0 ${hp(constants.font_size_pc_two)}px; */
 `;
 
 //Account
