@@ -2,7 +2,9 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import SessionService from '~/services/SessionService';
 
+import TopHeader from '~/components/TopHeader';
 import ModalAlert from '~/components/ModalAlert';
+import { validateEmail } from '~/utils/validateEmail';
 
 import {
   ScrollView,
@@ -10,7 +12,6 @@ import {
   AccountContainer,
   Back,
   InputLabel,
-  AccountLabel,
   Email,
   Password,
   Gradient,
@@ -21,8 +22,6 @@ import {
   Spacer,
   SimpleButton,
 } from './styles';
-
-import { validateEmail } from '~/utils/validateEmail';
 
 export default function Register({ navigation }) {
   const [email, setEmail] = useState('');
@@ -62,9 +61,6 @@ export default function Register({ navigation }) {
     return confirmPassword === password;
   }, [password, confirmPassword]);
 
-  // useEffect(() => {
-  // }, []);
-
   const register = useCallback(async () => {
     if (validateForm()) {
       setLoading(true);
@@ -76,7 +72,7 @@ export default function Register({ navigation }) {
       });
 
       console.log('response: ', response);
-      console.log('response: ', response.data);
+      // console.log('response: ', response.data);
 
       if (response.status === 200) {
         setTittle('Conta criada');
@@ -102,16 +98,17 @@ export default function Register({ navigation }) {
       validateFieldPassword() &&
       validateFieldConfirmPassword()
     ) {
-      console.log(true);
+      return true;
       // console.log(false);
     } else {
-      console.log(false);
+      return false;
     }
   }, [validateFieldEmail, validateFieldPassword, validateFieldConfirmPassword]);
 
   return (
     <ScrollView>
       <ModalAlert />
+      <TopHeader tittle={'Criar Conta'} />
       <InputContainer>
         <ModalAlert
           show={showModal}
@@ -121,26 +118,26 @@ export default function Register({ navigation }) {
           close={setShowModal}
           action={() => {}}
         />
-        <Back />
-        {/* <Logo /> */}
-        <InputLabel>E-mail</InputLabel>
+
         <Email
+          label="E-mail"
           placeholder="E-mail"
           onChangeText={setEmail}
           value={email}
           errorMessage={errorEmail}
           onBlur={validateFieldEmail}
         />
-        <InputLabel>Senha</InputLabel>
+
         <Password
+          label="Senha"
           placeholder="Senha"
           onChangeText={setPassword}
           value={password}
           errorMessage={errorPassword}
           onBlur={validateFieldPassword}
         />
-        <InputLabel>Confirmar senha</InputLabel>
         <Password
+          label="Confirmar senha"
           placeholder="Confirmar senha"
           onChangeText={setConfirmPassword}
           value={confirmPassword}

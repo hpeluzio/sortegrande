@@ -1,26 +1,31 @@
 import React from 'react';
 import { withNavigation } from 'react-navigation';
-// import { useSelector, useDispatch } from 'react-redux';
-// import { setSession } from '~/redux/actions/session/sessionActions';
+import { useSelector } from 'react-redux';
 
-import { Container, Button, User, Back, Header, Label } from './styles';
+import { Container, Button, User, Back, Header, Label, Empty } from './styles';
 
 function TopHeader({ navigation, selectedNumbers, tittle }) {
+  const token = useSelector(s => s.session.token);
+
   return (
     <Container>
-      <Button onPress={() => navigation.goBack()}>
+      <Button onPress={() => navigation.navigate(token ? 'Home' : 'Login')}>
         <Back />
       </Button>
       {selectedNumbers && (
         <Header>Selecionados: {selectedNumbers.length}</Header>
       )}
       {tittle && <Label>{tittle}</Label>}
-      <Button
-        onPress={() => {
-          navigation.navigate('Account');
-        }}>
-        <User />
-      </Button>
+      {token ? (
+        <Button
+          onPress={() => {
+            navigation.navigate('Account');
+          }}>
+          <User />
+        </Button>
+      ) : (
+        <Empty />
+      )}
     </Container>
   );
 }

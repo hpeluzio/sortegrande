@@ -21,7 +21,7 @@ export const InputContainer = styled.SafeAreaView`
   flex-direction: column;
   background: ${colors.white};
   padding: ${wp('10%')}px;
-  padding-top: ${wp('25%')}px;
+  padding-top: ${hp('2.5%')}px;
 `;
 
 export const Back = styled.View`
@@ -158,7 +158,7 @@ export const ButtonText = styled.Text`
 
 export const Spacer = styled.View`
   flex-direction: column;
-  height: ${hp('25%')}px;
+  height: ${hp('10%')}px;
   background: ${colors.white};
   align-items: center;
   justify-content: center;

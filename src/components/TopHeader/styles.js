@@ -60,3 +60,9 @@ export const Back = styled(AntDesign).attrs({
 })`
   /* background-color: ${colors.white}; */
 `;
+
+export const Empty = styled.View`
+  height: ${hp('5%')}px;
+  width: ${hp('10%')}px;
+  background-color: rgba(0, 0, 0, 0);
+`;

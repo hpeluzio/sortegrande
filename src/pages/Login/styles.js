@@ -39,12 +39,13 @@ export const Logo = styled.Image.attrs({
   source: Trevo,
   resizeMode: 'contain',
 })`
-  height: ${wp('50%')}px;
+  height: ${wp('40%')}px;
   background: ${colors.white};
   align-self: center;
   justify-content: center;
   padding: ${wp('10%')}px;
   background-color: 'rgba(52, 52, 52, 0.0)';
+  margin-bottom: ${hp('2%')}px;
 `;
 
 //Input
@@ -157,6 +158,7 @@ export const Button = styled.TouchableOpacity`
   text-align: center;
   background: ${colors.primary};
   align-self: center;
+  margin-top: ${hp(constants.font_size_pc)}px;
 `;
 
 export const ButtonText = styled.Text`
