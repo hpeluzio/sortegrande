@@ -3,6 +3,7 @@ import {
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
 import styled from 'styled-components';
+import { Input } from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
 
 import { colors, constants } from '~/styles';
@@ -46,20 +47,17 @@ export const InputLabel = styled.Text`
   margin-top: ${hp('1.5%')}px;
 `;
 
-export const NameInput = styled.TextInput.attrs({
-  // keyboardType: 'numeric',
+export const NameInput = styled(Input).attrs({
+  keyboardType: 'default',
+  leftIcon: {
+    type: 'font-awesome',
+    name: 'pencil-square-o',
+    color: colors.mediumGray,
+    size: wp('8%'),
+  },
 })`
-  text-align: center;
-  /* align-items: center; */
-  /* justify-content: center; */
-  height: ${hp(constants.height_small_pc)}px;
-  width: ${wp('80%')}px;
-  border: ${hp('0.2%')}px solid ${colors.primary};
-  border-radius: ${hp(constants.font_size_pc)}px;
-  border-color: ${colors.mediumGray};
-  font-size: ${hp(constants.font_size_xl_pc)}px;
-  font-family: ${constants.font_family_semi_bold};
-  color: ${colors.darkGray};
+  font-family: ${constants.font_family};
+  color: ${colors.mediumGray};
 `;
 
 export const SubmitButton = styled.TouchableOpacity`
@@ -73,7 +71,17 @@ export const SubmitButton = styled.TouchableOpacity`
   align-self: center;
 `;
 
-export const Gradient = styled(LinearGradient).attrs({
+export const GradientClear = styled(LinearGradient).attrs({
+  colors: ['#969900', '#917e10'],
+  start: { x: 0, y: 1 },
+  end: { x: 1, y: 0 },
+})`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const GradientSend = styled(LinearGradient).attrs({
   colors: ['#1a9929', '#3cb24a'],
   start: { x: 0, y: 1 },
   end: { x: 1, y: 0 },
@@ -123,17 +131,3 @@ export const TextNumber = styled.Text`
   /* color: ${colors.mediumGray}; */
   color: ${props => (props.isNumberSelected ? 'white' : 'green')};
 `;
-
-// export const NumberInput = styled.TextInput.attrs({
-//   keyboardType: 'numeric',
-// })`
-//   text-align: center;
-//   height: ${hp(constants.height_eight_pc)}px;
-//   width: ${wp('20%')}px;
-//   border: ${hp('0.2%')}px solid ${colors.primary};
-//   border-radius: ${hp(constants.font_size_pc)}px;
-//   border-color: ${colors.mediumGray};
-//   font-size: ${hp(constants.font_size_xl_pc)}px;
-//   font-family: ${constants.font_family_semi_bold};
-//   color: ${colors.darkGray};
-// `;

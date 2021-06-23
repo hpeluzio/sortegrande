@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   setGameForm,
@@ -14,20 +14,24 @@ import {
   Content,
   SubmitContainer,
   SubmitButton,
-  Gradient,
+  GradientClear,
+  GradientSend,
   ButtonText,
   ScrollView,
   NumbersContainer,
   NumberSquare,
   TextNumber,
-  InputLabel,
   NameInput,
 } from './styles';
+
+import { Alert } from 'react-native';
 
 export default function GameForm({ navigation }) {
   const selectedNumbers = useSelector(s => s.gameForm.selectedNumbers);
   const name = useSelector(s => s.gameForm.name);
   const dispatch = useDispatch();
+
+  const [errorName, setErrorName] = useState(null);
 
   useEffect(() => {
     console.log('numbers: ', numbers);
@@ -35,26 +39,8 @@ export default function GameForm({ navigation }) {
     console.log('name: ', name);
   }, [selectedNumbers, name]);
 
-  const validateNumber = useCallback(
-    n => {
-      if (
-        n === null ||
-        typeof n !== 'number' ||
-        n < 1 ||
-        n > 60 ||
-        selectedNumbers.length >= 21
-      ) {
-        return false;
-      }
-
-      return true;
-    },
-    [selectedNumbers],
-  );
-
   const addNumber = useCallback(
     n => {
-      console.log('selectedNumbers:::', selectedNumbers);
       if (selectedNumbers.includes(n)) {
         dispatch(
           setGameForm({
@@ -82,14 +68,52 @@ export default function GameForm({ navigation }) {
     [selectedNumbers, validateNumber, dispatch],
   );
 
+  const validateFieldName = useCallback(() => {
+    name !== ''
+      ? setErrorName(null)
+      : setErrorName('Forneça um nome para o jogo.');
+    return name !== '';
+  }, [name]);
+
+  const validateNumber = useCallback(
+    n => {
+      if (
+        n === null ||
+        typeof n !== 'number' ||
+        n < 1 ||
+        n > 60 ||
+        selectedNumbers.length >= 21
+      ) {
+        return false;
+      }
+
+      return true;
+    },
+    [selectedNumbers],
+  );
+
   const clear = useCallback(() => {
-    dispatch(setGameForm({ selectedNumbers: [] }));
-    dispatch(setGameNameForm({ name: '' }));
+    Alert.alert('Limpar jogo', 'Deseja realmente limpar o jogo?', [
+      {
+        text: 'Cancelar',
+        onPress: () => {},
+        style: 'cancel',
+      },
+      {
+        text: 'Limpar',
+        onPress: () => {
+          dispatch(setGameForm({ selectedNumbers: [] }));
+          dispatch(setGameNameForm({ name: '' }));
+        },
+      },
+    ]);
   }, [dispatch]);
 
   const submitForm = useCallback(() => {
-    console.log('SUMIT');
-  }, []);
+    if (validateFieldName()) {
+      console.log('SUBMIT');
+    }
+  }, [validateFieldName]);
 
   const isNumberSelected = useCallback(
     n => {
@@ -106,6 +130,14 @@ export default function GameForm({ navigation }) {
       <TopHeader selectedNumbers={selectedNumbers} />
       <ScrollView>
         <Content>
+          <NameInput
+            label="Nome do jogo:"
+            placeholder="Nome do jogo"
+            onChangeText={n => dispatch(setGameNameForm({ name: n }))}
+            value={name}
+            errorMessage={errorName}
+            onBlur={validateFieldName}
+          />
           <NumbersContainer>
             {numbers.map((n, index) => (
               <NumberSquare
@@ -118,26 +150,20 @@ export default function GameForm({ navigation }) {
               </NumberSquare>
             ))}
           </NumbersContainer>
-          <InputLabel>Nome do jogo: </InputLabel>
-          <NameInput
-            onChangeText={n => dispatch(setGameNameForm({ name: n }))}
-            value={name}
-          />
           <SubmitContainer>
             <SubmitButton onPress={clear}>
-              <Gradient>
+              <GradientClear>
                 <ButtonText>Limpar</ButtonText>
-              </Gradient>
+              </GradientClear>
             </SubmitButton>
             <SubmitButton onPress={submitForm}>
-              <Gradient>
+              <GradientSend>
                 <ButtonText>Enviar</ButtonText>
-              </Gradient>
+              </GradientSend>
             </SubmitButton>
           </SubmitContainer>
         </Content>
       </ScrollView>
-      {/* <MenuFooter /> */}
     </Container>
   );
 }
