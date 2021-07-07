@@ -5,6 +5,7 @@ import {
 import styled from 'styled-components';
 
 import Feather from 'react-native-vector-icons/Feather';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
 import { colors, constants } from '~/styles';
 
@@ -16,8 +17,6 @@ export const ScrollView = styled.ScrollView`
 export const Container = styled.SafeAreaView`
   flex: 1;
   flex-direction: column;
-  height: auto;
-  width: auto;
   background: ${colors.white};
 `;
 
@@ -27,61 +26,104 @@ export const Content = styled.View`
   background: ${colors.white};
   margin-top: ${hp('2%')}px;
   margin-bottom: ${hp('2%')}px;
+  align-items: center;
+  /* justify-content: center; */
   /* background: orange; */
 `;
 
-export const Row = styled.View`
-  flex: 1;
+export const GameCard = styled.View`
   flex-direction: row;
-  justify-content: space-around;
   align-items: center;
-  /* padding: 0 ${wp('5%')}px; */
-  /* margin: ${wp('1%')}px; */
-  /* background: purple; */
-`;
-
-export const Games = styled.TouchableOpacity`
-  background-color: #fff;
-  justify-content: center;
-  align-items: center;
-  height: ${hp('35%')}px;
+  background: ${colors.white};
   width: ${wp('95%')}px;
-  border-width: ${wp('1%')}px;
-  border-radius: ${hp(constants.height_small_pc)}px;
-  border-color: #ddd;
+  height: ${hp('10%')}px;
+  /* background: orange; */
+  border-radius: ${wp('3%')}px;
+  margin-bottom: ${wp('2%')}px;
+  border-width: ${wp('0.5%')}px;
+  border-color: ${colors.mediumGray};
 `;
 
-export const Item = styled.TouchableOpacity`
-  background-color: #fff;
-  justify-content: center;
+export const Left = styled.View`
+  flex-direction: column;
+  /* align-items: center; */
+  background: ${colors.white};
+  width: ${wp('75%')}px;
+  height: ${hp('10%')}px;
+  background: red;
   align-items: center;
-  height: ${hp('25%')}px;
-  width: ${wp('45%')}px;
-  border-width: ${wp('1%')}px;
-  border-radius: ${hp(constants.height_small_pc)}px;
-  border-color: #ddd;
+  justify-content: center;
+  /* border-radius: ${wp('3%')}px;
+  margin-bottom: ${wp('2%')}px;
+  border-width: ${wp('0.5%')}px;
+  border-color: ${colors.mediumGray}; */
 `;
 
-export const ItemName = styled.Text`
-  margin-top: ${hp(constants.height_ten_pix_pc)};
-  text-align: center;
-  font-size: 13px;
-  font-family: ${constants.font_family_medium};
-  color: #777777;
+export const Right = styled.View`
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  background: ${colors.white};
+  width: ${wp('20%')}px;
+  height: ${hp('10%')}px;
+  /* background: red; */
+  /* border-radius: ${wp('3%')}px;
+  margin-bottom: ${wp('2%')}px;
+  border-width: ${wp('0.5%')}px;
+  border-color: ${colors.mediumGray}; */
 `;
 
-export const List = styled(Feather).attrs({
-  name: 'list',
+export const Numbers = styled.View`
+  flex: 1;
+  flex-direction: column;
+  background: ${colors.white};
+  background: orange;
+  align-items: center;
+  justify-content: center;
+  /* border-radius: ${wp('3%')}px; */
+  /* border-width: ${wp('0.5%')}px; */
+  /* border-color: ${colors.mediumGray}; */
+`;
+
+export const NumbersText = styled.Text`
+  color: ${colors.white};
+  text-transform: uppercase;
+  font-size: ${hp(constants.font_size_pc)};
+  font-family: ${constants.font_family_semi_bold};
+`;
+
+export const Name = styled.View`
+  flex: 1;
+  flex-direction: column;
+  background: ${colors.white};
+  background: gray;
+  align-items: center;
+  justify-content: center;
+
+  /* margin-bottom: ${wp('2%')}px; */
+  /* border-width: ${wp('0.5%')}px; */
+  /* border-color: ${colors.mediumGray}; */
+`;
+
+export const NameText = styled.Text`
+  color: ${colors.black};
+  text-transform: uppercase;
+  font-size: ${hp(constants.font_size_pc)}px;
+  font-family: ${constants.font_family_semi_bold};
+`;
+
+export const EditIcon = styled(Feather).attrs({
+  name: 'edit',
   color: colors.mediumGray,
-  size: hp('10%'),
+  size: hp('4%'),
 })`
   background-color: ${colors.white};
 `;
 
-export const PlayIcon = styled(Feather).attrs({
-  name: 'user',
+export const DeleteIcon = styled(AntDesign).attrs({
+  name: 'delete',
   color: colors.mediumGray,
-  size: hp('5%'),
+  size: hp('4%'),
 })`
   background-color: ${colors.white};
 `;

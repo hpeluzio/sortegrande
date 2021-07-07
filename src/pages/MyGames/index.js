@@ -6,14 +6,18 @@ import TopHeader from '~/components/TopHeader';
 import MenuFooter from '~/components/MenuFooter';
 
 import {
+  ScrollView,
   Container,
   Content,
-  Row,
-  Games,
-  Item,
-  ItemName,
-  List,
-  PlayIcon,
+  GameCard,
+  Left,
+  Right,
+  Numbers,
+  NumbersText,
+  Name,
+  NameText,
+  EditIcon,
+  DeleteIcon,
 } from './styles';
 
 export default function MyGames({ navigation }) {
@@ -34,7 +38,28 @@ export default function MyGames({ navigation }) {
   return (
     <Container>
       <TopHeader tittle={'Meus Jogos'} />
-      <Content></Content>
+      <ScrollView>
+        <Content>
+          {games.map(game => {
+            return (
+              <GameCard key={game.id}>
+                <Left>
+                  <Name>
+                    <NameText>{game.name}</NameText>
+                  </Name>
+                  <Numbers>
+                    <NumbersText>{game.numbers}</NumbersText>
+                  </Numbers>
+                </Left>
+                <Right>
+                  <EditIcon />
+                  <DeleteIcon />
+                </Right>
+              </GameCard>
+            );
+          })}
+        </Content>
+      </ScrollView>
       {/* <MenuFooter /> */}
     </Container>
   );
