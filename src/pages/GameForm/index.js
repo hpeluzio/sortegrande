@@ -5,6 +5,8 @@ import {
   setGameNameForm,
 } from '~/redux/actions/gameForm/gameFormActions';
 
+import GameService from '~/services/GameService';
+
 import TopHeader from '~/components/TopHeader';
 
 import { numbers } from '~/utils/numbers';
@@ -109,11 +111,20 @@ export default function GameForm({ navigation }) {
     ]);
   }, [dispatch]);
 
-  const submitForm = useCallback(() => {
+  const submitForm = useCallback(async () => {
     if (validateFieldName()) {
-      console.log('SUBMIT');
+      const { status, data } = await GameService.create({
+        numbers: selectedNumbers,
+        name: name,
+      });
+      console.log('response.data: ', data);
+      if (status === 200) {
+        console.log(' status 200');
+      } else {
+        console.log(' status != 200');
+      }
     }
-  }, [validateFieldName]);
+  }, [validateFieldName, name, selectedNumbers]);
 
   const isNumberSelected = useCallback(
     n => {
