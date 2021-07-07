@@ -25,69 +25,65 @@ export const Container = styled.SafeAreaView`
 export const Content = styled.View`
   flex: 1;
   flex-direction: column;
-  /* background: ${colors.white}; */
   margin-top: ${hp('2%')}px;
   margin-bottom: ${hp('2%')}px;
   align-items: center;
-  /* justify-content: center; */
+  /* background: ${colors.white}; */
   /* background: orange; */
 `;
 
 export const GameCard = styled.View`
   flex-direction: column;
   align-items: center;
-  /* background: ${colors.white}; */
   width: ${wp('95%')}px;
   height: ${hp('25%')}px;
-  /* background: orange; */
   border-radius: ${wp('3%')}px;
-  margin-bottom: ${wp('2%')}px;
+  margin-bottom: ${hp('2%')}px;
   border-width: ${wp('0.5%')}px;
   border-color: ${colors.mediumGray};
+  /* background: ${colors.white}; */
+  /* background: orange; */
 `;
 
 export const Top = styled.View`
-  flex-direction: column;
+  flex-direction: row;
   width: ${wp('95%')}px;
-  height: ${hp('7%')}px;
+  height: ${hp('6%')}px;
   align-items: center;
   justify-content: center;
-  /* background: red; */
   border-bottom-width: ${wp('0.5%')}px;
   border-color: ${colors.mediumGray};
+  /* background: blue; */
 `;
 
 export const Down = styled.View`
   flex-direction: row;
   width: ${wp('90%')}px;
-  height: ${hp('17%')}px;
+  height: ${hp('19%')}px;
   align-items: center;
   justify-content: center;
   /* background: blue; */
 `;
 
-export const Name = styled.View`
+export const NameSquareLeft = styled.View`
   flex-direction: row;
-  /* background: red; */
-  width: ${wp('75%')}px;
-  height: ${hp('7%')}px;
-  /* background: gray; */
+  width: ${wp('60%')}px;
+  height: ${hp('6%')}px;
   align-items: center;
   justify-content: space-around;
-  /* margin-bottom: ${wp('2%')}px; */
+  border-color: ${colors.mediumGray};
+  /* background: red; */
 `;
 
-export const NameSquare = styled.View`
+export const NameSquareRight = styled.View`
   flex-direction: row;
-  /* background: red; */
-  width: ${wp('25%')}px;
-  height: ${hp('5%')}px;
-  /* background: gray; */
+  width: ${wp('30%')}px;
+  height: ${hp('6%')}px;
   align-items: center;
-  justify-content: space-around;
-  /* margin-bottom: ${wp('2%')}px; */
-
+  justify-content: center;
+  /* background: red; */
   border-color: ${colors.mediumGray};
+  border-left-width: ${wp('0.5%')}px;
 `;
 
 export const NameText = styled.Text`
@@ -103,7 +99,7 @@ export const Left = styled.View`
   justify-content: space-around;
   /* background: ${colors.white}; */
   width: ${wp('16%')}px;
-  height: ${hp('16%')}px;
+  height: ${hp('15%')}px;
   /* margin-left: ${wp('2%')}px; */
   /* background: red; */
   border-radius: ${wp('3.5%')}px;
@@ -117,7 +113,7 @@ export const Right = styled.View`
   /* align-items: center; */
   /* background: orange; */
   width: ${wp('70%')}px;
-  height: ${hp('16%')}px;
+  height: ${hp('15%')}px;
   /* background: blue; */
   align-items: center;
   justify-content: center;
@@ -173,4 +169,13 @@ export const DeleteIcon = styled(AntDesign).attrs({
   size: hp('4%'),
 })`
   /* background-color: ${colors.white}; */
+`;
+
+export const Button = styled.TouchableOpacity`
+  /* width: ${hp('4%')}px;
+  height: ${hp('4%')}px; */
+  padding: ${wp('1.5%')}px;
+  align-items: center;
+  justify-content: center;
+  /* background: red; */
 `;

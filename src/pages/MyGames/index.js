@@ -1,4 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  setGameForm,
+  setGameNameForm,
+} from '~/redux/actions/gameForm/gameFormActions';
 
 import GameService from '~/services/GameService';
 
@@ -16,17 +21,25 @@ import {
   Numbers,
   NumberSquare,
   NumbersText,
-  Name,
-  NameSquare,
+  NameSquareLeft,
+  NameSquareRight,
   NameText,
   EditIcon,
   DeleteIcon,
   RefreshControl,
+  Button,
 } from './styles';
+
+import { Alert } from 'react-native';
 
 export default function MyGames({ navigation }) {
   const [games, setGames] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const selectedNumbers = useSelector(s => s.gameForm.selectedNumbers);
+  const name = useSelector(s => s.gameForm.name);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     getMyGames();
@@ -46,6 +59,57 @@ export default function MyGames({ navigation }) {
     setRefreshing(false);
   }, [getMyGames]);
 
+  const onDeleteGame = useCallback(
+    async game_id => {
+      setLoading(true);
+      const { status, data } = await GameService.delete(game_id);
+      console.log('status', status, data);
+
+      await getMyGames();
+
+      setLoading(false);
+    },
+    [getMyGames],
+  );
+
+  const onEditGame = useCallback(
+    async game => {
+      console.log('onEditGame: ', game);
+      console.log('numbersss: ', game.numbers);
+      const arrayNumbersString = game.numbers.split(',');
+      const arrayNumbersInteger = arrayNumbersString.map(n => parseInt(n));
+      console.log('arrayNumbersInteger: ', arrayNumbersInteger);
+
+      dispatch(
+        setGameForm({
+          selectedNumbers: arrayNumbersInteger,
+        }),
+      );
+      dispatch(setGameNameForm({ name: game.name }));
+      navigation.navigate('GameForm');
+    },
+    [dispatch, navigation],
+  );
+
+  const onDeleteAlert = useCallback(
+    game_id => {
+      Alert.alert('Excluir jogo', 'Deseja realmente excluir o jogo?', [
+        {
+          text: 'Cancelar',
+          onPress: () => {},
+          style: 'cancel',
+        },
+        {
+          text: 'excluir',
+          onPress: () => {
+            onDeleteGame(game_id);
+          },
+        },
+      ]);
+    },
+    [onDeleteGame],
+  );
+
   return (
     <Container>
       <TopHeader tittle={'Meus Jogos'} />
@@ -58,25 +122,27 @@ export default function MyGames({ navigation }) {
             return (
               <GameCard key={game.id}>
                 <Top>
-                  <Name>
-                    <NameSquare>
-                      <NameText>{game.name}</NameText>
-                    </NameSquare>
-                    <NameSquare>
-                      <NameText>{game.raffle_name}</NameText>
-                    </NameSquare>
-                  </Name>
+                  <NameSquareLeft>
+                    <NameText>{game.name}</NameText>
+                  </NameSquareLeft>
+                  <NameSquareRight>
+                    <NameText>{game.raffle_name}</NameText>
+                  </NameSquareRight>
                 </Top>
                 <Down>
                   <Left>
-                    <DeleteIcon />
-                    <EditIcon />
+                    <Button onPress={() => onDeleteAlert(game.id)}>
+                      <DeleteIcon />
+                    </Button>
+                    <Button onPress={() => onEditGame(game)}>
+                      <EditIcon />
+                    </Button>
                   </Left>
                   <Right>
                     <Numbers>
-                      {game.numbers.split(',').map(number => {
+                      {game.numbers.split(',').map((number, index) => {
                         return (
-                          <NumberSquare>
+                          <NumberSquare key={index}>
                             <NumbersText>{number}</NumbersText>
                           </NumberSquare>
                         );
