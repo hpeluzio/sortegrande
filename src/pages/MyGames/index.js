@@ -46,9 +46,12 @@ export default function MyGames({ navigation }) {
                 <Left>
                   <Name>
                     <NameText>{game.name}</NameText>
+                    <NameText>{game.raffle_name}</NameText>
                   </Name>
                   <Numbers>
-                    <NumbersText>{game.numbers}</NumbersText>
+                    {game.numbers.split(',').map(number => {
+                      return <NumbersText>{number}</NumbersText>;
+                    })}
                   </Numbers>
                 </Left>
                 <Right>

@@ -23,7 +23,7 @@ export const Container = styled.SafeAreaView`
 export const Content = styled.View`
   flex: 1;
   flex-direction: column;
-  background: ${colors.white};
+  /* background: ${colors.white}; */
   margin-top: ${hp('2%')}px;
   margin-bottom: ${hp('2%')}px;
   align-items: center;
@@ -34,9 +34,9 @@ export const Content = styled.View`
 export const GameCard = styled.View`
   flex-direction: row;
   align-items: center;
-  background: ${colors.white};
+  /* background: ${colors.white}; */
   width: ${wp('95%')}px;
-  height: ${hp('10%')}px;
+  height: ${hp('18%')}px;
   /* background: orange; */
   border-radius: ${wp('3%')}px;
   margin-bottom: ${wp('2%')}px;
@@ -47,10 +47,10 @@ export const GameCard = styled.View`
 export const Left = styled.View`
   flex-direction: column;
   /* align-items: center; */
-  background: ${colors.white};
+  /* background: ${colors.white}; */
   width: ${wp('75%')}px;
-  height: ${hp('10%')}px;
-  background: red;
+  height: ${hp('15%')}px;
+  /* background: red; */
   align-items: center;
   justify-content: center;
   /* border-radius: ${wp('3%')}px;
@@ -64,20 +64,42 @@ export const Right = styled.View`
   align-items: center;
   justify-content: space-around;
   background: ${colors.white};
-  width: ${wp('20%')}px;
-  height: ${hp('10%')}px;
+  width: ${wp('18%')}px;
+  height: ${hp('9%')}px;
   /* background: red; */
-  /* border-radius: ${wp('3%')}px;
-  margin-bottom: ${wp('2%')}px;
+  border-radius: ${wp('3.5%')}px;
+  /* margin-bottom: ${wp('2%')}px; */
   border-width: ${wp('0.5%')}px;
-  border-color: ${colors.mediumGray}; */
+  border-color: ${colors.mediumGray};
+`;
+
+export const Name = styled.View`
+  flex-direction: row;
+  /* background: red; */
+  width: ${wp('75%')}px;
+  height: ${hp('3%')}px;
+  /* background: gray; */
+  align-items: center;
+  justify-content: space-around;
+  /* margin-bottom: ${wp('2%')}px; */
+  border-bottom-width: ${wp('0.5%')}px;
+  border-color: ${colors.mediumGray};
+`;
+
+export const NameText = styled.Text`
+  color: ${colors.black};
+  text-transform: uppercase;
+  font-size: ${hp(constants.font_size_pc)}px;
+  font-family: ${constants.font_family_semi_bold};
+  /* margin-left: ${wp('5%')}px; */
 `;
 
 export const Numbers = styled.View`
-  flex: 1;
-  flex-direction: column;
-  background: ${colors.white};
-  background: orange;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: ${wp('70%')}px;
+  height: ${hp('8%')}px;
+  /* background: red; */
   align-items: center;
   justify-content: center;
   /* border-radius: ${wp('3%')}px; */
@@ -86,30 +108,15 @@ export const Numbers = styled.View`
 `;
 
 export const NumbersText = styled.Text`
-  color: ${colors.white};
+  color: ${colors.mediumGray};
   text-transform: uppercase;
-  font-size: ${hp(constants.font_size_pc)};
-  font-family: ${constants.font_family_semi_bold};
-`;
-
-export const Name = styled.View`
-  flex: 1;
-  flex-direction: column;
-  background: ${colors.white};
-  background: gray;
-  align-items: center;
-  justify-content: center;
-
-  /* margin-bottom: ${wp('2%')}px; */
-  /* border-width: ${wp('0.5%')}px; */
-  /* border-color: ${colors.mediumGray}; */
-`;
-
-export const NameText = styled.Text`
-  color: ${colors.black};
-  text-transform: uppercase;
+  background: orange;
+  margin-right: ${wp('1%')}px;
+  margin-bottom: ${wp('1%')}px;
+  padding: ${wp('0.75%')}px;
   font-size: ${hp(constants.font_size_pc)}px;
   font-family: ${constants.font_family_semi_bold};
+  border-radius: ${wp('2%')}px;
 `;
 
 export const EditIcon = styled(Feather).attrs({
@@ -117,7 +124,7 @@ export const EditIcon = styled(Feather).attrs({
   color: colors.mediumGray,
   size: hp('4%'),
 })`
-  background-color: ${colors.white};
+  /* background-color: ${colors.white}; */
 `;
 
 export const DeleteIcon = styled(AntDesign).attrs({
@@ -125,5 +132,5 @@ export const DeleteIcon = styled(AntDesign).attrs({
   color: colors.mediumGray,
   size: hp('4%'),
 })`
-  background-color: ${colors.white};
+  /* background-color: ${colors.white}; */
 `;
