@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { withNavigation } from 'react-navigation';
 import { useSelector } from 'react-redux';
 
@@ -7,9 +7,20 @@ import { Container, Button, User, Back, Header, Label, Empty } from './styles';
 function TopHeader({ navigation, selectedNumbers, tittle }) {
   const token = useSelector(s => s.session.token);
 
+  const navigate = useCallback(() => {
+    if ((!token && page !== 'Register') || (!token && page !== 'Login')) {
+      navigation.navigate(token ? 'Home' : 'Login');
+    }
+
+    const page = navigation.state.routeName;
+    if (page !== 'Home' && page !== 'Login') {
+      navigation.goBack();
+    }
+  }, [navigation, token]);
+
   return (
     <Container>
-      <Button onPress={() => navigation.navigate(token ? 'Home' : 'Login')}>
+      <Button onPress={() => navigate()}>
         <Back />
       </Button>
       {selectedNumbers && (

@@ -24,7 +24,7 @@ import {
   NameSquareLeft,
   NameSquareRight,
   NameText,
-  EditIcon,
+  RepeatIcon,
   DeleteIcon,
   RefreshControl,
   Button,
@@ -110,6 +110,29 @@ export default function MyGames({ navigation }) {
     [onDeleteGame],
   );
 
+  const onEditAlert = useCallback(
+    game => {
+      Alert.alert(
+        `Repetir este jogo: ${game.name}?`,
+        `Deseja fazer outro jogo igual a este: ${game.name}?`,
+        [
+          {
+            text: 'Cancelar',
+            onPress: () => {},
+            style: 'cancel',
+          },
+          {
+            text: 'REPETIR',
+            onPress: () => {
+              onEditGame(game);
+            },
+          },
+        ],
+      );
+    },
+    [onEditGame],
+  );
+
   return (
     <Container>
       <TopHeader tittle={'Meus Jogos'} />
@@ -134,8 +157,8 @@ export default function MyGames({ navigation }) {
                     <Button onPress={() => onDeleteAlert(game.id)}>
                       <DeleteIcon />
                     </Button>
-                    <Button onPress={() => onEditGame(game)}>
-                      <EditIcon />
+                    <Button onPress={() => onEditAlert(game)}>
+                      <RepeatIcon />
                     </Button>
                   </Left>
                   <Right>

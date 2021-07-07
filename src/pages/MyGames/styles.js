@@ -155,8 +155,8 @@ export const NumbersText = styled.Text`
   color: ${colors.white};
 `;
 
-export const EditIcon = styled(Feather).attrs({
-  name: 'edit',
+export const RepeatIcon = styled(Feather).attrs({
+  name: 'refresh-cw',
   color: colors.mediumGray,
   size: hp('4%'),
 })`
