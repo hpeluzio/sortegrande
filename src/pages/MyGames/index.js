@@ -3,25 +3,30 @@ import React, { useCallback, useEffect, useState } from 'react';
 import GameService from '~/services/GameService';
 
 import TopHeader from '~/components/TopHeader';
-import MenuFooter from '~/components/MenuFooter';
 
 import {
   ScrollView,
   Container,
   Content,
   GameCard,
+  Top,
+  Down,
   Left,
   Right,
   Numbers,
+  NumberSquare,
   NumbersText,
   Name,
+  NameSquare,
   NameText,
   EditIcon,
   DeleteIcon,
+  RefreshControl,
 } from './styles';
 
 export default function MyGames({ navigation }) {
   const [games, setGames] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
     getMyGames();
@@ -35,29 +40,50 @@ export default function MyGames({ navigation }) {
     console.log('data', data);
   }, []);
 
+  const onRefresh = useCallback(async () => {
+    setRefreshing(true);
+    await getMyGames();
+    setRefreshing(false);
+  }, [getMyGames]);
+
   return (
     <Container>
       <TopHeader tittle={'Meus Jogos'} />
-      <ScrollView>
+      <ScrollView
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }>
         <Content>
           {games.map(game => {
             return (
               <GameCard key={game.id}>
-                <Left>
+                <Top>
                   <Name>
-                    <NameText>{game.name}</NameText>
-                    <NameText>{game.raffle_name}</NameText>
+                    <NameSquare>
+                      <NameText>{game.name}</NameText>
+                    </NameSquare>
+                    <NameSquare>
+                      <NameText>{game.raffle_name}</NameText>
+                    </NameSquare>
                   </Name>
-                  <Numbers>
-                    {game.numbers.split(',').map(number => {
-                      return <NumbersText>{number}</NumbersText>;
-                    })}
-                  </Numbers>
-                </Left>
-                <Right>
-                  <EditIcon />
-                  <DeleteIcon />
-                </Right>
+                </Top>
+                <Down>
+                  <Left>
+                    <DeleteIcon />
+                    <EditIcon />
+                  </Left>
+                  <Right>
+                    <Numbers>
+                      {game.numbers.split(',').map(number => {
+                        return (
+                          <NumberSquare>
+                            <NumbersText>{number}</NumbersText>
+                          </NumberSquare>
+                        );
+                      })}
+                    </Numbers>
+                  </Right>
+                </Down>
               </GameCard>
             );
           })}
