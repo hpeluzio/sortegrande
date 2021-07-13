@@ -120,11 +120,19 @@ export default function GameForm({ navigation }) {
       console.log('response.data: ', data);
       if (status === 200) {
         console.log(' status 200');
+        gameCreatedAlert();
       } else {
         console.log(' status != 200');
+        gameErrorAlert();
       }
     }
-  }, [validateFieldName, name, selectedNumbers]);
+  }, [
+    validateFieldName,
+    name,
+    selectedNumbers,
+    gameCreatedAlert,
+    gameErrorAlert,
+  ]);
 
   const isNumberSelected = useCallback(
     n => {
@@ -135,6 +143,42 @@ export default function GameForm({ navigation }) {
     },
     [selectedNumbers],
   );
+
+  const submitAlert = useCallback(() => {
+    Alert.alert('Confirme', 'Deseja prosseguir com este jogo?', [
+      {
+        text: 'Cancelar',
+        onPress: () => {},
+        style: 'cancel',
+      },
+      {
+        text: 'Ok',
+        onPress: () => {
+          submitForm();
+        },
+      },
+    ]);
+  }, [submitForm]);
+
+  const gameCreatedAlert = useCallback(() => {
+    Alert.alert('Jogo criado!', 'Seu jogo foi criado com sucesso!', [
+      {
+        text: 'Ok',
+        onPress: () => {
+          navigation.navigate('MyGames');
+        },
+      },
+    ]);
+  }, [navigation]);
+
+  const gameErrorAlert = useCallback(() => {
+    Alert.alert('ATENÇÃO!', 'Algum erro ocorreu!', [
+      {
+        text: 'Ok',
+        onPress: () => {},
+      },
+    ]);
+  }, []);
 
   return (
     <Container>
@@ -167,7 +211,7 @@ export default function GameForm({ navigation }) {
                 <ButtonText>Limpar</ButtonText>
               </GradientClear>
             </SubmitButton>
-            <SubmitButton onPress={submitForm}>
+            <SubmitButton onPress={submitAlert}>
               <GradientSend>
                 <ButtonText>Enviar</ButtonText>
               </GradientSend>
