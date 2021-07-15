@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import moment from 'moment';
 import {
   setGameForm,
   setGameNameForm,
@@ -16,6 +17,7 @@ import {
   GameCard,
   Top,
   Down,
+  DownDate,
   Left,
   Right,
   Numbers,
@@ -23,6 +25,7 @@ import {
   NumbersText,
   NameSquareLeft,
   NameSquareRight,
+  DateSquareLeft,
   NameText,
   RepeatIcon,
   DeleteIcon,
@@ -47,10 +50,10 @@ export default function MyGames({ navigation }) {
   }, [getMyGames]);
 
   const getMyGames = useCallback(async () => {
-    const { status, data } = await GameService.index();
+    const { status, data } = await GameService.games();
     setGames(data);
-    console.log('status', status);
-    console.log('data', data);
+    // console.log('status', status);
+    // console.log('data', data);
   }, []);
 
   const onRefresh = useCallback(async () => {
@@ -63,7 +66,7 @@ export default function MyGames({ navigation }) {
     async game_id => {
       setLoading(true);
       const { status, data } = await GameService.delete(game_id);
-      console.log('status', status, data);
+      // console.log('status', status, data);
 
       await getMyGames();
 
@@ -74,11 +77,11 @@ export default function MyGames({ navigation }) {
 
   const onEditGame = useCallback(
     async game => {
-      console.log('onEditGame: ', game);
-      console.log('numbersss: ', game.numbers);
+      // console.log('onEditGame: ', game);
+      // console.log('numbersss: ', game.numbers);
       const arrayNumbersString = game.numbers.split(',');
       const arrayNumbersInteger = arrayNumbersString.map(n => parseInt(n));
-      console.log('arrayNumbersInteger: ', arrayNumbersInteger);
+      // console.log('arrayNumbersInteger: ', arrayNumbersInteger);
 
       dispatch(
         setGameForm({
@@ -146,17 +149,37 @@ export default function MyGames({ navigation }) {
               <GameCard key={game.id}>
                 <Top>
                   <NameSquareLeft>
-                    <NameText>{game.name}</NameText>
+                    <NameText>Sorteio: </NameText>
                   </NameSquareLeft>
                   <NameSquareRight>
-                    <NameText>{game.raffle_name}</NameText>
+                    <NameText>{game.name} - </NameText>
+                    <NameText>{moment(game.end).format('DD/MM/YYYY')}</NameText>
                   </NameSquareRight>
                 </Top>
+                <Top>
+                  <NameSquareLeft>
+                    <NameText>Nome: </NameText>
+                  </NameSquareLeft>
+                  <NameSquareRight>
+                    <NameText>{game.name}</NameText>
+                  </NameSquareRight>
+                </Top>
+                <Top>
+                  <NameSquareLeft>
+                    <NameText>Jogado: </NameText>
+                  </NameSquareLeft>
+                  <NameSquareRight>
+                    <NameText>
+                      {moment(game.date).format('DD/MM/YYYY HH:mm')}
+                    </NameText>
+                  </NameSquareRight>
+                </Top>
+
                 <Down>
                   <Left>
-                    <Button onPress={() => onDeleteAlert(game.id)}>
+                    {/* <Button onPress={() => onDeleteAlert(game.id)}>
                       <DeleteIcon />
-                    </Button>
+                    </Button> */}
                     <Button onPress={() => onEditAlert(game)}>
                       <RepeatIcon />
                     </Button>

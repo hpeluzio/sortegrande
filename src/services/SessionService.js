@@ -12,7 +12,7 @@ class SessionService {
 
   async register({ email, password, confirm_password }) {
     const _response = await api
-      .post('/register', { email, password, confirm_password })
+      .post('/users', { email, password, confirm_password })
       .then(r => r)
       .catch(e => e.response);
     // console.log(_response.data);
@@ -21,7 +21,7 @@ class SessionService {
 
   async checkEmail({ email }) {
     const _response = await api
-      .post('/check-email', { email })
+      .post('/users/check-email', { email })
       .then(r => r)
       .catch(e => e.response);
     // console.log(_response.data);

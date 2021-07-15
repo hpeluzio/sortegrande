@@ -36,9 +36,9 @@ export const GameCard = styled.View`
   flex-direction: column;
   align-items: center;
   width: ${wp('95%')}px;
-  height: ${hp('25%')}px;
+  height: ${hp('38%')}px;
   border-radius: ${wp('3%')}px;
-  margin-bottom: ${hp('2%')}px;
+  margin-bottom: ${hp('3%')}px;
   border-width: ${wp('0.5%')}px;
   border-color: ${colors.mediumGray};
   /* background: ${colors.white}; */
@@ -50,7 +50,7 @@ export const Top = styled.View`
   width: ${wp('95%')}px;
   height: ${hp('6%')}px;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
   border-bottom-width: ${wp('0.5%')}px;
   border-color: ${colors.mediumGray};
   /* background: blue; */
@@ -65,25 +65,45 @@ export const Down = styled.View`
   /* background: blue; */
 `;
 
-export const NameSquareLeft = styled.View`
+export const DownDate = styled.View`
   flex-direction: row;
-  width: ${wp('60%')}px;
+  width: ${wp('94%')}px;
   height: ${hp('6%')}px;
   align-items: center;
-  justify-content: space-around;
+  justify-content: center;
+  border-color: ${colors.mediumGray};
+  border-bottom-width: ${wp('0.5%')}px;
+  /* background: blue; */
+`;
+
+export const NameSquareLeft = styled.View`
+  flex-direction: row;
+  width: ${wp('30%')}px;
+  height: ${hp('6%')}px;
+  align-items: center;
+  justify-content: flex-end;
   border-color: ${colors.mediumGray};
   /* background: red; */
 `;
 
 export const NameSquareRight = styled.View`
   flex-direction: row;
-  width: ${wp('30%')}px;
+  width: ${wp('60%')}px;
   height: ${hp('6%')}px;
   align-items: center;
   justify-content: center;
-  /* background: red; */
   border-color: ${colors.mediumGray};
   border-left-width: ${wp('0.5%')}px;
+  /* background: red; */
+`;
+
+export const DateSquareLeft = styled.View`
+  flex-direction: row;
+  width: ${wp('60%')}px;
+  height: ${hp('6%')}px;
+  align-items: center;
+  justify-content: space-around;
+  /* background: red; */
 `;
 
 export const NameText = styled.Text`

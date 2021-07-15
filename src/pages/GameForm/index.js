@@ -118,6 +118,7 @@ export default function GameForm({ navigation }) {
         name: name,
       });
       console.log('response.data: ', data);
+      console.log('status: ', status);
       if (status === 200) {
         console.log(' status 200');
         gameCreatedAlert();
@@ -145,7 +146,7 @@ export default function GameForm({ navigation }) {
   );
 
   const submitAlert = useCallback(() => {
-    Alert.alert('Confirme', 'Deseja prosseguir com este jogo?', [
+    Alert.alert('Confirmação', 'Deseja prosseguir com este jogo?', [
       {
         text: 'Cancelar',
         onPress: () => {},

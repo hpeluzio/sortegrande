@@ -1,9 +1,9 @@
 import api from '~/config/api';
 
 class GameService {
-  async index() {
+  async games() {
     const _response = await api
-      .get('/game')
+      .get('/games')
       .then(r => r)
       .catch(e => e.response);
     // console.log(_response.data);
@@ -12,7 +12,7 @@ class GameService {
 
   async create({ numbers, name }) {
     const _response = await api
-      .post('/game', { numbers, name })
+      .post('/games', { numbers, name })
       .then(r => r)
       .catch(e => e.response);
     // console.log(_response.data);

@@ -70,6 +70,7 @@ export default function Login({ navigation }) {
       console.log('login: ', email, password);
       const { status, data } = await SessionService.login({ email, password });
       console.log('response: ', data);
+      console.log('response: ', data.access_token);
 
       if (status !== 200) {
         setErrorLog(data.message);
@@ -77,7 +78,7 @@ export default function Login({ navigation }) {
 
       if (status === 200) {
         setErrorLog('');
-        dispatch(setSession({ user: data.user, token: data.token.token }));
+        dispatch(setSession({ user: data, token: data.access_token }));
       }
 
       setTimeout(() => {
