@@ -1,7 +1,7 @@
 import api from '~/config/api';
 
 class GameService {
-  async games() {
+  async getAllMyGames() {
     const _response = await api
       .get('/games')
       .then(r => r)

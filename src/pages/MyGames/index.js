@@ -50,10 +50,10 @@ export default function MyGames({ navigation }) {
   }, [getMyGames]);
 
   const getMyGames = useCallback(async () => {
-    const { status, data } = await GameService.games();
+    const { status, data } = await GameService.getAllMyGames();
     setGames(data);
     // console.log('status', status);
-    // console.log('data', data);
+    console.log('data', data);
   }, []);
 
   const onRefresh = useCallback(async () => {
@@ -152,7 +152,7 @@ export default function MyGames({ navigation }) {
                     <NameText>Sorteio: </NameText>
                   </NameSquareLeft>
                   <NameSquareRight>
-                    <NameText>{game.name} - </NameText>
+                    <NameText>{game.raffle.name} - </NameText>
                     <NameText>{moment(game.end).format('DD/MM/YYYY')}</NameText>
                   </NameSquareRight>
                 </Top>
