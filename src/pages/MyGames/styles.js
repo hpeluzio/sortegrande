@@ -45,6 +45,28 @@ export const GameCard = styled.View`
   /* background: orange; */
 `;
 
+export const EmptyGameCard = styled.View`
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: ${wp('95%')}px;
+  height: ${hp('30%')}px;
+  border-radius: ${wp('3%')}px;
+  margin-bottom: ${hp('3%')}px;
+  border-width: ${wp('0.5%')}px;
+  border-color: ${colors.mediumGray};
+  /* background: ${colors.white}; */
+  /* background: orange; */
+`;
+
+export const EmptyGameText = styled.Text`
+  color: ${colors.black};
+  /* text-transform: uppercase; */
+  font-size: ${hp(constants.font_size_pc)}px;
+  font-family: ${constants.font_family_semi_bold};
+  text-align: center;
+`;
+
 export const Top = styled.View`
   flex-direction: row;
   width: ${wp('95%')}px;

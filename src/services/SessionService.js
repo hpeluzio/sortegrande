@@ -3,7 +3,7 @@ import api from '~/config/api';
 class SessionService {
   async login({ email, password }) {
     const _response = await api
-      .post('/login', { email, password })
+      .post('/auth/login', { email, password })
       .then(r => r)
       .catch(e => e.response);
     // console.log(_response);

@@ -15,9 +15,10 @@ import {
   Container,
   Content,
   GameCard,
+  EmptyGameCard,
+  EmptyGameText,
   Top,
   Down,
-  DownDate,
   Left,
   Right,
   Numbers,
@@ -45,15 +46,19 @@ export default function MyGames({ navigation }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    console.log('games: ', games);
+  }, [games]);
+
+  useEffect(() => {
     getMyGames();
     // console.log('navigation', navigation);
   }, [getMyGames]);
 
   const getMyGames = useCallback(async () => {
     const { status, data } = await GameService.getAllMyGames();
-    setGames(data);
-    // console.log('status', status);
-    console.log('data', data);
+    if (status === 200) {
+      setGames(data);
+    }
   }, []);
 
   const onRefresh = useCallback(async () => {
@@ -143,63 +148,75 @@ export default function MyGames({ navigation }) {
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }>
-        <Content>
-          {games.map(game => {
-            return (
-              <GameCard key={game.id}>
-                <Top>
-                  <NameSquareLeft>
-                    <NameText>Sorteio: </NameText>
-                  </NameSquareLeft>
-                  <NameSquareRight>
-                    <NameText>{game.raffle.name} - </NameText>
-                    <NameText>{moment(game.end).format('DD/MM/YYYY')}</NameText>
-                  </NameSquareRight>
-                </Top>
-                <Top>
-                  <NameSquareLeft>
-                    <NameText>Nome: </NameText>
-                  </NameSquareLeft>
-                  <NameSquareRight>
-                    <NameText>{game.name}</NameText>
-                  </NameSquareRight>
-                </Top>
-                <Top>
-                  <NameSquareLeft>
-                    <NameText>Jogado: </NameText>
-                  </NameSquareLeft>
-                  <NameSquareRight>
-                    <NameText>
-                      {moment(game.date).format('DD/MM/YYYY HH:mm')}
-                    </NameText>
-                  </NameSquareRight>
-                </Top>
+        {games.length === 0 ? (
+          <Content>
+            <EmptyGameCard>
+              <EmptyGameText>
+                Você ainda não possui nenhum jogo cadastrado.{' '}
+              </EmptyGameText>
+            </EmptyGameCard>
+          </Content>
+        ) : (
+          <Content>
+            {games.map(game => {
+              return (
+                <GameCard key={game.id}>
+                  <Top>
+                    <NameSquareLeft>
+                      <NameText>Sorteio: </NameText>
+                    </NameSquareLeft>
+                    <NameSquareRight>
+                      <NameText>{game.raffle.name} - </NameText>
+                      <NameText>
+                        {moment(game.end).format('DD/MM/YYYY')}
+                      </NameText>
+                    </NameSquareRight>
+                  </Top>
+                  <Top>
+                    <NameSquareLeft>
+                      <NameText>Nome: </NameText>
+                    </NameSquareLeft>
+                    <NameSquareRight>
+                      <NameText>{game.name}</NameText>
+                    </NameSquareRight>
+                  </Top>
+                  <Top>
+                    <NameSquareLeft>
+                      <NameText>Jogado: </NameText>
+                    </NameSquareLeft>
+                    <NameSquareRight>
+                      <NameText>
+                        {moment(game.date).format('DD/MM/YYYY HH:mm')}
+                      </NameText>
+                    </NameSquareRight>
+                  </Top>
 
-                <Down>
-                  <Left>
-                    {/* <Button onPress={() => onDeleteAlert(game.id)}>
+                  <Down>
+                    <Left>
+                      {/* <Button onPress={() => onDeleteAlert(game.id)}>
                       <DeleteIcon />
                     </Button> */}
-                    <Button onPress={() => onEditAlert(game)}>
-                      <RepeatIcon />
-                    </Button>
-                  </Left>
-                  <Right>
-                    <Numbers>
-                      {game.numbers.split(',').map((number, index) => {
-                        return (
-                          <NumberSquare key={index}>
-                            <NumbersText>{number}</NumbersText>
-                          </NumberSquare>
-                        );
-                      })}
-                    </Numbers>
-                  </Right>
-                </Down>
-              </GameCard>
-            );
-          })}
-        </Content>
+                      <Button onPress={() => onEditAlert(game)}>
+                        <RepeatIcon />
+                      </Button>
+                    </Left>
+                    <Right>
+                      <Numbers>
+                        {game.numbers.split(',').map((number, index) => {
+                          return (
+                            <NumberSquare key={index}>
+                              <NumbersText>{number}</NumbersText>
+                            </NumberSquare>
+                          );
+                        })}
+                      </Numbers>
+                    </Right>
+                  </Down>
+                </GameCard>
+              );
+            })}
+          </Content>
+        )}
       </ScrollView>
       {/* <MenuFooter /> */}
     </Container>
