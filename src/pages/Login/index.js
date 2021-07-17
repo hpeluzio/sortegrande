@@ -69,16 +69,16 @@ export default function Login({ navigation }) {
       setLoading(true);
       console.log('login: ', email, password);
       const { status, data } = await SessionService.login({ email, password });
-      console.log('response: ', data);
+      console.log('Response data: ', data);
       console.log('response: ', data.access_token);
-
-      if (status !== 200) {
-        setErrorLog(data.message);
-      }
 
       if (status === 200) {
         setErrorLog('');
         dispatch(setSession({ user: data, token: data.access_token }));
+      } else if (status === 401) {
+        setErrorLog('Login ou senha incorretos.');
+      } else {
+        setErrorLog('Ocorreu algum erro.');
       }
 
       setTimeout(() => {

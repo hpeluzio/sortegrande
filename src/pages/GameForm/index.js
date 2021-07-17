@@ -119,11 +119,11 @@ export default function GameForm({ navigation }) {
       });
       console.log('response.data: ', data);
       console.log('status: ', status);
-      if (status === 200) {
-        console.log(' status 200');
+      if (status === 201) {
+        console.log(' status 201');
         gameCreatedAlert();
       } else {
-        console.log(' status != 200');
+        console.log(' status != 201');
         gameErrorAlert();
       }
     }

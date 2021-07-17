@@ -46,8 +46,6 @@ export default function Account({ navigation }) {
   }, [user.email]);
 
   useEffect(() => {
-    console.log('user: ', user);
-
     if (token === null) {
       navigation.navigate('Login');
     }
