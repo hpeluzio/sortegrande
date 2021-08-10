@@ -38,7 +38,8 @@ export default function Register({ navigation }) {
       setErrorEmail(null);
 
       const response = await SessionService.checkEmail({ email });
-      if (response.data.available === false) {
+      console.log('response:', response);
+      if (response.status !== 200) {
         setErrorEmail('E-mail já cadastrado.');
         return false;
       }

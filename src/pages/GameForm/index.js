@@ -117,14 +117,14 @@ export default function GameForm({ navigation }) {
         numbers: selectedNumbers,
         name: name,
       });
-      console.log('response.data: ', data);
-      console.log('status: ', status);
+      // console.log('response.data: ', data);
+      // console.log('status: ', status);
       if (status === 201) {
         console.log(' status 201');
         gameCreatedAlert();
       } else {
         console.log(' status != 201');
-        gameErrorAlert();
+        gameErrorAlert(data);
       }
     }
   }, [
@@ -172,8 +172,8 @@ export default function GameForm({ navigation }) {
     ]);
   }, [navigation]);
 
-  const gameErrorAlert = useCallback(() => {
-    Alert.alert('ATENÇÃO!', 'Algum erro ocorreu!', [
+  const gameErrorAlert = useCallback((data = null) => {
+    Alert.alert('Algo não ocorreu bem', `${data.message}`, [
       {
         text: 'Ok',
         onPress: () => {},
