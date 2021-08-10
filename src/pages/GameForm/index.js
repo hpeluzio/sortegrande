@@ -17,6 +17,7 @@ import {
   SubmitContainer,
   SubmitButton,
   GradientClear,
+  GradientSendBlocked,
   GradientSend,
   ButtonText,
   ScrollView,
@@ -161,6 +162,19 @@ export default function GameForm({ navigation }) {
     ]);
   }, [submitForm]);
 
+  const submitAlert21 = useCallback(() => {
+    Alert.alert(
+      `Somente ${selectedNumbers.length} números escolhidos!`,
+      `Você selecionou apenas ${selectedNumbers.length} números.`,
+      [
+        {
+          text: 'Ok',
+          onPress: () => {},
+        },
+      ],
+    );
+  }, []);
+
   const gameCreatedAlert = useCallback(() => {
     Alert.alert('Jogo criado!', 'Seu jogo foi criado com sucesso!', [
       {
@@ -212,11 +226,20 @@ export default function GameForm({ navigation }) {
                 <ButtonText>Limpar</ButtonText>
               </GradientClear>
             </SubmitButton>
-            <SubmitButton onPress={submitAlert}>
-              <GradientSend>
-                <ButtonText>Enviar</ButtonText>
-              </GradientSend>
-            </SubmitButton>
+
+            {selectedNumbers.length !== 21 ? (
+              <SubmitButton onPress={submitAlert21}>
+                <GradientSendBlocked>
+                  <ButtonText>Enviar</ButtonText>
+                </GradientSendBlocked>
+              </SubmitButton>
+            ) : (
+              <SubmitButton onPress={submitAlert}>
+                <GradientSend>
+                  <ButtonText>Enviar</ButtonText>
+                </GradientSend>
+              </SubmitButton>
+            )}
           </SubmitContainer>
         </Content>
       </ScrollView>

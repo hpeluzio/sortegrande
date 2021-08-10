@@ -81,6 +81,16 @@ export const GradientClear = styled(LinearGradient).attrs({
   align-items: center;
 `;
 
+export const GradientSendBlocked = styled(LinearGradient).attrs({
+  colors: ['#808080', '#9a9a9a'],
+  start: { x: 0, y: 1 },
+  end: { x: 1, y: 0 },
+})`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+`;
+
 export const GradientSend = styled(LinearGradient).attrs({
   colors: ['#1a9929', '#3cb24a'],
   start: { x: 0, y: 1 },
