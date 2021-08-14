@@ -27,6 +27,24 @@ class SessionService {
     // console.log(_response.data);
     return _response;
   }
+
+  async forgotPassword({ email }) {
+    const _response = await api
+      .post('/password/forgot', { email })
+      .then(r => r)
+      .catch(e => e.response);
+    // console.log(_response.data);
+    return _response;
+  }
+
+  async resetPassword({ token, password, confirm_password }) {
+    const _response = await api
+      .post('/password/reset', { token, password, confirm_password })
+      .then(r => r)
+      .catch(e => e.response);
+    // console.log(_response.data);
+    return _response;
+  }
 }
 
 export default new SessionService();

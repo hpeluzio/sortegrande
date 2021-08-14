@@ -121,8 +121,10 @@ export default function Login({ navigation }) {
         </Button>
       </Container>
       <AccountContainer>
-        <LockIcon />
-        <InputLabel>Esqueceu a senha?</InputLabel>
+        <SimpleButton onPress={() => navigation.navigate('ForgotPassword')}>
+          <LockIcon />
+          <InputLabel>Esqueceu a senha?</InputLabel>
+        </SimpleButton>
       </AccountContainer>
       <AccountContainer>
         <SimpleButton onPress={() => navigation.navigate('Register')}>
