@@ -10,7 +10,6 @@ import {
   AccountContainer,
   InputLabel,
   Email,
-  Password,
   Gradient,
   Loader,
   ButtonSubmit,
@@ -54,13 +53,13 @@ export default function ForgotPassword({ navigation }) {
 
       if (response.status === 200) {
         Alert.alert(
-          'E-mail enviado criada',
+          'E-mail enviado',
           'Um e-mail foi enviado para sua conta de e-mail',
           [
             {
               text: 'OK',
               onPress: () => {
-                navigation.navigate('Login');
+                navigation.navigate('ResetPassword');
               },
             },
           ],

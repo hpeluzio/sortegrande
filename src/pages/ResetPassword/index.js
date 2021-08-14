@@ -108,7 +108,7 @@ export default function Register({ navigation }) {
 
   return (
     <ScrollView>
-      <TopHeader tittle={'Criar Conta'} />
+      <TopHeader tittle={'Trocar Senha'} />
       <InputContainer>
         <Token
           label="Token"
