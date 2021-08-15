@@ -162,19 +162,6 @@ export default function GameForm({ navigation }) {
     ]);
   }, [submitForm]);
 
-  const submitAlert21 = useCallback(() => {
-    Alert.alert(
-      `Somente ${selectedNumbers.length} números escolhidos!`,
-      `Você selecionou apenas ${selectedNumbers.length} números.`,
-      [
-        {
-          text: 'Ok',
-          onPress: () => {},
-        },
-      ],
-    );
-  }, []);
-
   const gameCreatedAlert = useCallback(() => {
     Alert.alert('Jogo criado!', 'Seu jogo foi criado com sucesso!', [
       {
@@ -228,7 +215,7 @@ export default function GameForm({ navigation }) {
             </SubmitButton>
 
             {selectedNumbers.length !== 21 ? (
-              <SubmitButton onPress={submitAlert21}>
+              <SubmitButton>
                 <GradientSendBlocked>
                   <ButtonText>Enviar</ButtonText>
                 </GradientSendBlocked>
