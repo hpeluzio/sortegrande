@@ -3,7 +3,7 @@ import api from '~/config/api';
 class SessionService {
   async login({ email, password }) {
     const _response = await api
-      .post('/auth/login', { email, password })
+      .post('/user/login', { email, password })
       .then(r => r)
       .catch(e => e.response);
     // console.log(_response);
@@ -12,7 +12,7 @@ class SessionService {
 
   async register({ email, password, confirm_password }) {
     const _response = await api
-      .post('/users', { email, password, confirm_password })
+      .post('/user', { email, password, confirm_password })
       .then(r => r)
       .catch(e => e.response);
     // console.log(_response.data);
@@ -21,7 +21,7 @@ class SessionService {
 
   async checkEmail({ email }) {
     const _response = await api
-      .post('/users/check-email', { email })
+      .post('/users/checkemail', { email })
       .then(r => r)
       .catch(e => e.response);
     // console.log(_response.data);

@@ -56,6 +56,7 @@ export default function MyGames({ navigation }) {
 
   const getMyGames = useCallback(async () => {
     const { status, data } = await GameService.getAllMyGames();
+    console.log('getMyGames: ', data);
     if (status === 200) {
       setGames(data);
     }

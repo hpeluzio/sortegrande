@@ -39,7 +39,7 @@ export default function Login({ navigation }) {
   const [errorLog, setErrorLog] = useState('');
 
   useEffect(() => {
-    // console.log('session: ', session);
+    console.log('session: ', session);
   }, [session]);
 
   useEffect(() => {
@@ -70,11 +70,11 @@ export default function Login({ navigation }) {
       console.log('login: ', email, password);
       const { status, data } = await SessionService.login({ email, password });
       console.log('Response data: ', data);
-      console.log('response: ', data.access_token);
+      console.log('response: ', data.token);
 
       if (status === 200) {
         setErrorLog('');
-        dispatch(setSession({ user: data, token: data.access_token }));
+        dispatch(setSession({ user: data.user, token: data.token }));
       } else if (status === 401) {
         setErrorLog('Login ou senha incorretos.');
       } else {

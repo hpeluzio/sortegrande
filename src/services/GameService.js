@@ -3,16 +3,16 @@ import api from '~/config/api';
 class GameService {
   async getAllMyGames() {
     const _response = await api
-      .get('/games')
+      .get('/game')
       .then(r => r)
       .catch(e => e.response);
-    // console.log(_response.data);
+    console.log(_response.data);
     return _response;
   }
 
   async create({ numbers, name }) {
     const _response = await api
-      .post('/games', { numbers, name })
+      .post('/game', { numbers, name })
       .then(r => r)
       .catch(e => e.response);
     // console.log(_response.data);
