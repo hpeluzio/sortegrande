@@ -88,7 +88,7 @@ export default function Register({ navigation }) {
       // console.log('response: ', response);
       console.log('response.data: ', response.data);
 
-      if (response.status === 201) {
+      if (response.status === 200) {
         Alert.alert('Conta criada', 'Conta criada com sucesso', [
           {
             text: 'Fazer login',

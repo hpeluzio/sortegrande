@@ -55,16 +55,19 @@ export default function Account({ navigation }) {
     if (validateEmail(email)) {
       setErrorEmail(null);
 
-      const response = await SessionService.checkEmail({ email });
-      if (response.data.available === false) {
-        setErrorEmail('E-mail já cadastrado.');
-        return false;
+      if (email !== user.email) {
+        console.log('E-mail diferente');
+        const response = await SessionService.checkEmail({ email });
+        if (response.data.status !== 200) {
+          setErrorEmail('E-mail já cadastrado.');
+          return false;
+        }
       }
     } else {
       setErrorEmail('Preencha seu e-mail corretamente.');
       return validateEmail(email);
     }
-  }, [email]);
+  }, [email, user.email]);
 
   const validateFieldPassword = useCallback(() => {
     password.length >= 6

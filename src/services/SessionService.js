@@ -21,7 +21,7 @@ class SessionService {
 
   async checkEmail({ email }) {
     const _response = await api
-      .post('/users/checkemail', { email })
+      .post('/user/checkemail', { email })
       .then(r => r)
       .catch(e => e.response);
     // console.log(_response.data);
