@@ -33,7 +33,8 @@ export const Label = styled.Text`
   font-family: ${constants.font_family_semi_bold};
   text-align: center;
   /* width: 100%; */
-  color: ${colors.darkGray};
+  color: ${colors.mediumGray};
+
   /* background-color: red; */
 `;
 
@@ -42,7 +43,7 @@ export const Header = styled.Text`
   font-family: ${constants.font_family_semi_bold};
   text-align: center;
   /* width: 100%; */
-  color: ${colors.darkGray};
+  color: ${colors.mediumGray};
   /* background-color: red; */
 `;
 

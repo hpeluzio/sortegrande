@@ -146,7 +146,7 @@ export const NameText = styled.Text`
   /* text-transform: uppercase; */
   font-size: ${hp(constants.font_size_pc)}px;
   font-family: ${constants.font_family_semi_bold};
-  color: #777777;
+  color: ${colors.mediumGray};
 `;
 
 export const Left = styled.View`
