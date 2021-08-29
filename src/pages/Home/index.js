@@ -11,7 +11,8 @@ import {
   Item,
   ItemName,
   List,
-  PlayIcon,
+  BookIcon,
+  CreditCardIcon,
 } from './styles';
 
 export default function Home({ navigation }) {
@@ -21,7 +22,7 @@ export default function Home({ navigation }) {
 
   return (
     <Container>
-      <TopHeader />
+      <TopHeader tittle={'Tela inicial'} />
       <Content>
         <Row>
           <Games onPress={() => navigation.navigate('MyGames')}>
@@ -31,12 +32,12 @@ export default function Home({ navigation }) {
         </Row>
         <Row>
           <Item onPress={() => navigation.navigate('Login')}>
-            <PlayIcon />
-            <ItemName>Usuário</ItemName>
+            <BookIcon />
+            <ItemName>Sorteios cadastrados</ItemName>
           </Item>
           <Item onPress={() => navigation.navigate('Login')}>
-            <PlayIcon />
-            <ItemName>Usuário</ItemName>
+            <CreditCardIcon />
+            <ItemName>Cadastro de pagamento</ItemName>
           </Item>
         </Row>
       </Content>

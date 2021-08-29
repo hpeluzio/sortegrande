@@ -4,7 +4,9 @@ import {
 } from 'react-native-responsive-screen';
 import styled from 'styled-components';
 
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import { colors, constants } from '~/styles';
 
@@ -55,6 +57,7 @@ export const Item = styled.TouchableOpacity`
   background-color: #fff;
   justify-content: center;
   align-items: center;
+  padding: ${hp('2%')}px;
   height: ${hp('25%')}px;
   width: ${wp('45%')}px;
   border-width: ${wp('1%')}px;
@@ -68,18 +71,27 @@ export const ItemName = styled.Text`
   font-size: 13px;
   font-family: ${constants.font_family_medium};
   color: #777777;
+  flex-wrap: wrap;
 `;
 
-export const List = styled(Feather).attrs({
-  name: 'list',
+export const List = styled(Ionicons).attrs({
+  name: 'ios-bookmarks-outline',
   color: colors.mediumGray,
   size: hp('10%'),
 })`
   background-color: ${colors.white};
 `;
 
-export const PlayIcon = styled(Feather).attrs({
-  name: 'user',
+export const CreditCardIcon = styled(AntDesign).attrs({
+  name: 'creditcard',
+  color: colors.mediumGray,
+  size: hp('5%'),
+})`
+  background-color: ${colors.white};
+`;
+
+export const BookIcon = styled(Ionicons).attrs({
+  name: 'document-attach-outline',
   color: colors.mediumGray,
   size: hp('5%'),
 })`
