@@ -17,7 +17,7 @@ import {
   GameCard,
   EmptyGameCard,
   EmptyGameText,
-  Top,
+  Row,
   Down,
   Left,
   Right,
@@ -26,10 +26,11 @@ import {
   NumbersText,
   NameSquareLeft,
   NameSquareRight,
-  DateSquareLeft,
+  WonSquare,
+  // DateSquareLeft,
   NameText,
   RepeatIcon,
-  DeleteIcon,
+  // DeleteIcon,
   RefreshControl,
   Button,
 } from './styles';
@@ -41,22 +42,61 @@ export default function MyGames({ navigation }) {
   const [refreshing, setRefreshing] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const selectedNumbers = useSelector(s => s.gameForm.selectedNumbers);
-  const name = useSelector(s => s.gameForm.name);
+  // const selectedNumbers = useSelector(s => s.gameForm.selectedNumbers);
+  // const name = useSelector(s => s.gameForm.name);
   const dispatch = useDispatch();
 
   useEffect(() => {
     console.log('games: ', games);
-  }, [games]);
+    games.map(game => {
+      game.won = verifyGameWon(game);
+    });
+  }, [games, verifyGameWon]);
 
   useEffect(() => {
     getMyGames();
-    // console.log('navigation', navigation);
   }, [getMyGames]);
+
+  const verifyGameWon = useCallback(
+    game => {
+      // console.log('verifyGameWon: ', game);
+
+      if (game.raffle.numbers === null) {
+        return 0;
+      } else if (game.raffle.numbers !== null) {
+        const luckNumbers = game.raffle.numbers.split(',');
+        const gameNumbers = game.numbers.split(',');
+
+        const won = arrayContainsAll(luckNumbers, gameNumbers);
+
+        // console.log(luckNumbers, gameNumbers);
+        console.log('won: ', won);
+
+        if (won) {
+          return 2;
+        } else {
+          return 1;
+        }
+      } else {
+        return 0;
+      }
+    },
+    [arrayContainsAll],
+  );
+
+  const arrayContainsAll = useCallback((luckNumbers, gameNumbers) => {
+    for (let i = 0; i < luckNumbers.length; i++) {
+      if (gameNumbers.indexOf(luckNumbers[i]) === -1) {
+        return false;
+      }
+    }
+
+    return true;
+  }, []);
 
   const getMyGames = useCallback(async () => {
     const { status, data } = await GameService.getAllMyGames();
-    console.log('getMyGames: ', data);
+    // console.log('getMyGames: ', data);
     if (status === 200) {
       setGames(data);
     }
@@ -142,6 +182,13 @@ export default function MyGames({ navigation }) {
     [onEditGame],
   );
 
+  const isThisNumberInRaffle = useCallback((number, raffleNumbers) => {
+    if (raffleNumbers !== null) {
+      raffleNumbers = raffleNumbers.split(',');
+      return raffleNumbers.includes(number);
+    }
+  }, []);
+
   return (
     <Container>
       <TopHeader tittle={'Meus Jogos'} />
@@ -162,35 +209,40 @@ export default function MyGames({ navigation }) {
             {games.map(game => {
               return (
                 <GameCard key={game.id}>
-                  <Top>
+                  {verifyGameWon(game) === 2 && (
+                    <Row>
+                      <WonSquare won={verifyGameWon(game)}>
+                        <NameText>Jogo sorteado!</NameText>
+                      </WonSquare>
+                    </Row>
+                  )}
+                  <Row>
                     <NameSquareLeft>
                       <NameText>Sorteio: </NameText>
                     </NameSquareLeft>
                     <NameSquareRight>
                       <NameText>{game.raffle.name} - </NameText>
-                      <NameText>
-                        {moment(game.end).format('DD/MM/YYYY')}
-                      </NameText>
+                      <NameText>{moment(game.end).format('DD/MM')}</NameText>
                     </NameSquareRight>
-                  </Top>
-                  <Top>
+                  </Row>
+                  <Row>
                     <NameSquareLeft>
                       <NameText>Nome: </NameText>
                     </NameSquareLeft>
                     <NameSquareRight>
                       <NameText>{game.name}</NameText>
                     </NameSquareRight>
-                  </Top>
-                  <Top>
+                  </Row>
+                  <Row>
                     <NameSquareLeft>
                       <NameText>Jogado: </NameText>
                     </NameSquareLeft>
                     <NameSquareRight>
                       <NameText>
-                        {moment(game.date).format('DD/MM/YYYY HH:mm')}
+                        {moment(game.date).format('DD/MM HH:mm')}
                       </NameText>
                     </NameSquareRight>
-                  </Top>
+                  </Row>
 
                   <Down>
                     <Left>
@@ -205,7 +257,12 @@ export default function MyGames({ navigation }) {
                       <Numbers>
                         {game.numbers.split(',').map((number, index) => {
                           return (
-                            <NumberSquare key={index}>
+                            <NumberSquare
+                              key={index}
+                              color={isThisNumberInRaffle(
+                                number,
+                                game.raffle.numbers,
+                              )}>
                               <NumbersText>{number}</NumbersText>
                             </NumberSquare>
                           );

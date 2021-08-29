@@ -1,9 +1,12 @@
 export default {
-  primary: '#3CB24A',
+  primary: '#53c660',
   primaryDark: '#008000',
   secondaryDark: '#004d00',
   accent: '#aff44e',
   backgroundHeader: '#007b1f',
+
+  background: '#e6ffe6',
+  backgroundDark: '#b3ffb3',
 
   label: '#707070',
 
@@ -14,7 +17,7 @@ export default {
   black: 'rgb(0, 0, 0)',
   black_20: 'rgba(0, 0, 0, 0.2)',
 
-  lightGray: '#d3d3d3',
+  lightGray: '#e6e6e6',
   mediumGray: '#777777',
   darkGray: '#545454',
 

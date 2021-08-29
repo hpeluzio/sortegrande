@@ -14,9 +14,10 @@ export const Container = styled.View`
   height: ${hp('8%')}px;
   align-items: center;
   justify-content: space-between;
-  /* background-color: green; */
   border-bottom-width: ${hp('0.2%')}px;
   border-color: #ddd;
+  background-color: ${colors.white};
+  /* background-color: green; */
 `;
 
 export const Button = styled.TouchableOpacity`
