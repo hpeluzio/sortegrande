@@ -33,7 +33,7 @@ export const Content = styled.View`
   padding-bottom: ${hp('1%')}px;
   padding-left: ${hp('1%')}px;
   padding-right: ${hp('1%')}px;
-  background: ${colors.primary};
+  background: ${colors.white};
   /* background: green; */
 `;
 
@@ -44,9 +44,9 @@ export const GameCard = styled.View`
   align-items: center;
   padding: ${hp('1%')}px;
   border-radius: ${hp('2%')}px;
-  margin-bottom: ${hp('2%')}px;
-  /* border-width: ${wp('0.5%')}px; */
-  /* border-color: ${colors.mediumGray}; */
+  margin-bottom: ${hp('4%')}px;
+  border-width: ${hp('0.35%')}px;
+  border-color: ${colors.lightGray};
   background: ${colors.white};
   /* background: orange; */
 `;
@@ -143,24 +143,26 @@ export const DateSquareLeft = styled.View`
 
 export const NameText = styled.Text`
   color: ${colors.black};
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   font-size: ${hp(constants.font_size_pc)}px;
   font-family: ${constants.font_family_semi_bold};
+  color: #777777;
 `;
 
 export const Left = styled.View`
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  /* background: ${colors.white}; */
-  width: ${wp('16%')}px;
-  height: ${hp('15%')}px;
+  padding: ${wp('2%')}px;
+  /* width: ${wp('16%')}px; */
+  /* height: ${hp('15%')}px; */
   /* margin-left: ${wp('2%')}px; */
   /* background: red; */
   border-radius: ${wp('3.5%')}px;
   /* margin-bottom: ${wp('2%')}px; */
-  border-width: ${wp('0.5%')}px;
+  /* border-width: ${wp('0.2%')}px; */
   border-color: ${colors.mediumGray};
+  background: ${colors.lightGray};
 `;
 
 export const Right = styled.View`
@@ -229,7 +231,7 @@ export const DeleteIcon = styled(AntDesign).attrs({
 export const Button = styled.TouchableOpacity`
   /* width: ${hp('4%')}px;
   height: ${hp('4%')}px; */
-  padding: ${wp('1.5%')}px;
+  padding: ${hp('2%')}px;
   align-items: center;
   justify-content: center;
   /* background: red; */

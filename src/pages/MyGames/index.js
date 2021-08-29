@@ -222,7 +222,9 @@ export default function MyGames({ navigation }) {
                     </NameSquareLeft>
                     <NameSquareRight>
                       <NameText>{game.raffle.name} - </NameText>
-                      <NameText>{moment(game.end).format('DD/MM')}</NameText>
+                      <NameText>
+                        {moment(game.raffle.end).format('DD/MM')}
+                      </NameText>
                     </NameSquareRight>
                   </Row>
                   <Row>
