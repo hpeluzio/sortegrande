@@ -153,7 +153,7 @@ export const AccountLabel = styled.Text`
 `;
 
 export const Gradient = styled(LinearGradient).attrs({
-  colors: ['#1a9929', '#3cb24a'],
+  colors: [colors.primaryDark, colors.primary],
   start: { x: 0, y: 1 },
   end: { x: 1, y: 0 },
 })`
