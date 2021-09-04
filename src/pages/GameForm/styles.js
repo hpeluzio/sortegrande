@@ -3,7 +3,6 @@ import {
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
 import styled from 'styled-components';
-import { Input } from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
 
 import { colors, constants } from '~/styles';
@@ -71,7 +70,7 @@ export const GradientClear = styled(LinearGradient).attrs({
 `;
 
 export const GradientSendBlocked = styled(LinearGradient).attrs({
-  colors: ['#808080', '#9a9a9a'],
+  colors: [colors.newLightBlack, colors.lightGray],
   start: { x: 0, y: 1 },
   end: { x: 1, y: 0 },
 })`
@@ -121,12 +120,14 @@ export const NumberSquare = styled.TouchableOpacity`
   border-radius: ${hp('1%')}px;
   border-color: ${colors.lightGray};
   /* margin-bottom: ${hp('8%')}px; */
-  background: ${props => (props.isNumberSelected ? colors.primary : 'white')};
+  background: ${props =>
+    props.isNumberSelected ? colors.primary : colors.white};
 `;
 
 export const TextNumber = styled.Text`
   font-size: ${hp(constants.font_size_pc)}px;
   font-family: ${constants.font_family_semi_bold};
   /* color: ${colors.mediumGray}; */
-  color: ${props => (props.isNumberSelected ? 'white' : colors.primaryDark)};
+  color: ${props =>
+    props.isNumberSelected ? colors.white : colors.primaryDark};
 `;

@@ -28,6 +28,7 @@ export default function CustomInputText({
   icon = null,
   color = null,
   attrs = null,
+  secureTextEntry = false,
 }) {
   const { name, icon: IconOf } = vectors.find(
     v => v.name.toLowerCase() === type.toLowerCase(),
@@ -49,6 +50,7 @@ export default function CustomInputText({
             value={value}
             onChangeText={onChangeText}
             onBlur={onBlur}
+            secureTextEntry={secureTextEntry}
           />
         ) : (
           <MaskedText
@@ -57,6 +59,7 @@ export default function CustomInputText({
             onChangeText={onChangeText}
             onBlur={onBlur}
             attrs={attrs}
+            secureTextEntry={secureTextEntry}
           />
         )}
       </InputView>

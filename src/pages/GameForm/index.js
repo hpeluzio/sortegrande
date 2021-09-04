@@ -36,11 +36,11 @@ export default function GameForm({ navigation }) {
 
   const [errorName, setErrorName] = useState(null);
 
-  useEffect(() => {
-    console.log('numbers: ', numbers);
-    console.log('selectedNumbers: ', selectedNumbers);
-    console.log('name: ', name);
-  }, [selectedNumbers, name]);
+  // useEffect(() => {
+  //   console.log('numbers: ', numbers);
+  //   console.log('selectedNumbers: ', selectedNumbers);
+  //   console.log('name: ', name);
+  // }, [selectedNumbers, name]);
 
   const addNumber = useCallback(
     n => {

@@ -3,12 +3,14 @@ import {
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
 import styled from 'styled-components';
-import { Input } from 'react-native-elements';
+
 import LinearGradient from 'react-native-linear-gradient';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
 import { colors, constants } from '~/styles';
+
+export { default as CustomInputText } from '~/components/CustomInputText';
 
 export const Container = styled.SafeAreaView`
   flex: 1;
@@ -85,31 +87,31 @@ export const InputLabel = styled.Text`
   margin-top: ${hp('1%')}px;
 `;
 
-export const Email = styled(Input).attrs({
-  keyboardType: 'email-address',
-  leftIcon: {
-    type: 'Entypo',
-    name: 'mail',
-    color: colors.mediumGray,
-    size: wp('8%'),
-  },
-})`
-  font-family: ${constants.font_family};
-  color: ${colors.mediumGray};
-`;
+// export const Email = styled(Input).attrs({
+//   keyboardType: 'email-address',
+//   leftIcon: {
+//     type: 'Entypo',
+//     name: 'mail',
+//     color: colors.mediumGray,
+//     size: wp('8%'),
+//   },
+// })`
+//   font-family: ${constants.font_family};
+//   color: ${colors.mediumGray};
+// `;
 
-export const Password = styled(Input).attrs({
-  secureTextEntry: true,
-  leftIcon: {
-    type: 'FontAwesome',
-    name: 'lock',
-    color: colors.mediumGray,
-    size: wp('8%'),
-  },
-})`
-  font-family: ${constants.font_family};
-  color: ${colors.mediumGray};
-`;
+// export const Password = styled(Input).attrs({
+//   secureTextEntry: true,
+//   leftIcon: {
+//     type: 'FontAwesome',
+//     name: 'lock',
+//     color: colors.mediumGray,
+//     size: wp('8%'),
+//   },
+// })`
+//   font-family: ${constants.font_family};
+//   color: ${colors.mediumGray};
+// `;
 
 //Account
 export const AccountContainer = styled.View`
@@ -138,7 +140,7 @@ export const LoginIcon = styled(AntDesign).attrs({
 `;
 
 export const Gradient = styled(LinearGradient).attrs({
-  colors: ['#1a9929', '#3cb24a'],
+  colors: [colors.primaryDark, colors.primary],
   start: { x: 0, y: 1 },
   end: { x: 1, y: 0 },
 })`

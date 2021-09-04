@@ -12,6 +12,7 @@ import {
   Back,
   Logo,
   InputLabel,
+  CustomInputText,
   Email,
   Password,
   ErrorContainer,
@@ -92,22 +93,30 @@ export default function Login({ navigation }) {
       <Container>
         <Back />
         <Logo />
-        <Email
-          // label="E-mail"
-          placeholder="E-mail "
-          onChangeText={setEmail}
+
+        <CustomInputText
+          label={'E-mail:'}
+          placeholder={'E-mail'}
           value={email}
           errorMessage={errorEmail}
+          onChangeText={text => setEmail(text)}
           onBlur={validateFieldEmail}
+          type={'Entypo'}
+          icon={'mail'}
         />
-        <Password
-          // label="Senha"
-          placeholder="Senha"
-          onChangeText={setPassword}
+
+        <CustomInputText
+          label={'Senha:'}
+          placeholder={'Senha'}
           value={password}
           errorMessage={errorPassword}
+          onChangeText={text => setPassword(text)}
           onBlur={validateFieldPassword}
+          type={'FontAwesome'}
+          icon={'lock'}
+          secureTextEntry={true}
         />
+
         {errorLog !== '' && (
           <ErrorContainer>
             <ErrorLog>{errorLog}</ErrorLog>

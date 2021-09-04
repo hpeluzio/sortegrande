@@ -10,8 +10,9 @@ import TopHeader from '~/components/TopHeader';
 import { validateEmail } from '~/utils/validateEmail';
 
 import {
-  Email,
-  Password,
+  CustomInputText,
+  // Email,
+  // Password,
   Gradient,
   Loader,
   ButtonText,
@@ -139,31 +140,50 @@ export default function Account({ navigation }) {
       <TopHeader tittle={'Perfil'} />
       <Content>
         <InputContainer>
-          <Email
+          {/* <Email
             label="E-mail"
             placeholder="E-mail"
             onChangeText={setEmail}
             value={email}
             errorMessage={errorEmail}
             onBlur={validateFieldEmail}
+          /> */}
+
+          <CustomInputText
+            label={'E-mail:'}
+            placeholder={'E-mail'}
+            value={email}
+            errorMessage={errorEmail}
+            onChangeText={text => setEmail(text)}
+            onBlur={validateFieldEmail}
+            type={'Entypo'}
+            icon={'mail'}
           />
 
-          <Password
-            label="Senha"
-            placeholder="Senha"
-            onChangeText={setPassword}
+          <CustomInputText
+            label={'Senha:'}
+            placeholder={'Senha'}
             value={password}
             errorMessage={errorPassword}
+            onChangeText={text => setPassword(text)}
             onBlur={validateFieldPassword}
+            type={'FontAwesome'}
+            icon={'lock'}
+            secureTextEntry={true}
           />
-          <Password
-            label="Confirmar senha"
-            placeholder="Confirmar senha"
-            onChangeText={setConfirmPassword}
+
+          <CustomInputText
+            label={'Confirmar senha:'}
+            placeholder={'Confirmar senha'}
             value={confirmPassword}
             errorMessage={errorConfirmPassword}
+            onChangeText={text => setConfirmPassword(text)}
             onBlur={validateFieldConfirmPassword}
+            type={'FontAwesome'}
+            icon={'lock'}
+            secureTextEntry={true}
           />
+          <Spacer />
           <ButtonSubmit onPress={update}>
             <Gradient>
               {!loading && <ButtonText>Enviar</ButtonText>}
