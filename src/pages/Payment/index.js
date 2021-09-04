@@ -172,7 +172,7 @@ export default function Payment({ navigation }) {
         <InputContainer>
           <InputRow>
             <CustomInputText
-              label={'Número do cartão'}
+              label={'Número do cartão:'}
               placeholder="Número do cartão"
               value={cardNumber}
               errorMessage={errorCardNumber}
@@ -192,7 +192,7 @@ export default function Payment({ navigation }) {
 
           <InputRow>
             <CustomInputText
-              label={'Validade'}
+              label={'Validade:'}
               placeholder="Validade"
               errorMessage={errorExpireDate}
               value={expireDate}
@@ -208,7 +208,7 @@ export default function Payment({ navigation }) {
               }}
             />
             <CustomInputText
-              label={'Três dígitos'}
+              label={'Três dígitos:'}
               placeholder={'CVV'}
               value={secureCode}
               errorMessage={errorSecureCode}
@@ -235,8 +235,9 @@ export default function Payment({ navigation }) {
           </InputRow>
           <InputRow>
             <CustomInputText
-              label={'Nome no cartão'}
+              label={'Nome no cartão:'}
               placeholder={'Nome escrito cartão'}
+              value={nameCard}
               errorMessage={errorNameCard}
               onChangeText={text => setNameCard(text)}
               onBlur={validateFieldNameCard}

@@ -4,6 +4,9 @@ export default {
   primaryDark: '#28a46c',
   // primaryDark: '#008000',
   secondaryDark: '#004d00',
+  primaryWarning: '#ffff66',
+  secondaryWarning: '#cccc00',
+
   accent: '#aff44e',
   backgroundHeader: '#007b1f',
 

@@ -8,6 +8,8 @@ import LinearGradient from 'react-native-linear-gradient';
 
 import { colors, constants } from '~/styles';
 
+export { default as CustomInputText } from '~/components/CustomInputText';
+
 export const ScrollView = styled.ScrollView`
   flex: 1;
   background-color: ${colors.white};
@@ -47,19 +49,6 @@ export const InputLabel = styled.Text`
   margin-top: ${hp('1.5%')}px;
 `;
 
-export const NameInput = styled(Input).attrs({
-  keyboardType: 'default',
-  leftIcon: {
-    type: 'font-awesome',
-    name: 'pencil-square-o',
-    color: colors.mediumGray,
-    size: wp('8%'),
-  },
-})`
-  font-family: ${constants.font_family};
-  color: ${colors.mediumGray};
-`;
-
 export const SubmitButton = styled.TouchableOpacity`
   height: ${hp(constants.height_small_pc)}px;
   width: ${wp('18%')}px;
@@ -72,7 +61,7 @@ export const SubmitButton = styled.TouchableOpacity`
 `;
 
 export const GradientClear = styled(LinearGradient).attrs({
-  colors: ['#969900', '#917e10'],
+  colors: [colors.secondaryWarning, colors.primaryWarning],
   start: { x: 0, y: 1 },
   end: { x: 1, y: 0 },
 })`
@@ -92,7 +81,7 @@ export const GradientSendBlocked = styled(LinearGradient).attrs({
 `;
 
 export const GradientSend = styled(LinearGradient).attrs({
-  colors: ['#1a9929', '#3cb24a'],
+  colors: [colors.primaryDark, colors.primary],
   start: { x: 0, y: 1 },
   end: { x: 1, y: 0 },
 })`
@@ -132,12 +121,12 @@ export const NumberSquare = styled.TouchableOpacity`
   border-radius: ${hp('1%')}px;
   border-color: ${colors.lightGray};
   /* margin-bottom: ${hp('8%')}px; */
-  background: ${props => (props.isNumberSelected ? 'green' : 'white')};
+  background: ${props => (props.isNumberSelected ? colors.primary : 'white')};
 `;
 
 export const TextNumber = styled.Text`
   font-size: ${hp(constants.font_size_pc)}px;
   font-family: ${constants.font_family_semi_bold};
   /* color: ${colors.mediumGray}; */
-  color: ${props => (props.isNumberSelected ? 'white' : 'green')};
+  color: ${props => (props.isNumberSelected ? 'white' : colors.primaryDark)};
 `;
