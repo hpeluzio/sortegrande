@@ -21,9 +21,11 @@ export const Container = styled.SafeAreaView`
 export const Content = styled.View`
   flex: 1;
   flex-direction: column;
+  /* justify-content: flex-start; */
+  /* align-items: flex-start; */
   background: ${colors.white};
-  margin-top: ${hp('2%')}px;
-  margin-bottom: ${hp('2%')}px;
+  /* margin-top: ${hp('2%')}px; */
+  /* margin-bottom: ${hp('2%')}px; */
   /* background: orange; */
 `;
 
@@ -62,9 +64,11 @@ export const Label = styled.Text`
 export const InputContainer = styled.SafeAreaView`
   flex: 1;
   flex-direction: column;
+  /* justify-content: flex-start; */
+  align-items: center;
   background: ${colors.white};
-  padding: ${wp('10%')}px;
-  padding-top: ${hp('2.5%')}px;
+  margin: ${hp('0%')}px ${hp('4%')}px ${hp('25%')}px ${hp('4%')}px;
+  /* background: orange; */
 `;
 
 export const Back = styled.View`

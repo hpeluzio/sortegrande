@@ -9,8 +9,8 @@ import { colors, constants } from '~/styles';
 
 export const Container = styled.View`
   flex: 1;
-  align-self: stretch;
   flex-direction: column;
+  align-self: stretch;
   background: ${colors.white};
   padding: ${hp('1%')}px;
   /* background: orange; */

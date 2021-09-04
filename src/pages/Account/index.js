@@ -11,8 +11,6 @@ import { validateEmail } from '~/utils/validateEmail';
 
 import {
   CustomInputText,
-  // Email,
-  // Password,
   Gradient,
   Loader,
   ButtonText,
@@ -140,15 +138,6 @@ export default function Account({ navigation }) {
       <TopHeader tittle={'Perfil'} />
       <Content>
         <InputContainer>
-          {/* <Email
-            label="E-mail"
-            placeholder="E-mail"
-            onChangeText={setEmail}
-            value={email}
-            errorMessage={errorEmail}
-            onBlur={validateFieldEmail}
-          /> */}
-
           <CustomInputText
             label={'E-mail:'}
             placeholder={'E-mail'}
