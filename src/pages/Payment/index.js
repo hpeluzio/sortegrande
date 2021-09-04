@@ -70,6 +70,14 @@ export default function Payment({ navigation }) {
   // transactionAmmount
   // description" name="description" type="hidden" value="product description
 
+  // cardNumber: document.getElementById('form-checkout__cardNumber').value,
+  // cardholderName: document.getElementById('form-checkout__cardholderName').value,
+  // identificationType: document.getElementById('form-checkout__identificationType').value,
+  // identificationNumber: document.getElementById('form-checkout__identificationNumber').value,
+  // securityCode: document.getElementById('form-checkout__securityCode').value,
+  // cardExpirationMonth: document.getElementById('form-checkout__cardExpirationMonth').value,
+  // cardExpirationYear:
+
   const validateFieldCardNumber = useCallback(async () => {
     if (cardNumber !== '') {
       setErrorCardNumber('');
