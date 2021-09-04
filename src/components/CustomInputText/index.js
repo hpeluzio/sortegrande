@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import {
   Container,
@@ -9,8 +9,13 @@ import {
   TextInput,
   ErrorView,
   ErrorMessage,
-  CardIcon,
 } from './styles';
+
+import vectors from './vectorIcons';
+
+import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
+
+import { colors } from '~/styles';
 
 export default function CustomInputText({
   label = null,
@@ -19,15 +24,25 @@ export default function CustomInputText({
   errorMessage = null,
   onChangeText = null,
   onBlur = null,
+  type = null,
+  icon = null,
+  color = null,
   attrs = null,
 }) {
+  const { name, icon: IconOf } = vectors.find(
+    v => v.name.toLowerCase() === type.toLowerCase(),
+  );
+  // const Vec = VectorIcon.vector;
+
+  useEffect(() => {}, []);
+
   return (
     <Container>
       <LabelView>
         <LabelText>{label}</LabelText>
       </LabelView>
       <InputView>
-        <CardIcon />
+        <IconOf name={icon} size={hp('4%')} color={color || colors.primary} />
         {attrs === null ? (
           <TextInput
             placeholder={placeholder}

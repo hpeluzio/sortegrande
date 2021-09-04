@@ -5,9 +5,6 @@ import {
 import styled from 'styled-components';
 import { TextInputMask } from 'react-native-masked-text';
 
-import Entypo from 'react-native-vector-icons/Entypo';
-// import Fontisto from 'react-native-vector-icons/Fontisto';
-
 import { colors, constants } from '~/styles';
 
 export const Container = styled.View`
@@ -62,15 +59,7 @@ export const ErrorView = styled.View`
 `;
 
 export const ErrorMessage = styled.Text`
-  font-size: ${hp(constants.font_size_pc)}px;
+  font-size: ${hp(constants.font_size_pc_two)}px;
   font-family: ${constants.font_family_light};
   color: red;
-`;
-
-export const CardIcon = styled(Entypo).attrs({
-  name: 'credit-card',
-  color: colors.mediumGray,
-  size: hp('4%'),
-})`
-  background-color: rgba(0, 0, 0, 0);
 `;

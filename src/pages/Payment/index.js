@@ -39,10 +39,10 @@ export default function Payment({ navigation }) {
   const [nameCard, setNameCard] = useState('');
 
   //Form validation fields
-  const [errorCardNumber, setErrorCardNumber] = useState(null);
-  const [errorExpireDate, setErrorExpireDate] = useState(null);
-  const [errorSecureCode, setErrorSecureCode] = useState(null);
-  const [errorNameCard, setErrorNameCard] = useState('null');
+  const [errorCardNumber, setErrorCardNumber] = useState('');
+  const [errorExpireDate, setErrorExpireDate] = useState('');
+  const [errorSecureCode, setErrorSecureCode] = useState('');
+  const [errorNameCard, setErrorNameCard] = useState('');
 
   // useEffect(() => {
   //   setEmail(user.email);
@@ -53,6 +53,22 @@ export default function Payment({ navigation }) {
   //     navigation.navigate('Login');
   //   }
   // }, [navigation, token, user]);
+
+  // cardNumber
+  // ExpirationMonth
+  // ExpirationYear
+  // cardholderName Titular do cartão
+  // Email
+  // securityCode
+  // issuer
+  // Selecione o emissor
+  // identificationType
+  // Tipo de documento</option>
+  // identificationNumber" id="form-checkout__identificationNumber
+  // MPHiddenInputToken
+  // MPHiddenInputPaymentMethod
+  // transactionAmmount
+  // description" name="description" type="hidden" value="product description
 
   const validateFieldCardNumber = useCallback(async () => {
     if (cardNumber !== '') {
@@ -73,10 +89,16 @@ export default function Payment({ navigation }) {
   }, [expireDate]);
 
   const validateFieldSecureCode = useCallback(async () => {
-    if (secureCode !== '') {
-      setErrorSecureCode('');
-    } else {
+    if (secureCode.length !== 3) {
+      setErrorSecureCode('3 números exigidos.');
+    }
+
+    if (secureCode === '') {
       setErrorSecureCode('CVV exigido.');
+    }
+
+    if (secureCode !== '' && secureCode.length === 3) {
+      setErrorSecureCode('');
       // return validCard(expireDate);
     }
   }, [secureCode]);
@@ -85,7 +107,7 @@ export default function Payment({ navigation }) {
     if (nameCard !== '') {
       setErrorNameCard('');
     } else {
-      setErrorNameCard('Nome exidigo.');
+      setErrorNameCard('Nome exigido.');
       // return validCard(expireDate);
     }
   }, [nameCard]);
@@ -156,6 +178,8 @@ export default function Payment({ navigation }) {
               errorMessage={errorCardNumber}
               onChangeText={text => setCardNumber(text)}
               onBlur={validateFieldCardNumber}
+              type={'Feather'}
+              icon={'credit-card'}
               attrs={{
                 type: 'credit-card',
                 options: {
@@ -174,8 +198,9 @@ export default function Payment({ navigation }) {
               value={expireDate}
               onChangeText={text => setExpireDate(text)}
               onBlur={validateFieldExpireDate}
+              type={'AntDesign'}
+              icon={'calendar'}
               attrs={{
-                placeholderTextColor: colors.newLightBlack,
                 type: 'datetime',
                 options: {
                   format: 'MM/YYYY',
@@ -189,6 +214,8 @@ export default function Payment({ navigation }) {
               errorMessage={errorSecureCode}
               onChangeText={text => setSecureCode(text)}
               onBlur={validateFieldSecureCode}
+              type={'Entypo'}
+              icon={'credit-card'}
               attrs={{
                 type: 'custom',
                 options: {
@@ -213,20 +240,18 @@ export default function Payment({ navigation }) {
               errorMessage={errorNameCard}
               onChangeText={text => setNameCard(text)}
               onBlur={validateFieldNameCard}
+              type={'Octicons'}
+              icon={'credit-card'}
             />
           </InputRow>
 
-          {/* <Spacer /> */}
+          <Spacer />
           <ButtonSubmit onPress={sendPayment}>
             <Gradient>
               {!loading && <ButtonText>Enviar</ButtonText>}
               {loading && <Loader />}
             </Gradient>
           </ButtonSubmit>
-          {/* <Button onPress={logout}>
-            <Logout />
-            <Label>Logout</Label>
-          </Button> */}
         </InputContainer>
       </Content>
     </Container>
