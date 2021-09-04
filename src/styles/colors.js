@@ -14,6 +14,8 @@ export default {
   errorBackground: 'rgb(255, 215, 213)',
 
   lightBlack: '#2a2a2a',
+  newLightBlack: '#777777',
+  formLightBlack: '#cccccc',
   black: 'rgb(0, 0, 0)',
   black_20: 'rgba(0, 0, 0, 0.2)',
 

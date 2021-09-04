@@ -35,9 +35,9 @@ export default function Home({ navigation }) {
             <BookIcon />
             <ItemName>Sorteios cadastrados</ItemName>
           </Item>
-          <Item onPress={() => navigation.navigate('Login')}>
+          <Item onPress={() => navigation.navigate('Payment')}>
             <CreditCardIcon />
-            <ItemName>Cadastro de pagamento</ItemName>
+            <ItemName>Fazer assinatura</ItemName>
           </Item>
         </Row>
       </Content>

@@ -5,7 +5,7 @@ import {
 import styled from 'styled-components';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import Feather from 'react-native-vector-icons/Feather';
+// import Feather from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import { colors, constants } from '~/styles';
