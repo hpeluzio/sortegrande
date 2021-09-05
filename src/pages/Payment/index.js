@@ -35,12 +35,14 @@ export default function Payment({ navigation }) {
   const [expireDate, setExpireDate] = useState('');
   const [secureCode, setSecureCode] = useState('');
   const [nameCard, setNameCard] = useState('');
+  const [cpf, setCpf] = useState('');
 
   //Form validation fields
   const [errorCardNumber, setErrorCardNumber] = useState('');
   const [errorExpireDate, setErrorExpireDate] = useState('');
   const [errorSecureCode, setErrorSecureCode] = useState('');
   const [errorNameCard, setErrorNameCard] = useState('');
+  const [errorCpf, setErrorCpf] = useState('');
 
   // useEffect(() => {
   //   setEmail(user.email);
@@ -246,8 +248,24 @@ export default function Payment({ navigation }) {
               errorMessage={errorNameCard}
               onChangeText={text => setNameCard(text)}
               onBlur={validateFieldNameCard}
-              type={'Octicons'}
-              icon={'credit-card'}
+              type={'MaterialCommunityIcons'}
+              icon={'card-account-details-outline'}
+            />
+          </InputRow>
+
+          <InputRow>
+            <CustomInputText
+              label={'CPF:'}
+              placeholder="CPF"
+              value={cpf}
+              errorMessage={errorCpf}
+              onChangeText={text => setCpf(text)}
+              onBlur={validateFieldCardNumber}
+              type={'FontAwesome5'}
+              icon={'id-card'}
+              attrs={{
+                type: 'cpf',
+              }}
             />
           </InputRow>
 
