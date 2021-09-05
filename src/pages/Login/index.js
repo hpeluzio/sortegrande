@@ -13,8 +13,6 @@ import {
   Logo,
   InputLabel,
   CustomInputText,
-  Email,
-  Password,
   ErrorContainer,
   ErrorLog,
   Gradient,

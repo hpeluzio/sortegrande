@@ -3,8 +3,6 @@ import React, { useCallback, useState } from 'react';
 import UserService from '~/services/UserService';
 import TopHeader from '~/components/TopHeader';
 
-import { valid as validCard } from 'card-validator';
-
 import {
   InputRow,
   // CardNumber,
@@ -83,7 +81,6 @@ export default function Payment({ navigation }) {
       setErrorCardNumber('');
     } else {
       setErrorCardNumber('Número de cartão exigido.');
-      return validCard(cardNumber);
     }
   }, [cardNumber]);
 
