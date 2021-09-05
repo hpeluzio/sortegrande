@@ -28,6 +28,7 @@ export default function CustomInputText({
   icon = null,
   color = null,
   attrs = null,
+  keyboardType = null,
   secureTextEntry = false,
 }) {
   const { name, icon: IconOf } = vectors.find(
@@ -51,6 +52,7 @@ export default function CustomInputText({
             onChangeText={onChangeText}
             onBlur={onBlur}
             secureTextEntry={secureTextEntry}
+            keyboardType={keyboardType}
           />
         ) : (
           <MaskedText
@@ -60,6 +62,7 @@ export default function CustomInputText({
             onBlur={onBlur}
             attrs={attrs}
             secureTextEntry={secureTextEntry}
+            keyboardType={keyboardType}
           />
         )}
       </InputView>

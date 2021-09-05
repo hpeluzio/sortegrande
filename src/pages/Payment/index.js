@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import UserService from '~/services/UserService';
 import TopHeader from '~/components/TopHeader';
@@ -44,9 +44,13 @@ export default function Payment({ navigation }) {
   const [errorNameCard, setErrorNameCard] = useState('');
   const [errorCpf, setErrorCpf] = useState('');
 
-  // useEffect(() => {
-  //   setEmail(user.email);
-  // }, [user.email]);
+  useEffect(() => {
+    console.log('cardNumber: ', cardNumber);
+    console.log('expireDate: ', expireDate);
+    console.log('secureCode: ', secureCode);
+    console.log('nameCard: ', nameCard);
+    console.log('cpf: ', cpf);
+  }, [cardNumber, expireDate, secureCode, nameCard, cpf]);
 
   // useEffect(() => {
   //   if (token === null) {
@@ -187,6 +191,7 @@ export default function Payment({ navigation }) {
               onBlur={validateFieldCardNumber}
               type={'Feather'}
               icon={'credit-card'}
+              keyboardType={'numeric'}
               attrs={{
                 type: 'credit-card',
                 options: {
@@ -207,6 +212,7 @@ export default function Payment({ navigation }) {
               onBlur={validateFieldExpireDate}
               type={'AntDesign'}
               icon={'calendar'}
+              keyboardType={'numeric'}
               attrs={{
                 type: 'datetime',
                 options: {
@@ -223,6 +229,7 @@ export default function Payment({ navigation }) {
               onBlur={validateFieldSecureCode}
               type={'Entypo'}
               icon={'credit-card'}
+              keyboardType={'numeric'}
               attrs={{
                 type: 'custom',
                 options: {
@@ -263,6 +270,7 @@ export default function Payment({ navigation }) {
               onBlur={validateFieldCardNumber}
               type={'FontAwesome5'}
               icon={'id-card'}
+              keyboardType={'numeric'}
               attrs={{
                 type: 'cpf',
               }}
