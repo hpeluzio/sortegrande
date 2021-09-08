@@ -2,28 +2,19 @@ import React, { useCallback, useEffect, useState } from 'react';
 
 import UserService from '~/services/UserService';
 import TopHeader from '~/components/TopHeader';
+import { WebView } from 'react-native-webview';
 
 import {
   InputRow,
-  // CardNumber,
-  // ExpireDate,
-  // SecureCode,
-  // NameCard,
   Gradient,
   Loader,
   ButtonText,
   InputContainer,
+  CustomInputText,
   Container,
   Content,
   ButtonSubmit,
   Spacer,
-  // CalendarIcon,
-  // CardIcon,
-  // SecureCodeIcon,
-  // NameIcon,
-  // ErrorField,
-  // ErrorMessage,
-  CustomInputText,
 } from './styles';
 
 import { Alert } from 'react-native';
@@ -31,6 +22,7 @@ import { colors } from '~/styles';
 
 export default function Payment({ navigation }) {
   const [loading, setLoading] = useState(false);
+  const [showWebView, setShowWebView] = useState(false);
   const [cardNumber, setCardNumber] = useState('');
   const [expireDate, setExpireDate] = useState('');
   const [secureCode, setSecureCode] = useState('');
@@ -123,12 +115,22 @@ export default function Payment({ navigation }) {
     }
   }, [nameCard]);
 
+  const validateFieldCpf = useCallback(async () => {
+    if (cpf !== '') {
+      setErrorCpf('');
+    } else {
+      setErrorCpf('CPF exigido.');
+      // return validCard(expireDate);
+    }
+  }, [cpf]);
+
   const validateForm = useCallback(() => {
     if (
       validateFieldCardNumber() &&
       validateFieldExpireDate() &&
       validateFieldSecureCode() &&
-      validateFieldNameCard()
+      validateFieldNameCard() &&
+      validateFieldCpf()
     ) {
       return true;
     } else {
@@ -139,153 +141,170 @@ export default function Payment({ navigation }) {
     validateFieldExpireDate,
     validateFieldSecureCode,
     validateFieldNameCard,
+    validateFieldCpf,
   ]);
 
   const sendPayment = useCallback(async () => {
+    setShowWebView(true);
     if (validateForm()) {
       setLoading(true);
-      console.log('update: ');
+      setShowWebView(true);
+      console.log('sendPayment::: ');
+
       const response = await UserService.update({
         cardNumber,
       });
+      // const token = await mercadopago.createCardToken({
+      //   cardNumber: cardNumber,
+      //   cardholderName: nameCard,
+      //   identificationType: 1,
+      //   identificationNumber: cpf,
+      //   securityCode: secureCode,
+      //   cardExpirationMonth: expireDate,
+      //   cardExpirationYear: expireDate,
+      // });
 
       // console.log('response: ', response);
       // console.log('response: ', response);
 
-      if (response.status === 200) {
-        Alert.alert(
-          'Pagamento feito',
-          'Pagamento feito com sucesso, aguarde a confirmação por e-mail.',
-          [
-            {
-              text: 'Ok',
-              onPress: () => {},
-            },
-          ],
-        );
-      } else if (response.status !== 200) {
-        Alert.alert('Ocorreu algum erro', '', [
-          {
-            text: 'Ok',
-            onPress: () => {},
-          },
-        ]);
-      }
+      // if (response.status === 200) {
+      //   Alert.alert(
+      //     'Pagamento feito',
+      //     'Pagamento feito com sucesso, aguarde a confirmação por e-mail.',
+      //     [
+      //       {
+      //         text: 'Ok',
+      //         onPress: () => {},
+      //       },
+      //     ],
+      //   );
+      // } else if (response.status !== 200) {
+      //   Alert.alert('Ocorreu algum erro', '', [
+      //     {
+      //       text: 'Ok',
+      //       onPress: () => {},
+      //     },
+      //   ]);
+      // }
 
       setLoading(false);
     }
   }, [validateForm, cardNumber]);
 
-  return (
-    <Container>
-      <TopHeader tittle={'Pagamento'} />
-      <Content>
-        <InputContainer>
-          <InputRow>
-            <CustomInputText
-              label={'Número do cartão:'}
-              placeholder="Número do cartão"
-              value={cardNumber}
-              errorMessage={errorCardNumber}
-              onChangeText={text => setCardNumber(text)}
-              onBlur={validateFieldCardNumber}
-              type={'Feather'}
-              icon={'credit-card'}
-              keyboardType={'numeric'}
-              attrs={{
-                type: 'credit-card',
-                options: {
-                  obfuscated: false,
-                  // issuer: 'amex',
-                },
-              }}
-            />
-          </InputRow>
+  if (showWebView === false) {
+    return (
+      <Container>
+        <TopHeader tittle={'Pagamento'} />
+        <Content>
+          <InputContainer>
+            <InputRow>
+              <CustomInputText
+                label={'Número do cartão:'}
+                placeholder="Número do cartão"
+                value={cardNumber}
+                errorMessage={errorCardNumber}
+                onChangeText={text => setCardNumber(text)}
+                onBlur={validateFieldCardNumber}
+                type={'Feather'}
+                icon={'credit-card'}
+                keyboardType={'numeric'}
+                attrs={{
+                  type: 'credit-card',
+                  options: {
+                    obfuscated: false,
+                    // issuer: 'amex',
+                  },
+                }}
+              />
+            </InputRow>
 
-          <InputRow>
-            <CustomInputText
-              label={'Validade:'}
-              placeholder="Validade"
-              errorMessage={errorExpireDate}
-              value={expireDate}
-              onChangeText={text => setExpireDate(text)}
-              onBlur={validateFieldExpireDate}
-              type={'AntDesign'}
-              icon={'calendar'}
-              keyboardType={'numeric'}
-              attrs={{
-                type: 'datetime',
-                options: {
-                  format: 'MM/YYYY',
-                },
-              }}
-            />
-            <CustomInputText
-              label={'Três dígitos:'}
-              placeholder={'CVV'}
-              value={secureCode}
-              errorMessage={errorSecureCode}
-              onChangeText={text => setSecureCode(text)}
-              onBlur={validateFieldSecureCode}
-              type={'Entypo'}
-              icon={'credit-card'}
-              keyboardType={'numeric'}
-              attrs={{
-                type: 'custom',
-                options: {
-                  /**
-                   * mask: (String | required | default '')
-                   * the mask pattern
-                   * 9 - accept digit.
-                   * A - accept alpha.
-                   * S - accept alphanumeric.
-                   * * - accept all, EXCEPT white space.
-                   */
-                  // mask: '999 AAA SSS ***',
-                  mask: '999',
-                },
-              }}
-            />
-          </InputRow>
-          <InputRow>
-            <CustomInputText
-              label={'Nome no cartão:'}
-              placeholder={'Nome escrito cartão'}
-              value={nameCard}
-              errorMessage={errorNameCard}
-              onChangeText={text => setNameCard(text)}
-              onBlur={validateFieldNameCard}
-              type={'MaterialCommunityIcons'}
-              icon={'card-account-details-outline'}
-            />
-          </InputRow>
+            <InputRow>
+              <CustomInputText
+                label={'Validade:'}
+                placeholder="Validade"
+                errorMessage={errorExpireDate}
+                value={expireDate}
+                onChangeText={text => setExpireDate(text)}
+                onBlur={validateFieldExpireDate}
+                type={'AntDesign'}
+                icon={'calendar'}
+                keyboardType={'numeric'}
+                attrs={{
+                  type: 'datetime',
+                  options: {
+                    format: 'MM/YYYY',
+                  },
+                }}
+              />
+              <CustomInputText
+                label={'Três dígitos:'}
+                placeholder={'CVV'}
+                value={secureCode}
+                errorMessage={errorSecureCode}
+                onChangeText={text => setSecureCode(text)}
+                onBlur={validateFieldSecureCode}
+                type={'Entypo'}
+                icon={'credit-card'}
+                keyboardType={'numeric'}
+                attrs={{
+                  type: 'custom',
+                  options: {
+                    /**
+                     * mask: (String | required | default '')
+                     * the mask pattern
+                     * 9 - accept digit.
+                     * A - accept alpha.
+                     * S - accept alphanumeric.
+                     * * - accept all, EXCEPT white space.
+                     */
+                    // mask: '999 AAA SSS ***',
+                    mask: '999',
+                  },
+                }}
+              />
+            </InputRow>
+            <InputRow>
+              <CustomInputText
+                label={'Nome no cartão:'}
+                placeholder={'Nome escrito cartão'}
+                value={nameCard}
+                errorMessage={errorNameCard}
+                onChangeText={text => setNameCard(text)}
+                onBlur={validateFieldNameCard}
+                type={'MaterialCommunityIcons'}
+                icon={'card-account-details-outline'}
+              />
+            </InputRow>
 
-          <InputRow>
-            <CustomInputText
-              label={'CPF:'}
-              placeholder="CPF"
-              value={cpf}
-              errorMessage={errorCpf}
-              onChangeText={text => setCpf(text)}
-              onBlur={validateFieldCardNumber}
-              type={'FontAwesome5'}
-              icon={'id-card'}
-              keyboardType={'numeric'}
-              attrs={{
-                type: 'cpf',
-              }}
-            />
-          </InputRow>
+            <InputRow>
+              <CustomInputText
+                label={'CPF:'}
+                placeholder="CPF"
+                value={cpf}
+                errorMessage={errorCpf}
+                onChangeText={text => setCpf(text)}
+                onBlur={validateFieldCpf}
+                type={'FontAwesome5'}
+                icon={'id-card'}
+                keyboardType={'numeric'}
+                attrs={{
+                  type: 'cpf',
+                }}
+              />
+            </InputRow>
 
-          <Spacer />
-          <ButtonSubmit onPress={sendPayment}>
-            <Gradient>
-              {!loading && <ButtonText>Enviar</ButtonText>}
-              {loading && <Loader />}
-            </Gradient>
-          </ButtonSubmit>
-        </InputContainer>
-      </Content>
-    </Container>
-  );
+            <Spacer />
+            <ButtonSubmit onPress={sendPayment}>
+              <Gradient>
+                {!loading && <ButtonText>Enviar</ButtonText>}
+                {loading && <Loader />}
+              </Gradient>
+            </ButtonSubmit>
+          </InputContainer>
+        </Content>
+      </Container>
+    );
+  } else if (showWebView === true) {
+    return <WebView source={{ uri: 'https://reactnative.dev/' }} />;
+  }
 }
