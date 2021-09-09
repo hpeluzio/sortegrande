@@ -31,8 +31,6 @@ export default function CreateCardTokenWebView({ navigation }) {
     cardExpirationYear,
   );
 
-  const [loading, setLoading] = useState(false);
-
   // useEffect(() => {
   //   // console.log('cardToken: ', cardToken);
   //   console.tron.log('navigation Param: ', navigation.getParam('data'));
@@ -42,7 +40,6 @@ export default function CreateCardTokenWebView({ navigation }) {
 
   const sendPayment = useCallback(
     async token => {
-      setLoading(true);
       console.log('sending Payment::: ');
 
       const response = await PaymentService.createSingleGamePayment({
@@ -63,13 +60,9 @@ export default function CreateCardTokenWebView({ navigation }) {
           },
         ],
       );
-
-      setLoading(false);
     },
     [navigation],
   );
-
-  // const cardNumberr = '4509953566233704';
 
   const runFirst = `
       window.teste = 'teste';
