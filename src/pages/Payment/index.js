@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 
 import TopHeader from '~/components/TopHeader';
+import '~/config/reactotron';
 
 import {
   InputRow,
@@ -20,10 +21,8 @@ import { colors } from '~/styles';
 
 export default function Payment({ navigation }) {
   const [loading, setLoading] = useState(false);
-  const [cardNumber, setCardNumber] = useState('4509953566233704');
-  const [cardholderName, setCardHolderName] = useState(
-    'CardholderName a abcdec',
-  );
+  const [cardNumber, setCardNumber] = useState('4235 6477 2802 5682');
+  const [cardholderName, setCardHolderName] = useState('Cardholder Abcdec');
   const identificationType = 'CPF';
   const [identificationNumber, setIdentificationNumber] =
     useState('83535924014');
@@ -40,10 +39,10 @@ export default function Payment({ navigation }) {
   const [errorIdentificationNumber, setErrorIdentificationNumber] =
     useState('');
 
-  // useEffect(() => {
-  //   console.log('cardToken: ', cardToken);
-  //   // Alert.alert(`cardToken: ${cardToken}`);
-  // }, [cardToken]);
+  useEffect(() => {
+    console.log('Payment screen');
+    console.tron.log('Payment screen:::: ');
+  }, []);
 
   const validateFieldCardNumber = useCallback(async () => {
     if (cardNumber !== '') {
@@ -122,6 +121,32 @@ export default function Payment({ navigation }) {
       setCardExpirationMonth(date[0]);
       setCardExpirationYear(date[1]);
 
+      // console.tron.log('cardNumber: ', cardNumber);
+      // console.tron.log('cardNumber: ', cardNumber.split(' ').join(''));
+
+      console.tron.log(
+        'CARD::::::: ',
+        cardNumber.split(' ').join(''),
+        cardholderName,
+        identificationType,
+        identificationNumber.split('.').join('').split('-').join(''),
+        securityCode,
+        cardExpirationMonth,
+        cardExpirationYear,
+      );
+
+      console.tron.log(
+        'CARD typeof::::::: ',
+
+        typeof cardNumber,
+        typeof cardholderName,
+        typeof identificationType,
+        typeof identificationNumber,
+        typeof securityCode,
+        typeof cardExpirationMonth,
+        typeof cardExpirationYear,
+      );
+
       Alert.alert('Deseja prosseguir', 'Isso pode levar alguns segundos', [
         {
           text: 'Não',
@@ -133,10 +158,14 @@ export default function Payment({ navigation }) {
           onPress: () =>
             navigation.navigate('CreateCardTokenWebView', {
               data: {
-                cardNumber: cardNumber,
+                cardNumber: cardNumber.split(' ').join(''),
                 cardholderName: cardholderName,
                 identificationType: identificationType,
-                identificationNumber: identificationNumber,
+                identificationNumber: identificationNumber
+                  .split('.')
+                  .join('')
+                  .split('-')
+                  .join(''),
                 securityCode: securityCode,
                 cardExpirationMonth: cardExpirationMonth,
                 cardExpirationYear: cardExpirationYear,
@@ -145,16 +174,6 @@ export default function Payment({ navigation }) {
         },
       ]);
     }
-
-    // setLoading(true);
-    // console.log('sending Payment::: ');
-
-    // const response = await UserService.update({
-    //   cardNumber,
-    // });
-
-    // console.log('response: ', response);
-    // console.log('response: ', response);
 
     setLoading(false);
   }, [

@@ -7,6 +7,7 @@ import PaymentService from '~/services/PaymentService';
 
 import TopHeader from '~/components/TopHeader';
 import { Container } from './styles';
+import '~/config/reactotron';
 
 export default function CreateCardTokenWebView({ navigation }) {
   const {
@@ -19,10 +20,22 @@ export default function CreateCardTokenWebView({ navigation }) {
     cardExpirationYear,
   } = navigation.getParam('data');
 
+  console.tron.log(
+    'CreateCardTokenWebView::::::: ',
+    cardNumber,
+    cardholderName,
+    identificationType,
+    identificationNumber,
+    securityCode,
+    cardExpirationMonth,
+    cardExpirationYear,
+  );
+
   const [loading, setLoading] = useState(false);
 
   // useEffect(() => {
   //   // console.log('cardToken: ', cardToken);
+  //   console.tron.log('navigation Param: ', navigation.getParam('data'));
   //   console.log('data: ', navigation.getParam('data'));
   //   // Alert.alert(`cardToken: ${cardToken}`);
   // }, [navigation]);
@@ -78,9 +91,9 @@ export default function CreateCardTokenWebView({ navigation }) {
       // await PaymentService.createSingleGamePayment({
       //   cardToken: JSON.parse(event.nativeEvent.data).token,
       // });
-      setTimeout(() => {
-        sendPayment(JSON.parse(event.nativeEvent.data).token);
-      }, 2000);
+      // setTimeout(() => {
+      sendPayment(JSON.parse(event.nativeEvent.data).token);
+      // }, 2000);
     },
     [sendPayment],
   );
@@ -88,12 +101,12 @@ export default function CreateCardTokenWebView({ navigation }) {
   //Rendering
   return (
     <Container>
-      <TopHeader tittle={'Pagamento'} />
+      <TopHeader tittle={'Processando pagamento'} />
       <WebView
         // source={{
         //   uri: 'https://github.com/react-native-webview/react-native-webview',
         // }}
-        source={{ uri: 'http://10.0.2.2:3000/' }}
+        source={{ uri: 'http://10.0.2.2:3003/' }}
         // onMessage={event => {}}
         injectedJavaScript={runFirst}
         onMessage={event => onMessage(event)}
