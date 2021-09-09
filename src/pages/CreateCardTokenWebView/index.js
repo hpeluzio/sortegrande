@@ -103,10 +103,10 @@ export default function CreateCardTokenWebView({ navigation }) {
     <Container>
       <TopHeader tittle={'Processando pagamento'} />
       <WebView
-        source={{
-          uri: 'https://github.com/react-native-webview/react-native-webview',
-        }}
-        // source={{ uri: 'http://10.0.2.2:3003/' }}
+        // source={{
+        //   uri: 'https://github.com/react-native-webview/react-native-webview',
+        // }}
+        source={{ uri: 'http://10.0.2.2:3003/' }}
         renderLoading={LoadIndicator}
         startInLoadingState={true}
         injectedJavaScript={runFirst}
