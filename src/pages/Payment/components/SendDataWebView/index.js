@@ -20,7 +20,7 @@ import {
 import { Alert } from 'react-native';
 import { colors } from '~/styles';
 
-export default function Payment({ navigation }) {
+export default function SendDataWebView({ navigation }) {
   const [cardToken, setCardToken] = useState('');
 
   const [loading, setLoading] = useState(false);
