@@ -20,17 +20,6 @@ export default function CreateCardTokenWebView({ navigation }) {
     cardExpirationYear,
   } = navigation.getParam('data');
 
-  console.tron.log(
-    'CreateCardTokenWebView::::::: ',
-    cardNumber,
-    cardholderName,
-    identificationType,
-    identificationNumber,
-    securityCode,
-    cardExpirationMonth,
-    cardExpirationYear,
-  );
-
   // useEffect(() => {
   //   // console.log('cardToken: ', cardToken);
   //   console.tron.log('navigation Param: ', navigation.getParam('data'));
@@ -43,23 +32,38 @@ export default function CreateCardTokenWebView({ navigation }) {
       console.log('sending Payment::: ');
 
       const response = await PaymentService.createSingleGamePayment({
-        cardToken: token,
+        token: token,
       });
 
-      console.log('response: ', response);
+      console.tron.log('PaymentService response: ', response);
 
-      Alert.alert(
-        'Pagamento feito',
-        'Pagamento feito com sucesso, aguarde a confirmação por e-mail.',
-        [
-          {
-            text: 'Ok',
-            onPress: () => {
-              navigation.navigate('MyGames');
+      if (response.status === 200) {
+        Alert.alert(
+          'Pagamento feito',
+          'Pagamento feito com sucesso, aguarde a confirmação por e-mail.',
+          [
+            {
+              text: 'Ok',
+              onPress: () => {
+                navigation.navigate('Home');
+              },
             },
-          },
-        ],
-      );
+          ],
+        );
+      } else {
+        Alert.alert(
+          'Ocorreu algum erro no pagamento',
+          'Por favor, tente mais tarde',
+          [
+            {
+              text: 'Ok',
+              onPress: () => {
+                navigation.goBack();
+              },
+            },
+          ],
+        );
+      }
     },
     [navigation],
   );
