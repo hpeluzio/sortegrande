@@ -79,7 +79,7 @@ export const ExpireDate = styled(TextInputMask).attrs({
 })`
   flex: 1;
   height: ${hp(constants.height_small_pc)};
-  font-size: ${hp(constants.font_size_pc)};
+  font-size: ${hp(constants.font_size_pc)}px;
   font-family: ${constants.font_family};
   color: ${colors.lightBlack};
   padding: 0 ${hp('1%')}px;
@@ -95,21 +95,12 @@ export const SecureCode = styled(TextInputMask).attrs({
 })`
   flex: 1;
   height: ${hp(constants.height_small_pc)};
-  font-size: ${hp(constants.font_size_pc)};
+  font-size: ${hp(constants.font_size_pc)}px;
   font-family: ${constants.font_family};
   color: ${colors.lightBlack};
   padding: 0 ${hp('1%')}px;
   /* text-align: center; */
 `;
-
-// export const NameCard = styled.TextInput`
-// flex: 1;
-// height: ${hp(constants.height_small_pc)};
-// font-size: ${hp(constants.font_size_pc)};
-// font-family: ${constants.font_family};
-// color: ${colors.lightBlack};
-// padding: 0 ${hp('1%')}px;
-// `;
 
 export const NameCard = styled(InputElements).attrs({
   keyboardType: 'default',
@@ -122,7 +113,7 @@ export const NameCard = styled(InputElements).attrs({
 })`
   flex: 1;
   height: ${hp(constants.height_small_pc)};
-  font-size: ${hp(constants.font_size_pc)};
+  font-size: ${hp(constants.font_size_pc)}px;
   font-family: ${constants.font_family};
   color: ${colors.lightBlack};
   margin-top: ${hp('0.5%')}px;
@@ -144,7 +135,7 @@ export const AccountContainer = styled.View`
 `;
 
 export const AccountLabel = styled.Text`
-  font-size: ${hp(constants.font_size_pc)};
+  font-size: ${hp(constants.font_size_pc)}px;
   font-family: ${constants.font_family_medium};
   color: ${colors.mediumGray};
   margin-bottom: ${hp('0.25%')}px;
@@ -170,7 +161,7 @@ export const Loader = styled.ActivityIndicator.attrs({
 export const ButtonText = styled.Text`
   color: ${colors.white};
   text-transform: uppercase;
-  font-size: ${hp(constants.font_size_pc)};
+  font-size: ${hp(constants.font_size_pc)}px;
   font-family: ${constants.font_family_semi_bold};
 `;
 

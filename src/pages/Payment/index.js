@@ -1,8 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 
-import UserService from '~/services/UserService';
 import TopHeader from '~/components/TopHeader';
-import { WebView } from 'react-native-webview';
 
 import {
   InputRow,
