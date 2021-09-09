@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import { Alert } from 'react-native';
 import { WebView } from 'react-native-webview';
@@ -7,6 +7,7 @@ import PaymentService from '~/services/PaymentService';
 
 import TopHeader from '~/components/TopHeader';
 import { Container } from './styles';
+import LoadIndicator from '~/components/LoadIndicator';
 import '~/config/reactotron';
 
 export default function CreateCardTokenWebView({ navigation }) {
@@ -19,6 +20,8 @@ export default function CreateCardTokenWebView({ navigation }) {
     cardExpirationMonth,
     cardExpirationYear,
   } = navigation.getParam('data');
+
+  const webviewRef = useRef(null);
 
   // useEffect(() => {
   //   // console.log('cardToken: ', cardToken);
@@ -100,13 +103,15 @@ export default function CreateCardTokenWebView({ navigation }) {
     <Container>
       <TopHeader tittle={'Processando pagamento'} />
       <WebView
-        // source={{
-        //   uri: 'https://github.com/react-native-webview/react-native-webview',
-        // }}
-        source={{ uri: 'http://10.0.2.2:3003/' }}
-        // onMessage={event => {}}
+        source={{
+          uri: 'https://github.com/react-native-webview/react-native-webview',
+        }}
+        // source={{ uri: 'http://10.0.2.2:3003/' }}
+        renderLoading={LoadIndicator}
+        startInLoadingState={true}
         injectedJavaScript={runFirst}
         onMessage={event => onMessage(event)}
+        ref={webviewRef}
       />
     </Container>
   );
