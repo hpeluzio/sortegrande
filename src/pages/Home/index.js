@@ -37,7 +37,7 @@ export default function Home({ navigation }) {
           </Item>
           <Item onPress={() => navigation.navigate('PaymentForm')}>
             <CreditCardIcon />
-            <ItemName>Fazer assinatura</ItemName>
+            <ItemName>Cadastrar pagamento</ItemName>
           </Item>
         </Row>
       </Content>
