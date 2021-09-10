@@ -35,8 +35,8 @@ export const Row = styled.View`
   flex-direction: row;
   justify-content: center;
   margin: ${hp('1%')}px ${hp('0%')}px ${hp('0%')}px ${hp('0%')}px;
-  background: purple;
   background: rgba(0, 0, 0, 0);
+  /* background: purple; */
 `;
 
 export const Games = styled.TouchableOpacity`

@@ -27,20 +27,21 @@ import {
   NameSquareLeft,
   NameSquareRight,
   WonSquare,
-  // DateSquareLeft,
   NameText,
+  WonText,
   RepeatIcon,
   // DeleteIcon,
   RefreshControl,
   Button,
+  LoadingGif,
 } from './styles';
 
 import { Alert } from 'react-native';
 
 export default function MyGames({ navigation }) {
+  const [loading, setLoading] = useState(false);
   const [games, setGames] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
-  const [loading, setLoading] = useState(false);
 
   // const selectedNumbers = useSelector(s => s.gameForm.selectedNumbers);
   // const name = useSelector(s => s.gameForm.name);
@@ -95,11 +96,14 @@ export default function MyGames({ navigation }) {
   }, []);
 
   const getMyGames = useCallback(async () => {
+    setLoading(true);
+
     const { status, data } = await GameService.getAllMyGames();
-    // console.log('getMyGames: ', data);
+
     if (status === 200) {
       setGames(data);
     }
+    setLoading(false);
   }, []);
 
   const onRefresh = useCallback(async () => {
@@ -189,96 +193,119 @@ export default function MyGames({ navigation }) {
     }
   }, []);
 
-  return (
-    <Container>
-      <TopHeader tittle={'Meus Jogos'} />
-      <ScrollView
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }>
-        {games.length === 0 ? (
+  if (loading) {
+    return (
+      <Container>
+        <TopHeader tittle={'Meus Jogos'} />
+        <ScrollView
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+              style={{ backgroundColor: 'red' }}
+            />
+          }>
           <Content>
-            <EmptyGameCard>
-              <EmptyGameText>
-                Você ainda não possui nenhum jogo cadastrado.{' '}
-              </EmptyGameText>
-            </EmptyGameCard>
+            <LoadingGif />
           </Content>
-        ) : (
-          <Content>
-            {games.map(game => {
-              return (
-                <GameCard key={game.id}>
-                  {verifyGameWon(game) === 2 && (
-                    <Row>
-                      <WonSquare won={verifyGameWon(game)}>
-                        <NameText>Jogo sorteado!</NameText>
-                      </WonSquare>
-                    </Row>
-                  )}
-                  <Row>
-                    <NameSquareLeft>
-                      <NameText>Sorteio: </NameText>
-                    </NameSquareLeft>
-                    <NameSquareRight>
-                      <NameText>{game.raffle.name} - </NameText>
-                      <NameText>
-                        {moment(game.raffle.end).format('DD/MM')}
-                      </NameText>
-                    </NameSquareRight>
-                  </Row>
-                  <Row>
-                    <NameSquareLeft>
-                      <NameText>Nome: </NameText>
-                    </NameSquareLeft>
-                    <NameSquareRight>
-                      <NameText>{game.name}</NameText>
-                    </NameSquareRight>
-                  </Row>
-                  <Row>
-                    <NameSquareLeft>
-                      <NameText>Jogado: </NameText>
-                    </NameSquareLeft>
-                    <NameSquareRight>
-                      <NameText>
-                        {moment(game.date).format('DD/MM HH:mm')}
-                      </NameText>
-                    </NameSquareRight>
-                  </Row>
+        </ScrollView>
+        {/* <MenuFooter /> */}
+      </Container>
+    );
+  }
 
-                  <Down>
-                    <Left>
-                      {/* <Button onPress={() => onDeleteAlert(game.id)}>
+  if (!loading) {
+    return (
+      <Container>
+        <TopHeader tittle={'Meus Jogos'} />
+        <ScrollView
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }>
+          {games.length === 0 ? (
+            <Content>
+              <EmptyGameCard>
+                <EmptyGameText>
+                  Você ainda não possui nenhum jogo cadastrado.{' '}
+                </EmptyGameText>
+              </EmptyGameCard>
+            </Content>
+          ) : (
+            <Content>
+              {games.map(game => {
+                return (
+                  <GameCard key={game.id}>
+                    {verifyGameWon(game) === 2 && (
+                      <Row>
+                        <WonSquare won={verifyGameWon(game)}>
+                          <WonText>Jogo sorteado!</WonText>
+                        </WonSquare>
+                      </Row>
+                    )}
+                    <Row>
+                      <NameSquareLeft>
+                        <NameText>Sorteio: </NameText>
+                      </NameSquareLeft>
+                      <NameSquareRight>
+                        <NameText>nº {game.raffle.name} - </NameText>
+                        <NameText>
+                          {moment(game.raffle.end).format('DD/MM')}
+                        </NameText>
+                      </NameSquareRight>
+                    </Row>
+                    <Row>
+                      <NameSquareLeft>
+                        <NameText>Nome: </NameText>
+                      </NameSquareLeft>
+                      <NameSquareRight>
+                        <NameText>{game.name}</NameText>
+                      </NameSquareRight>
+                    </Row>
+                    <Row>
+                      <NameSquareLeft>
+                        <NameText>Jogado: </NameText>
+                      </NameSquareLeft>
+                      <NameSquareRight>
+                        <NameText>
+                          {moment(game.date).format('DD/MM HH:mm')}
+                        </NameText>
+                      </NameSquareRight>
+                    </Row>
+
+                    <Down>
+                      <Left>
+                        {/* <Button onPress={() => onDeleteAlert(game.id)}>
                       <DeleteIcon />
                     </Button> */}
-                      <Button onPress={() => onEditAlert(game)}>
-                        <RepeatIcon />
-                      </Button>
-                    </Left>
-                    <Right>
-                      <Numbers>
-                        {game.numbers.split(',').map((number, index) => {
-                          return (
-                            <NumberSquare
-                              key={index}
-                              color={isThisNumberInRaffle(
-                                number,
-                                game.raffle.numbers,
-                              )}>
-                              <NumbersText>{number}</NumbersText>
-                            </NumberSquare>
-                          );
-                        })}
-                      </Numbers>
-                    </Right>
-                  </Down>
-                </GameCard>
-              );
-            })}
-          </Content>
-        )}
-      </ScrollView>
-      {/* <MenuFooter /> */}
-    </Container>
-  );
+                        <Button onPress={() => onEditAlert(game)}>
+                          <RepeatIcon />
+                        </Button>
+                      </Left>
+                      <Right>
+                        <Numbers>
+                          {game.numbers.split(',').map((number, index) => {
+                            return (
+                              <NumberSquare
+                                key={index}
+                                color={isThisNumberInRaffle(
+                                  number,
+                                  game.raffle.numbers,
+                                )}>
+                                <NumbersText>{number}</NumbersText>
+                              </NumberSquare>
+                            );
+                          })}
+                        </Numbers>
+                      </Right>
+                    </Down>
+                  </GameCard>
+                );
+              })}
+            </Content>
+          )}
+        </ScrollView>
+        {/* <MenuFooter /> */}
+      </Container>
+    );
+  }
 }

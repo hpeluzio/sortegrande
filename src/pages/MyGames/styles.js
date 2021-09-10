@@ -9,6 +9,8 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 
 import { colors, constants } from '~/styles';
 
+import Spinner from '~/images/spinner.gif';
+
 export const ScrollView = styled.ScrollView`
   flex: 1;
   background-color: ${colors.background};
@@ -20,6 +22,7 @@ export const RefreshControl = styled.RefreshControl``;
 export const Container = styled.SafeAreaView`
   flex: 1;
   flex-direction: column;
+  background-color: ${colors.background};
   /* background: ${colors.background}; */
   /* background: red; */
 `;
@@ -34,6 +37,7 @@ export const Content = styled.View`
   padding-left: ${hp('1%')}px;
   padding-right: ${hp('1%')}px;
   background: ${colors.white};
+  background-color: ${colors.background};
   /* background: green; */
 `;
 
@@ -45,7 +49,7 @@ export const GameCard = styled.View`
   padding: ${hp('1%')}px;
   border-radius: ${hp('2%')}px;
   margin-bottom: ${hp('4%')}px;
-  border-width: ${hp('0.35%')}px;
+  /* border-width: ${hp('0.35%')}px; */
   border-color: ${colors.lightGray};
   background: ${colors.white};
   /* background: orange; */
@@ -75,7 +79,7 @@ export const NameSquareLeft = styled.View`
   justify-content: center;
   border-radius: ${hp('1%')}px;
   /* border-color: ${colors.mediumGray}; */
-  background: ${colors.lightGray};
+  background: ${colors.background};
   /* background: green; */
 `;
 
@@ -92,7 +96,7 @@ export const NameSquareRight = styled.View`
   border-radius: ${hp('1%')}px;
   /* border-color: ${colors.mediumGray};
   border-left-width: ${wp('0.5%')}px; */
-  background: ${colors.lightGray};
+  background: ${colors.background};
   /* background: green; */
 `;
 
@@ -149,6 +153,14 @@ export const NameText = styled.Text`
   color: ${colors.mediumGray};
 `;
 
+export const WonText = styled.Text`
+  color: ${colors.black};
+  /* text-transform: uppercase; */
+  font-size: ${hp(constants.font_size_pc)}px;
+  font-family: ${constants.font_family_semi_bold};
+  color: ${colors.white};
+`;
+
 export const Left = styled.View`
   flex-direction: column;
   align-items: center;
@@ -162,7 +174,7 @@ export const Left = styled.View`
   /* margin-bottom: ${wp('2%')}px; */
   /* border-width: ${wp('0.2%')}px; */
   border-color: ${colors.mediumGray};
-  background: ${colors.lightGray};
+  background: ${colors.background};
 `;
 
 export const Right = styled.View`
@@ -257,4 +269,15 @@ export const EmptyGameText = styled.Text`
   font-size: ${hp(constants.font_size_pc)}px;
   font-family: ${constants.font_family_semi_bold};
   text-align: center;
+`;
+
+export const LoadingGif = styled.Image.attrs({
+  source: Spinner,
+  resizeMode: 'contain',
+})`
+  height: ${hp('20%')}px;
+  justify-content: center;
+  margin-top: ${hp('30%')}px;
+  align-self: center;
+  background-color: rgba(0, 0, 0, 0);
 `;
