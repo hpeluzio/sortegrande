@@ -114,26 +114,28 @@ export default function GameForm({ navigation }) {
 
   const submitForm = useCallback(async () => {
     if (validateFieldName()) {
-      const { status, data } = await GameService.create({
-        numbers: selectedNumbers,
-        name: name,
-      });
-      // console.log('response.data: ', data);
-      // console.log('status: ', status);
-      if (status === 200) {
-        console.log(' status 200');
-        gameCreatedAlert();
-      } else {
-        console.log(' status != 200');
-        gameErrorAlert(data);
-      }
+      navigation.navigate('Payment');
+      // const { status, data } = await GameService.create({
+      //   numbers: selectedNumbers,
+      //   name: name,
+      // });
+      // // console.log('response.data: ', data);
+      // // console.log('status: ', status);
+      // if (status === 200) {
+      //   console.log(' status 200');
+      //   gameCreatedAlert();
+      // } else {
+      //   console.log(' status != 200');
+      //   gameErrorAlert(data);
+      // }
     }
   }, [
     validateFieldName,
-    name,
-    selectedNumbers,
-    gameCreatedAlert,
-    gameErrorAlert,
+    navigation,
+    // name,
+    // selectedNumbers,
+    // gameCreatedAlert,
+    // gameErrorAlert,
   ]);
 
   const isNumberSelected = useCallback(

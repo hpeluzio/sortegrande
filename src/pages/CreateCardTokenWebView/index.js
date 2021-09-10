@@ -37,7 +37,7 @@ export default function CreateCardTokenWebView({ navigation }) {
       console.log('sending Payment::: ');
 
       const response = await PaymentService.createSingleGamePayment({
-        token: token,
+        token: token.id,
       });
 
       console.tron.log('PaymentService response: ', response);

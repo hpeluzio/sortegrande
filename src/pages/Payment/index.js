@@ -1,4 +1,12 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  setPaymentCardNumberForm,
+  setPaymentExpireDateForm,
+  setPaymentSecurityCodeForm,
+  setPaymentCardHolderNameForm,
+  setPaymentIdentificationNumberForm,
+} from '~/redux/actions/paymentForm/paymentFormActions';
 
 import TopHeader from '~/components/TopHeader';
 import '~/config/reactotron';
@@ -17,17 +25,32 @@ import {
 } from './styles';
 
 import { Alert } from 'react-native';
-import { colors } from '~/styles';
+// import { colors } from '~/styles';
 
 export default function Payment({ navigation }) {
+  const dispatch = useDispatch();
+
   const [loading, setLoading] = useState(false);
-  const [cardNumber, setCardNumber] = useState('4235 6477 2802 5682');
-  const [cardholderName, setCardHolderName] = useState('Cardholder Abcdec');
+
+  const cardNumber = useSelector(s => s.paymentForm.cardNumber);
+  // const [cardNumber, setCardNumber] = useState('4235 6477 2802 5682');
+
+  const expireDate = useSelector(s => s.paymentForm.expireDate);
+  // const [expireDate, setExpireDate] = useState('11/2025');
+
+  const securityCode = useSelector(s => s.paymentForm.securityCode);
+  // const [securityCode, setSecurityCode] = useState('123');
+
+  const cardholderName = useSelector(s => s.paymentForm.cardholderName);
+  // const [cardholderName, setCardHolderName] = useState('Cardholder Abcdec');
+
+  const identificationNumber = useSelector(
+    s => s.paymentForm.identificationNumber,
+  );
+  // const [identificationNumber, setIdentificationNumber] = useState('83535924014');
+
   const identificationType = 'CPF';
-  const [identificationNumber, setIdentificationNumber] =
-    useState('83535924014');
-  const [securityCode, setSecurityCode] = useState('123');
-  const [expireDate, setExpireDate] = useState('11/2025');
+
   const [cardExpirationMonth, setCardExpirationMonth] = useState('11');
   const [cardExpirationYear, setCardExpirationYear] = useState('2025');
 
@@ -40,9 +63,11 @@ export default function Payment({ navigation }) {
     useState('');
 
   useEffect(() => {
-    console.log('Payment screen');
-    console.tron.log('Payment screen:::: ');
-  }, []);
+    // console.log('Payment screen');
+    // console.tron.log('cardNumber:::: ', cardNumber);
+    // console.tron.log('expireDate:::: ', expireDate);
+    console.tron.log('identificationNumber:::: ', identificationNumber);
+  }, [identificationNumber]);
 
   const validateFieldCardNumber = useCallback(async () => {
     if (cardNumber !== '') {
@@ -201,7 +226,9 @@ export default function Payment({ navigation }) {
               placeholder="Número do cartão"
               value={cardNumber}
               errorMessage={errorCardNumber}
-              onChangeText={text => setCardNumber(text)}
+              onChangeText={n =>
+                dispatch(setPaymentCardNumberForm({ cardNumber: n }))
+              }
               onBlur={validateFieldCardNumber}
               type={'Feather'}
               icon={'credit-card'}
@@ -222,7 +249,9 @@ export default function Payment({ navigation }) {
               placeholder="Validade"
               errorMessage={errorExpireDate}
               value={expireDate}
-              onChangeText={text => setExpireDate(text)}
+              onChangeText={n =>
+                dispatch(setPaymentExpireDateForm({ expireDate: n }))
+              }
               onBlur={validateFieldExpireDate}
               type={'AntDesign'}
               icon={'calendar'}
@@ -239,7 +268,9 @@ export default function Payment({ navigation }) {
               placeholder={'CVV'}
               value={securityCode}
               errorMessage={errorSecurityCode}
-              onChangeText={text => setSecurityCode(text)}
+              onChangeText={n =>
+                dispatch(setPaymentSecurityCodeForm({ securityCode: n }))
+              }
               onBlur={validateFieldSecurityCode}
               type={'Entypo'}
               icon={'credit-card'}
@@ -267,7 +298,9 @@ export default function Payment({ navigation }) {
               placeholder={'Nome escrito cartão'}
               value={cardholderName}
               errorMessage={errorCardholderName}
-              onChangeText={text => setCardHolderName(text)}
+              onChangeText={n =>
+                dispatch(setPaymentCardHolderNameForm({ cardholderName: n }))
+              }
               onBlur={validateFieldCardholderName}
               type={'MaterialCommunityIcons'}
               icon={'card-account-details-outline'}
@@ -280,7 +313,13 @@ export default function Payment({ navigation }) {
               placeholder="CPF"
               value={identificationNumber}
               errorMessage={errorIdentificationNumber}
-              onChangeText={text => setIdentificationNumber(text)}
+              onChangeText={n =>
+                dispatch(
+                  setPaymentIdentificationNumberForm({
+                    identificationNumber: n,
+                  }),
+                )
+              }
               onBlur={validateFieldIdentificationNumber}
               type={'FontAwesome5'}
               icon={'id-card'}
