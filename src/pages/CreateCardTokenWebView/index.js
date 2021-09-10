@@ -6,11 +6,11 @@ import { useDispatch } from 'react-redux';
 import { setPaymentTokenForm } from '~/redux/actions/paymentForm/paymentFormActions';
 
 import TopHeader from '~/components/TopHeader';
-import { Container } from './styles';
+import { Container, HiddenWebView, LoadingGif } from './styles';
 import LoadIndicator from '~/components/LoadIndicator';
 import '~/config/reactotron';
 
-import { CREATE_TOKEN_URL } from '@env';
+// import { CREATE_TOKEN_URL } from '@env';
 
 export default function CreateCardTokenWebView({ navigation }) {
   const dispatch = useDispatch();
@@ -36,17 +36,17 @@ export default function CreateCardTokenWebView({ navigation }) {
     [dispatch, navigation],
   );
 
-  const runFirst = `
-      window.teste = 'teste';
-      window.cardNumber = ${cardNumber};
-      window.cardholderName = '${cardholderName}';
-      window.identificationType = '${identificationType}';
-      window.identificationNumber = '${identificationNumber}';
-      window.securityCode = '${securityCode}';
-      window.cardExpirationMonth = '${cardExpirationMonth}';
-      window.cardExpirationYear = '${cardExpirationYear}';
-      true; 
-    `;
+  // const runFirst = `
+  //     window.teste = 'teste';
+  //     // window.cardNumber = ${cardNumber};
+  //     // window.cardholderName = '${cardholderName}';
+  //     // window.identificationType = '${identificationType}';
+  //     // window.identificationNumber = '${identificationNumber}';
+  //     // window.securityCode = '${securityCode}';
+  //     // window.cardExpirationMonth = '${cardExpirationMonth}';
+  //     // window.cardExpirationYear = '${cardExpirationYear}';
+  //     true;
+  //   `;
 
   const onMessage = useCallback(
     async event => {
@@ -59,22 +59,66 @@ export default function CreateCardTokenWebView({ navigation }) {
     [sendPayment],
   );
 
+  const html = `
+  <!DOCTYPE html>
+    <html>
+      <head>
+        <title>Create Token MercadoPago</title>
+        <script src="https://sdk.mercadopago.com/js/v2"></script>
+      </head>
+
+      <body>
+        Processing......
+        <script>
+          
+          const createToken = async () => {
+            const mp = new window.MercadoPago(
+              "TEST-5cfa7891-ec91-488e-9f6a-a27cf73ddec6"
+            );
+
+            const token = await mp.createCardToken({
+              cardNumber: '${cardNumber}',
+              cardholderName: '${cardholderName}',
+              identificationType: '${identificationType}',
+              identificationNumber: '${identificationNumber}',
+              securityCode: '${securityCode}',
+              cardExpirationMonth: '${cardExpirationMonth}',
+              cardExpirationYear: '${cardExpirationYear}',
+            });
+
+            // alert(token.id)
+
+            window.ReactNativeWebView.postMessage(JSON.stringify({ token: token }));
+          };
+
+          createToken();
+        </script>
+      </body>
+    </html>
+  `;
+
   //Rendering
   return (
-    <Container>
+    <>
       <TopHeader tittle={'Processando pagamento'} />
-      <WebView
-        // source={{
-        //   uri: 'https://github.com/react-native-webview/react-native-webview',
-        // }}
-        source={{ uri: CREATE_TOKEN_URL }}
-        renderLoading={LoadIndicator}
-        startInLoadingState={true}
-        // injectedJavaScript={runFirst}
-        injectedJavaScriptBeforeContentLoaded={runFirst}
-        onMessage={event => onMessage(event)}
-        ref={webviewRef}
-      />
-    </Container>
+      <Container>
+        <LoadingGif />
+
+        <HiddenWebView>
+          <WebView
+            // source={{
+            //   uri: 'https://github.com/react-native-webview/react-native-webview',
+            // }}
+            source={{ html: html }}
+            renderLoading={LoadIndicator}
+            startInLoadingState={true}
+            // injectedJavaScript={runFirst}
+            // injectedJavaScriptBeforeContentLoaded={runFirst}
+            onMessage={event => onMessage(event)}
+            ref={webviewRef}
+          />
+        </HiddenWebView>
+      </Container>
+    </>
   );
 }
