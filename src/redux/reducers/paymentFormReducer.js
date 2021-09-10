@@ -5,11 +5,11 @@ import { SET_PAYMENT_CARDHOLDERNAME_FORM } from '../actions/paymentForm/paymentF
 import { SET_PAYMENT_IDENTIFICATIONNUMBER_FORM } from '../actions/paymentForm/paymentFormActionTypes';
 
 const initialState = {
-  cardNumber: '',
-  expireDate: '',
-  securityCode: '',
-  cardholderName: '',
-  identificationNumber: '',
+  cardNumber: '4235 6477 2802 5682',
+  expireDate: '11/2025',
+  securityCode: '123',
+  cardholderName: 'Cardholder Name',
+  identificationNumber: '835.359.240-14',
 };
 
 export const paymentFormReducer = (state = initialState, action) => {

@@ -33,22 +33,12 @@ export default function Payment({ navigation }) {
   const [loading, setLoading] = useState(false);
 
   const cardNumber = useSelector(s => s.paymentForm.cardNumber);
-  // const [cardNumber, setCardNumber] = useState('4235 6477 2802 5682');
-
   const expireDate = useSelector(s => s.paymentForm.expireDate);
-  // const [expireDate, setExpireDate] = useState('11/2025');
-
   const securityCode = useSelector(s => s.paymentForm.securityCode);
-  // const [securityCode, setSecurityCode] = useState('123');
-
   const cardholderName = useSelector(s => s.paymentForm.cardholderName);
-  // const [cardholderName, setCardHolderName] = useState('Cardholder Abcdec');
-
   const identificationNumber = useSelector(
     s => s.paymentForm.identificationNumber,
   );
-  // const [identificationNumber, setIdentificationNumber] = useState('83535924014');
-
   const identificationType = 'CPF';
 
   const [cardExpirationMonth, setCardExpirationMonth] = useState('11');
