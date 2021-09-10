@@ -12,10 +12,14 @@ import '~/config/reactotron';
 
 // import { CREATE_TOKEN_URL } from '@env';
 
-export default function CreateCardTokenWebView({ navigation }) {
+export default function PaymentProcessing({ navigation }) {
   const dispatch = useDispatch();
 
   const webviewRef = useRef(null);
+
+  if (!navigation.getParam('data')) {
+    navigation.navigate('Payment');
+  }
 
   const {
     cardNumber,

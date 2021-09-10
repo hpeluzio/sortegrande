@@ -10,8 +10,8 @@ import Home from '~/pages/Home';
 import Account from '~/pages/Account';
 import MyGames from '~/pages/MyGames';
 import GameForm from '~/pages/GameForm';
-import Payment from '~/pages/Payment';
-import CreateCardTokenWebView from '~/pages/CreateCardTokenWebView';
+import PaymentForm from '~/pages/PaymentForm';
+import PaymentProcessing from '~/pages/PaymentProcessing';
 import PaymentConfirmation from '~/pages/PaymentConfirmation';
 
 export default () => {
@@ -32,9 +32,12 @@ export default () => {
       Account: { screen: Account, navigationOptions: { headerShown: false } },
       MyGames: { screen: MyGames, navigationOptions: { headerShown: false } },
       GameForm: { screen: GameForm, navigationOptions: { headerShown: false } },
-      Payment: { screen: Payment, navigationOptions: { headerShown: false } },
-      CreateCardTokenWebView: {
-        screen: CreateCardTokenWebView,
+      PaymentForm: {
+        screen: PaymentForm,
+        navigationOptions: { headerShown: false },
+      },
+      PaymentProcessing: {
+        screen: PaymentProcessing,
         navigationOptions: { headerShown: false },
       },
       PaymentConfirmation: {

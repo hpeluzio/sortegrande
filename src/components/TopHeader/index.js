@@ -8,11 +8,16 @@ function TopHeader({ navigation, selectedNumbers, tittle }) {
   const token = useSelector(s => s.session.token);
 
   const navigate = useCallback(() => {
+    const page = navigation.state.routeName;
+
     if ((!token && page !== 'Register') || (!token && page !== 'Login')) {
       navigation.navigate(token ? 'Home' : 'Login');
     }
 
-    const page = navigation.state.routeName;
+    if (page !== 'PaymentConfirmation') {
+      navigation.navigate('PaymentForm');
+    }
+
     if (page !== 'Home' && page !== 'Login') {
       navigation.goBack();
     }

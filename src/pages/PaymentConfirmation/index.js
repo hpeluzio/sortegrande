@@ -1,12 +1,13 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Alert } from 'react-native';
 
 import GameService from '~/services/GameService';
-
 import TopHeader from '~/components/TopHeader';
 import '~/config/reactotron';
 
 import {
+  Scroll,
   Gradient,
   Loader,
   ButtonText,
@@ -16,10 +17,11 @@ import {
   Spacer,
   Row,
   Info,
+  InfoLabel,
+  Numbers,
+  NumberSquare,
+  NumbersText,
 } from './styles';
-
-import { Alert } from 'react-native';
-// import { colors } from '~/styles';
 
 export default function PaymentConfirmation({ navigation }) {
   const dispatch = useDispatch();
@@ -54,11 +56,10 @@ export default function PaymentConfirmation({ navigation }) {
     console.tron.log('response.data: ', response.data);
 
     if (response.status === 200) {
-      console.log(' status 200');
-      setLoading(true);
+      setLoading(false);
       gameCreatedAlert();
     } else {
-      console.log(' status != 200');
+      setLoading(false);
       gameErrorAlert(response.data);
     }
 
@@ -72,7 +73,7 @@ export default function PaymentConfirmation({ navigation }) {
       {
         text: 'Ok',
         onPress: () => {
-          navigation.navigate('MyGames');
+          navigation.navigate('Home');
         },
       },
     ]);
@@ -94,35 +95,62 @@ export default function PaymentConfirmation({ navigation }) {
 
   //Rendering
   return (
-    <Container>
-      <TopHeader tittle={'Confirmar pagamento'} />
-      <Content>
-        <Spacer />
-        <Row>
-          <Info>{cardNumber}</Info>
-        </Row>
-        <Row>
-          <Info>{expireDate}</Info>
-        </Row>
-        <Row>
-          <Info>{securityCode}</Info>
-        </Row>
-        <Row>
-          <Info>{cardholderName}</Info>
-        </Row>
-        <Row>
-          <Info>{identificationNumber}</Info>
-        </Row>
-        <Row>
-          <Info>{token}</Info>
-        </Row>
-        <ButtonSubmit onPress={submitConfirmation}>
-          <Gradient>
-            {!loading && <ButtonText>Enviar</ButtonText>}
-            {loading && <Loader />}
-          </Gradient>
-        </ButtonSubmit>
-      </Content>
-    </Container>
+    <>
+      <Scroll>
+        <Container>
+          <TopHeader tittle={'Confirmar pagamento'} />
+          <Content>
+            <Spacer />
+            <Row>
+              <InfoLabel>Nome do jogo:</InfoLabel>
+              <Info>{name}</Info>
+            </Row>
+            <Row>
+              <InfoLabel>Números selecionados: </InfoLabel>
+              <Numbers>
+                {selectedNumbers.map((number, index) => {
+                  return (
+                    <NumberSquare key={index}>
+                      <NumbersText>{number}</NumbersText>
+                    </NumberSquare>
+                  );
+                })}
+              </Numbers>
+            </Row>
+            <Row>
+              <InfoLabel>Número do cartão:</InfoLabel>
+              <Info>{cardNumber}</Info>
+            </Row>
+            <Row>
+              <InfoLabel>Validade do cartão:</InfoLabel>
+              <Info>{expireDate}</Info>
+            </Row>
+            <Row>
+              <InfoLabel>Número de segurança: </InfoLabel>
+              <Info>{securityCode}</Info>
+            </Row>
+            <Row>
+              <InfoLabel>Nome no cartão:</InfoLabel>
+              <Info>{cardholderName}</Info>
+            </Row>
+            <Row>
+              <InfoLabel>CPF:</InfoLabel>
+              <Info>{identificationNumber}</Info>
+            </Row>
+            {/* <Row>
+              <InfoLabel>Token:</InfoLabel>
+              <Info>{token}</Info>
+            </Row> */}
+            <Spacer />
+            <ButtonSubmit onPress={submitConfirmation}>
+              <Gradient>
+                {!loading && <ButtonText>Enviar</ButtonText>}
+                {loading && <Loader />}
+              </Gradient>
+            </ButtonSubmit>
+          </Content>
+        </Container>
+      </Scroll>
+    </>
   );
 }

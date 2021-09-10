@@ -15,19 +15,100 @@ import { colors, constants } from '~/styles';
 
 export { default as CustomInputText } from '~/components/CustomInputText';
 
+export const Scroll = styled.ScrollView`
+  flex: 1;
+  flex-direction: column;
+  background: ${colors.background};
+  /* background: red; */
+`;
+
 export const Container = styled.SafeAreaView`
   flex: 1;
   flex-direction: column;
-  background: ${colors.white};
+  background: ${colors.background};
+  /* background: red; */
 `;
 
 export const Content = styled.View`
   flex: 1;
   flex-direction: column;
   background: ${colors.white};
-  margin-top: ${hp('2%')}px;
-  margin-bottom: ${hp('2%')}px;
-  /* background: orange; */
+  margin: ${hp('0%')}px ${wp('5%')}px ${hp('2%')}px ${wp('5%')}px;
+  background: ${colors.background};
+`;
+
+export const Spacer = styled.View`
+  flex-direction: column;
+  height: ${hp('3%')}px;
+  background: ${colors.white};
+  align-items: center;
+  justify-content: center;
+  /* background-color: orange; */
+  background: ${colors.background};
+`;
+
+export const Row = styled.View`
+  /* flex: 1; */
+  flex-direction: column;
+  justify-content: flex-start;
+  border-radius: ${hp('2%')}px;
+  background-color: ${colors.white};
+  padding: ${hp('1.5%')}px;
+  margin-bottom: ${hp('1%')}px;
+`;
+
+export const Numbers = styled.View`
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: ${wp('70%')}px;
+  /* height: ${hp('8%')}px; */
+  /* background: red; */
+  align-items: center;
+  justify-content: center;
+  /* border-radius: ${wp('3%')}px; */
+  /* border-width: ${wp('0.5%')}px; */
+  /* border-color: ${colors.mediumGray}; */
+`;
+
+export const NumberSquare = styled.View`
+  width: ${hp('4%')}px;
+  height: ${hp('4%')}px;
+  background: ${props => (props.color ? '#1a8cff' : colors.primary)};
+  margin-right: ${wp('1%')}px;
+  margin-bottom: ${wp('1%')}px;
+  padding: ${wp('0.75%')}px;
+  border-radius: ${wp('2%')}px;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const NumbersText = styled.Text`
+  text-transform: uppercase;
+  font-size: ${hp(constants.font_size_pc)}px;
+  font-family: ${constants.font_family_semi_bold};
+  color: ${colors.white};
+`;
+
+export const ButtonText = styled.Text`
+  color: ${colors.white};
+  /* text-transform: uppercase; */
+  font-size: ${hp(constants.font_size_pc)}px;
+  font-family: ${constants.font_family_semi_bold};
+`;
+
+export const InfoLabel = styled.Text`
+  color: ${colors.black};
+  /* text-transform: uppercase; */
+  font-size: ${hp(constants.font_size_pc)}px;
+  font-family: ${constants.font_family_semi_bold};
+`;
+
+export const Info = styled.Text`
+  color: ${colors.black};
+  text-transform: uppercase;
+  font-size: ${hp(constants.font_size_pc)}px;
+  font-family: ${constants.font_family};
+  padding-left: ${wp('4%')}px;
 `;
 
 export const Button = styled.TouchableOpacity`
@@ -46,20 +127,8 @@ export const ButtonSubmit = styled.TouchableOpacity`
   align-self: center;
 `;
 
-export const InputContainer = styled.SafeAreaView`
-  flex: 1;
-  justify-content: flex-start;
-  flex-direction: column;
-  background: ${colors.white};
-  /* background-color: blue; */
-`;
-
-export const Row = styled.View`
-  /* flex: 1; */
+export const SimpleButton = styled.TouchableOpacity`
   flex-direction: row;
-  justify-content: flex-start;
-  border-radius: ${hp('1%')}px;
-  /* background-color: red; */
 `;
 
 export const Gradient = styled(LinearGradient).attrs({
@@ -76,30 +145,3 @@ export const Loader = styled.ActivityIndicator.attrs({
   size: 'large',
   color: '#fff',
 })``;
-
-export const ButtonText = styled.Text`
-  color: ${colors.white};
-  text-transform: uppercase;
-  font-size: ${hp(constants.font_size_pc)}px;
-  font-family: ${constants.font_family_semi_bold};
-`;
-
-export const Info = styled.Text`
-  color: ${colors.black};
-  text-transform: uppercase;
-  font-size: ${hp(constants.font_size_pc)}px;
-  font-family: ${constants.font_family_semi_bold};
-`;
-
-export const Spacer = styled.View`
-  flex-direction: column;
-  height: ${hp('5%')}px;
-  background: ${colors.white};
-  align-items: center;
-  justify-content: center;
-  /* background-color: orange; */
-`;
-
-export const SimpleButton = styled.TouchableOpacity`
-  flex-direction: row;
-`;

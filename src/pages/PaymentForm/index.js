@@ -27,7 +27,7 @@ import {
 import { Alert } from 'react-native';
 // import { colors } from '~/styles';
 
-export default function Payment({ navigation }) {
+export default function PaymentForm({ navigation }) {
   const dispatch = useDispatch();
 
   const [loading, setLoading] = useState(false);
@@ -145,7 +145,7 @@ export default function Payment({ navigation }) {
         {
           text: 'Sim',
           onPress: () =>
-            navigation.navigate('CreateCardTokenWebView', {
+            navigation.navigate('PaymentProcessing', {
               data: {
                 cardNumber: cardNumber.split(' ').join(''),
                 cardholderName: cardholderName,

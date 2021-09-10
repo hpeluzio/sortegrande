@@ -106,7 +106,7 @@ export default function GameForm({ navigation }) {
 
   const submitForm = useCallback(async () => {
     if (validateFieldName()) {
-      navigation.navigate('Payment');
+      navigation.navigate('PaymentForm');
     }
   }, [
     validateFieldName,
