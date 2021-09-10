@@ -63,6 +63,14 @@ export const Back = styled(AntDesign).attrs({
   /* background-color: ${colors.white}; */
 `;
 
+export const Home = styled(Feather).attrs({
+  name: 'home',
+  color: colors.mediumGray,
+  size: hp('5%'),
+})`
+  /* background-color: ${colors.white}; */
+`;
+
 export const Empty = styled.View`
   height: ${hp('5%')}px;
   width: ${hp('10%')}px;
