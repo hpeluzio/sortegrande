@@ -147,7 +147,7 @@ export default function GameForm({ navigation }) {
   );
 
   const submitAlert = useCallback(() => {
-    Alert.alert('Confirmação', 'Deseja prosseguir com este jogo?', [
+    Alert.alert('Continuar', 'Deseja prosseguir com este jogo?', [
       {
         text: 'Cancelar',
         onPress: () => {},

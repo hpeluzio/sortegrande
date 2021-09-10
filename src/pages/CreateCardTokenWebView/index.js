@@ -10,6 +10,8 @@ import { Container } from './styles';
 import LoadIndicator from '~/components/LoadIndicator';
 import '~/config/reactotron';
 
+import { CREATE_TOKEN_URL } from '@env';
+
 export default function CreateCardTokenWebView({ navigation }) {
   const {
     cardNumber,
@@ -106,10 +108,11 @@ export default function CreateCardTokenWebView({ navigation }) {
         // source={{
         //   uri: 'https://github.com/react-native-webview/react-native-webview',
         // }}
-        source={{ uri: 'http://10.0.2.2:3003/' }}
+        source={{ uri: CREATE_TOKEN_URL }}
         renderLoading={LoadIndicator}
         startInLoadingState={true}
-        injectedJavaScript={runFirst}
+        // injectedJavaScript={runFirst}
+        injectedJavaScriptBeforeContentLoaded={runFirst}
         onMessage={event => onMessage(event)}
         ref={webviewRef}
       />
