@@ -78,14 +78,19 @@ export default function PaymentConfirmation({ navigation }) {
     ]);
   }, [navigation]);
 
-  const gameErrorAlert = useCallback((data = null) => {
-    Alert.alert('Algo não ocorreu bem', `${data.message}`, [
-      {
-        text: 'Ok',
-        onPress: () => {},
-      },
-    ]);
-  }, []);
+  const gameErrorAlert = useCallback(
+    (data = null) => {
+      Alert.alert('Algo não ocorreu bem', `${data.message}`, [
+        {
+          text: 'Ok',
+          onPress: () => {
+            navigation.navigate('Home');
+          },
+        },
+      ]);
+    },
+    [navigation],
+  );
 
   //Rendering
   return (
