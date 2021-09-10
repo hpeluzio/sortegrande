@@ -1,6 +1,11 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import { Alert } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
+
+import {
+  setGameForm,
+  setGameNameForm,
+} from '~/redux/actions/gameForm/gameFormActions';
 
 import GameService from '~/services/GameService';
 import TopHeader from '~/components/TopHeader';
@@ -45,28 +50,36 @@ export default function PaymentConfirmation({ navigation }) {
   }, [token]);
 
   const submitConfirmation = useCallback(async () => {
-    setLoading(true);
+    if (loading === false) {
+      setLoading(true);
 
-    const response = await GameService.create({
-      numbers: selectedNumbers,
-      name: name,
-      token: token,
-    });
+      const response = await GameService.create({
+        numbers: selectedNumbers,
+        name: name,
+        token: token,
+      });
 
-    console.tron.log('response.data: ', response.data);
+      console.tron.log('response.data: ', response.data);
 
-    if (response.status === 200) {
-      setLoading(false);
-      gameCreatedAlert();
-    } else {
-      setLoading(false);
-      gameErrorAlert(response.data);
+      if (response.status === 200) {
+        setLoading(false);
+        dispatch(setGameNameForm({ name: '' }));
+        dispatch(setGameForm({ selectedNumbers: [] }));
+        gameCreatedAlert();
+      } else {
+        setLoading(false);
+        gameErrorAlert(response.data);
+      }
     }
-
-    /*
-     *
-     */
-  }, [selectedNumbers, name, token, gameCreatedAlert, gameErrorAlert]);
+  }, [
+    loading,
+    dispatch,
+    selectedNumbers,
+    name,
+    token,
+    gameCreatedAlert,
+    gameErrorAlert,
+  ]);
 
   const gameCreatedAlert = useCallback(() => {
     Alert.alert('Jogo criado!', 'Seu jogo foi criado com sucesso!', [
@@ -100,7 +113,6 @@ export default function PaymentConfirmation({ navigation }) {
         <Container>
           <TopHeader tittle={'Confirmar pagamento'} />
           <Content>
-            <Spacer />
             <Row>
               <InfoLabel>Nome do jogo:</InfoLabel>
               <Info>{name}</Info>
