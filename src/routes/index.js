@@ -12,6 +12,7 @@ import MyGames from '~/pages/MyGames';
 import GameForm from '~/pages/GameForm';
 import Payment from '~/pages/Payment';
 import CreateCardTokenWebView from '~/pages/CreateCardTokenWebView';
+import PaymentConfirmation from '~/pages/PaymentConfirmation';
 
 export default () => {
   return createAppContainer(
@@ -34,6 +35,10 @@ export default () => {
       Payment: { screen: Payment, navigationOptions: { headerShown: false } },
       CreateCardTokenWebView: {
         screen: CreateCardTokenWebView,
+        navigationOptions: { headerShown: false },
+      },
+      PaymentConfirmation: {
+        screen: PaymentConfirmation,
         navigationOptions: { headerShown: false },
       },
     }),

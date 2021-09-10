@@ -139,30 +139,7 @@ export default function Payment({ navigation }) {
       // console.tron.log('cardNumber: ', cardNumber);
       // console.tron.log('cardNumber: ', cardNumber.split(' ').join(''));
 
-      console.tron.log(
-        'CARD::::::: ',
-        cardNumber.split(' ').join(''),
-        cardholderName,
-        identificationType,
-        identificationNumber.split('.').join('').split('-').join(''),
-        securityCode,
-        cardExpirationMonth,
-        cardExpirationYear,
-      );
-
-      console.tron.log(
-        'CARD typeof::::::: ',
-
-        typeof cardNumber,
-        typeof cardholderName,
-        typeof identificationType,
-        typeof identificationNumber,
-        typeof securityCode,
-        typeof cardExpirationMonth,
-        typeof cardExpirationYear,
-      );
-
-      Alert.alert('Deseja prosseguir', 'Isso pode levar alguns segundos', [
+      Alert.alert('Continuar', 'O processamento pode levar alguns segundos', [
         {
           text: 'Não',
           onPress: () => {},

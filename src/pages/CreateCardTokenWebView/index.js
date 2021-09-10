@@ -1,9 +1,9 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useRef } from 'react';
 
-import { Alert } from 'react-native';
 import { WebView } from 'react-native-webview';
 
-import PaymentService from '~/services/PaymentService';
+import { useDispatch } from 'react-redux';
+import { setPaymentTokenForm } from '~/redux/actions/paymentForm/paymentFormActions';
 
 import TopHeader from '~/components/TopHeader';
 import { Container } from './styles';
@@ -13,6 +13,10 @@ import '~/config/reactotron';
 import { CREATE_TOKEN_URL } from '@env';
 
 export default function CreateCardTokenWebView({ navigation }) {
+  const dispatch = useDispatch();
+
+  const webviewRef = useRef(null);
+
   const {
     cardNumber,
     cardholderName,
@@ -23,54 +27,13 @@ export default function CreateCardTokenWebView({ navigation }) {
     cardExpirationYear,
   } = navigation.getParam('data');
 
-  const webviewRef = useRef(null);
-
-  // useEffect(() => {
-  //   // console.log('cardToken: ', cardToken);
-  //   console.tron.log('navigation Param: ', navigation.getParam('data'));
-  //   console.log('data: ', navigation.getParam('data'));
-  //   // Alert.alert(`cardToken: ${cardToken}`);
-  // }, [navigation]);
-
   const sendPayment = useCallback(
-    async token => {
-      console.log('sending Payment::: ');
+    async tokenParam => {
+      dispatch(setPaymentTokenForm({ token: tokenParam }));
 
-      const response = await PaymentService.createSingleGamePayment({
-        token: token.id,
-      });
-
-      console.tron.log('PaymentService response: ', response);
-
-      if (response.status === 200) {
-        Alert.alert(
-          'Pagamento feito',
-          'Pagamento feito com sucesso, aguarde a confirmação por e-mail.',
-          [
-            {
-              text: 'Ok',
-              onPress: () => {
-                navigation.navigate('Home');
-              },
-            },
-          ],
-        );
-      } else {
-        Alert.alert(
-          'Ocorreu algum erro no pagamento',
-          'Por favor, tente mais tarde',
-          [
-            {
-              text: 'Ok',
-              onPress: () => {
-                navigation.goBack();
-              },
-            },
-          ],
-        );
-      }
+      navigation.navigate('PaymentConfirmation');
     },
-    [navigation],
+    [dispatch, navigation],
   );
 
   const runFirst = `
@@ -87,15 +50,11 @@ export default function CreateCardTokenWebView({ navigation }) {
 
   const onMessage = useCallback(
     async event => {
-      console.log('onMessage: ', event.nativeEvent.data);
+      console.tron.log('onMessage: ', JSON.parse(event.nativeEvent.data).token);
 
-      // Alert.alert(event.nativeEvent.data);
-      // await PaymentService.createSingleGamePayment({
-      //   cardToken: JSON.parse(event.nativeEvent.data).token,
-      // });
-      // setTimeout(() => {
-      sendPayment(JSON.parse(event.nativeEvent.data).token);
-      // }, 2000);
+      const tokenObj = JSON.parse(event.nativeEvent.data).token;
+
+      sendPayment(tokenObj);
     },
     [sendPayment],
   );

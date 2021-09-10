@@ -10,9 +10,9 @@ class GameService {
     return _response;
   }
 
-  async create({ numbers, name }) {
+  async create({ numbers, name, token }) {
     const _response = await api
-      .post('/game', { numbers, name })
+      .post('/game', { numbers, name, token })
       .then(r => r)
       .catch(e => e.response);
     // console.log(_response.data);

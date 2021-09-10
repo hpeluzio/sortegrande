@@ -199,14 +199,6 @@ export default function GameForm({ navigation }) {
             type={'FontAwesome'}
             icon={'pencil-square-o'}
           />
-          {/* <NameInput
-            label="Nome do jogo:"
-            placeholder="Nome do jogo"
-            onChangeText={n => dispatch(setGameNameForm({ name: n }))}
-            value={name}
-            errorMessage={errorName}
-            onBlur={validateFieldName}
-          /> */}
           <NumbersContainer>
             {numbers.map((n, index) => (
               <NumberSquare

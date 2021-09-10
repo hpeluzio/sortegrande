@@ -3,6 +3,7 @@ import { SET_PAYMENT_EXPIREDATE_FORM } from '../actions/paymentForm/paymentFormA
 import { SET_PAYMENT_SECUTIRYCODE_FORM } from '../actions/paymentForm/paymentFormActionTypes';
 import { SET_PAYMENT_CARDHOLDERNAME_FORM } from '../actions/paymentForm/paymentFormActionTypes';
 import { SET_PAYMENT_IDENTIFICATIONNUMBER_FORM } from '../actions/paymentForm/paymentFormActionTypes';
+import { SET_PAYMENT_TOKEN_FORM } from '../actions/paymentForm/paymentFormActionTypes';
 
 const initialState = {
   cardNumber: '4235 6477 2802 5682',
@@ -10,6 +11,7 @@ const initialState = {
   securityCode: '123',
   cardholderName: 'Cardholder Name',
   identificationNumber: '835.359.240-14',
+  token: {},
 };
 
 export const paymentFormReducer = (state = initialState, action) => {
@@ -30,6 +32,8 @@ export const paymentFormReducer = (state = initialState, action) => {
         ...state,
         identificationNumber: action.payload.identificationNumber,
       };
+    case SET_PAYMENT_TOKEN_FORM:
+      return { ...state, token: action.payload.token };
     default:
       return state;
   }
