@@ -10,47 +10,42 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import { colors, constants } from '~/styles';
 
-export const ScrollView = styled.ScrollView`
-  flex: 1;
-  background-color: ${colors.white};
-`;
+// export const ScrollView = styled.ScrollView`
+//   flex: 1;
+//   background-color: ${colors.background};
+// `;
 
 export const Container = styled.SafeAreaView`
   flex: 1;
   flex-direction: column;
-  height: auto;
-  width: auto;
-  background: ${colors.white};
+  background: ${colors.background};
 `;
 
 export const Content = styled.View`
   flex: 1;
   flex-direction: column;
-  background: ${colors.white};
+  margin-top: ${hp('2%')}px;
+  /* margin-bottom: ${hp('8%')}px; */
+  /* justify-content: flex-start; */
+  background: rgba(0, 0, 0, 0);
   /* background: orange; */
-  margin-top: ${hp('8%')}px;
-  margin-bottom: ${hp('8%')}px;
 `;
 
 export const Row = styled.View`
-  flex: 1;
   flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  /* padding: 0 ${wp('5%')}px; */
-  /* margin: ${wp('1%')}px; */
-  /* background: purple; */
+  justify-content: center;
+  margin: ${hp('1%')}px ${hp('0%')}px ${hp('0%')}px ${hp('0%')}px;
+  background: purple;
+  background: rgba(0, 0, 0, 0);
 `;
 
 export const Games = styled.TouchableOpacity`
   background-color: #fff;
   justify-content: center;
   align-items: center;
-  height: ${hp('35%')}px;
-  width: ${wp('95%')}px;
-  border-width: ${wp('1%')}px;
+  height: ${hp('30%')}px;
+  width: ${wp('84%')}px;
   border-radius: ${hp(constants.height_small_pc)}px;
-  border-color: #ddd;
 `;
 
 export const Item = styled.TouchableOpacity`
@@ -58,11 +53,10 @@ export const Item = styled.TouchableOpacity`
   justify-content: center;
   align-items: center;
   padding: ${hp('2%')}px;
-  height: ${hp('25%')}px;
-  width: ${wp('45%')}px;
-  border-width: ${wp('1%')}px;
+  height: ${hp('20%')}px;
+  width: ${wp('40%')}px;
   border-radius: ${hp(constants.height_small_pc)}px;
-  border-color: #ddd;
+  margin: ${hp('1%')}px ${hp('1%')}px ${hp('1%')}px ${hp('1%')}px;
 `;
 
 export const ItemName = styled.Text`
@@ -70,21 +64,21 @@ export const ItemName = styled.Text`
   text-align: center;
   font-size: 13px;
   font-family: ${constants.font_family_medium};
-  color: #777777;
+  color: ${colors.lightBlack};
   flex-wrap: wrap;
 `;
 
 export const List = styled(Ionicons).attrs({
   name: 'ios-bookmarks-outline',
-  color: colors.mediumGray,
-  size: hp('10%'),
+  color: colors.primary,
+  size: hp('5%'),
 })`
   background-color: ${colors.white};
 `;
 
 export const CreditCardIcon = styled(AntDesign).attrs({
   name: 'creditcard',
-  color: colors.mediumGray,
+  color: colors.primary,
   size: hp('5%'),
 })`
   background-color: ${colors.white};
@@ -92,7 +86,7 @@ export const CreditCardIcon = styled(AntDesign).attrs({
 
 export const BookIcon = styled(Ionicons).attrs({
   name: 'document-attach-outline',
-  color: colors.mediumGray,
+  color: colors.primary,
   size: hp('5%'),
 })`
   background-color: ${colors.white};
