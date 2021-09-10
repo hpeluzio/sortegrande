@@ -52,12 +52,9 @@ export default function Payment({ navigation }) {
   const [errorIdentificationNumber, setErrorIdentificationNumber] =
     useState('');
 
-  useEffect(() => {
-    // console.log('Payment screen');
-    // console.tron.log('cardNumber:::: ', cardNumber);
-    // console.tron.log('expireDate:::: ', expireDate);
-    console.tron.log('identificationNumber:::: ', identificationNumber);
-  }, [identificationNumber]);
+  // useEffect(() => {
+  //   console.tron.log('identificationNumber:::: ', identificationNumber);
+  // }, [identificationNumber]);
 
   const validateFieldCardNumber = useCallback(async () => {
     if (cardNumber !== '') {

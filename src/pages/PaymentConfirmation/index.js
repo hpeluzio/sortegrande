@@ -1,12 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-// import {
-//   setPaymentCardNumberForm,
-//   setPaymentExpireDateForm,
-//   setPaymentSecurityCodeForm,
-//   setPaymentCardHolderNameForm,
-//   setPaymentIdentificationNumberForm,
-// } from '~/redux/actions/paymentForm/paymentFormActions';
+
+import GameService from '~/services/GameService';
 
 import TopHeader from '~/components/TopHeader';
 import '~/config/reactotron';
@@ -19,6 +14,8 @@ import {
   Content,
   ButtonSubmit,
   Spacer,
+  Row,
+  Info,
 } from './styles';
 
 import { Alert } from 'react-native';
@@ -29,6 +26,9 @@ export default function PaymentConfirmation({ navigation }) {
 
   const [loading, setLoading] = useState(false);
 
+  const selectedNumbers = useSelector(s => s.gameForm.selectedNumbers);
+  const name = useSelector(s => s.gameForm.name);
+
   const cardNumber = useSelector(s => s.paymentForm.cardNumber);
   const expireDate = useSelector(s => s.paymentForm.expireDate);
   const securityCode = useSelector(s => s.paymentForm.securityCode);
@@ -37,61 +37,81 @@ export default function PaymentConfirmation({ navigation }) {
     s => s.paymentForm.identificationNumber,
   );
   const token = useSelector(s => s.paymentForm.token);
-  const identificationType = 'CPF';
-
-  const [cardExpirationMonth, setCardExpirationMonth] = useState('11');
-  const [cardExpirationYear, setCardExpirationYear] = useState('2025');
 
   useEffect(() => {
-    console.tron.log('token: ', token);
+    console.tron.log('Confirm payment token: ', token);
   }, [token]);
 
-  const confirmForm = useCallback(async () => {
-    // const response = await PaymentService.createSingleGamePayment({
-    //   token: token.id,
-    // });
-    //
-    // console.tron.log('PaymentService response: ', response);
-    //
-    // if (response.status === 200) {
-    //   Alert.alert(
-    //     'Pagamento feito',
-    //     'Pagamento feito com sucesso, aguarde a confirmação por e-mail.',
-    //     [
-    //       {
-    //         text: 'Ok',
-    //         onPress: () => {
-    //           navigation.navigate('Home');
-    //         },
-    //       },
-    //     ],
-    //   );
-    // } else {
-    //   Alert.alert(
-    //     'Ocorreu algum erro no pagamento',
-    //     'Por favor, tente mais tarde',
-    //     [
-    //       {
-    //         text: 'Ok',
-    //         onPress: () => {
-    //           navigation.goBack();
-    //         },
-    //       },
-    //     ],
-    //   );
-    // }
+  const submitConfirmation = useCallback(async () => {
+    setLoading(true);
+
+    const response = await GameService.create({
+      numbers: selectedNumbers,
+      name: name,
+      token: token,
+    });
+
+    console.tron.log('response.data: ', response.data);
+
+    if (response.status === 200) {
+      console.log(' status 200');
+      setLoading(true);
+      gameCreatedAlert();
+    } else {
+      console.log(' status != 200');
+      gameErrorAlert(response.data);
+    }
+
     /*
      *
      */
+  }, [selectedNumbers, name, token, gameCreatedAlert, gameErrorAlert]);
+
+  const gameCreatedAlert = useCallback(() => {
+    Alert.alert('Jogo criado!', 'Seu jogo foi criado com sucesso!', [
+      {
+        text: 'Ok',
+        onPress: () => {
+          navigation.navigate('MyGames');
+        },
+      },
+    ]);
+  }, [navigation]);
+
+  const gameErrorAlert = useCallback((data = null) => {
+    Alert.alert('Algo não ocorreu bem', `${data.message}`, [
+      {
+        text: 'Ok',
+        onPress: () => {},
+      },
+    ]);
   }, []);
 
   //Rendering
   return (
     <Container>
-      <TopHeader tittle={'Pagamento'} />
+      <TopHeader tittle={'Confirmar pagamento'} />
       <Content>
         <Spacer />
-        <ButtonSubmit onPress={confirmForm}>
+        <Row>
+          <Info>{cardNumber}</Info>
+        </Row>
+        <Row>
+          <Info>{expireDate}</Info>
+        </Row>
+        <Row>
+          <Info>{securityCode}</Info>
+        </Row>
+        <Row>
+          <Info>{cardholderName}</Info>
+        </Row>
+        <Row>
+          <Info>{identificationNumber}</Info>
+        </Row>
+        <Row>
+          <Info>{token}</Info>
+        </Row>
+        <ButtonSubmit onPress={submitConfirmation}>
           <Gradient>
             {!loading && <ButtonText>Enviar</ButtonText>}
             {loading && <Loader />}

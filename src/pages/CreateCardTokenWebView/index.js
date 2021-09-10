@@ -29,7 +29,7 @@ export default function CreateCardTokenWebView({ navigation }) {
 
   const sendPayment = useCallback(
     async tokenParam => {
-      dispatch(setPaymentTokenForm({ token: tokenParam }));
+      dispatch(setPaymentTokenForm({ token: tokenParam.id }));
 
       navigation.navigate('PaymentConfirmation');
     },

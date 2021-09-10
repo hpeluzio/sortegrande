@@ -1,11 +1,9 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   setGameForm,
   setGameNameForm,
 } from '~/redux/actions/gameForm/gameFormActions';
-
-import GameService from '~/services/GameService';
 
 import TopHeader from '~/components/TopHeader';
 
@@ -35,12 +33,6 @@ export default function GameForm({ navigation }) {
   const dispatch = useDispatch();
 
   const [errorName, setErrorName] = useState(null);
-
-  // useEffect(() => {
-  //   console.log('numbers: ', numbers);
-  //   console.log('selectedNumbers: ', selectedNumbers);
-  //   console.log('name: ', name);
-  // }, [selectedNumbers, name]);
 
   const addNumber = useCallback(
     n => {
@@ -115,19 +107,6 @@ export default function GameForm({ navigation }) {
   const submitForm = useCallback(async () => {
     if (validateFieldName()) {
       navigation.navigate('Payment');
-      // const { status, data } = await GameService.create({
-      //   numbers: selectedNumbers,
-      //   name: name,
-      // });
-      // // console.log('response.data: ', data);
-      // // console.log('status: ', status);
-      // if (status === 200) {
-      //   console.log(' status 200');
-      //   gameCreatedAlert();
-      // } else {
-      //   console.log(' status != 200');
-      //   gameErrorAlert(data);
-      // }
     }
   }, [
     validateFieldName,
@@ -163,26 +142,6 @@ export default function GameForm({ navigation }) {
       },
     ]);
   }, [submitForm]);
-
-  const gameCreatedAlert = useCallback(() => {
-    Alert.alert('Jogo criado!', 'Seu jogo foi criado com sucesso!', [
-      {
-        text: 'Ok',
-        onPress: () => {
-          navigation.navigate('MyGames');
-        },
-      },
-    ]);
-  }, [navigation]);
-
-  const gameErrorAlert = useCallback((data = null) => {
-    Alert.alert('Algo não ocorreu bem', `${data.message}`, [
-      {
-        text: 'Ok',
-        onPress: () => {},
-      },
-    ]);
-  }, []);
 
   return (
     <Container>

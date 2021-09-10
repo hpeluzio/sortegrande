@@ -11,7 +11,7 @@ const initialState = {
   securityCode: '123',
   cardholderName: 'Cardholder Name',
   identificationNumber: '835.359.240-14',
-  token: {},
+  token: '',
 };
 
 export const paymentFormReducer = (state = initialState, action) => {
