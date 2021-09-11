@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 
 import TopHeader from '~/components/TopHeader';
-import MenuFooter from '~/components/MenuFooter';
+// import MenuFooter from '~/components/MenuFooter';
+import CloverBackground from '~/components/CloverBackground';
 
 import {
   Container,
@@ -27,12 +28,18 @@ export default function Home({ navigation }) {
         <Row>
           <Item onPress={() => navigation.navigate('Login')}>
             <BookIcon />
-            <ItemName>Apostas cadastradas</ItemName>
+            <ItemName>Jogos cadastrados</ItemName>
           </Item>
           {/* <Item onPress={() => navigation.navigate('PaymentForm')}>
             <CreditCardIcon />
             <ItemName>Cadastrar pagamento</ItemName>
           </Item> */}
+        </Row>
+        <Row>
+          <Item onPress={() => navigation.navigate('MyGames')}>
+            <List />
+            <ItemName>Meus jogos</ItemName>
+          </Item>
         </Row>
         <Row>
           <Item onPress={() => navigation.navigate('GameForm')}>
@@ -42,6 +49,7 @@ export default function Home({ navigation }) {
         </Row>
       </Content>
       {/* <MenuFooter /> */}
+      <CloverBackground />
     </Container>
   );
 }

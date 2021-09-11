@@ -57,7 +57,7 @@ export const ItemName = styled.Text`
 export const List = styled(Ionicons).attrs({
   name: 'ios-bookmarks-outline',
   color: colors.primary,
-  size: hp('5%'),
+  size: hp('8%'),
 })`
   background-color: ${colors.white};
 `;
