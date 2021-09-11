@@ -199,11 +199,7 @@ export default function MyGames({ navigation }) {
         <TopHeader tittle={'Meus Jogos'} />
         <ScrollView
           refreshControl={
-            <RefreshControl
-              refreshing={refreshing}
-              onRefresh={onRefresh}
-              style={{ backgroundColor: 'red' }}
-            />
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
           }>
           <Content>
             <LoadingGif />
