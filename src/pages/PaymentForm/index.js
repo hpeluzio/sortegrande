@@ -6,10 +6,13 @@ import {
   setPaymentSecurityCodeForm,
   setPaymentCardHolderNameForm,
   setPaymentIdentificationNumberForm,
+  setPaymentCardFlagForm,
 } from '~/redux/actions/paymentForm/paymentFormActions';
 
 import TopHeader from '~/components/TopHeader';
 import '~/config/reactotron';
+
+import getCardFlag from '~/utils/getCardFlag';
 
 import {
   InputRow,
@@ -128,6 +131,11 @@ export default function PaymentForm({ navigation }) {
 
   const confirmForm = useCallback(async () => {
     if (validateForm) {
+      const cardFlag = getCardFlag(cardNumber);
+      dispatch(setPaymentCardFlagForm({ cardFlag: cardFlag }));
+
+      console.tron.log(cardFlag);
+
       //Setting expire month and year
       const date = expireDate.split('/');
       setCardExpirationMonth(date[0]);
@@ -166,6 +174,7 @@ export default function PaymentForm({ navigation }) {
 
     setLoading(false);
   }, [
+    dispatch,
     validateForm,
     navigation,
     cardNumber,

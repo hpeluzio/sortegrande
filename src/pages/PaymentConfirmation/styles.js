@@ -33,8 +33,9 @@ export const Content = styled.View`
   flex: 1;
   flex-direction: column;
   background: ${colors.white};
-  margin: ${hp('0%')}px ${wp('5%')}px ${hp('2%')}px ${wp('5%')}px;
+  margin: ${hp('1%')}px ${wp('2%')}px ${hp('2%')}px ${wp('2%')}px;
   background: ${colors.background};
+  /* background: purple; */
 `;
 
 export const Spacer = styled.View`
@@ -49,12 +50,22 @@ export const Spacer = styled.View`
 
 export const Row = styled.View`
   /* flex: 1; */
+  flex-direction: row;
+  justify-content: space-between;
+  /* border-radius: ${hp('2%')}px; */
+  /* background-color: ${colors.background}; */
+  /* padding: ${hp('1%')}px; */
+  /* margin-bottom: ${hp('1%')}px; */
+`;
+
+export const Column = styled.View`
+  flex: 1;
   flex-direction: column;
-  justify-content: flex-start;
-  border-radius: ${hp('2%')}px;
   background-color: ${colors.white};
-  padding: ${hp('1.5%')}px;
-  margin-bottom: ${hp('1%')}px;
+  border-radius: ${hp('2%')}px;
+  padding: ${hp('1%')}px;
+  margin: ${hp('0.5%')}px;
+  justify-content: flex-start;
 `;
 
 export const Numbers = styled.View`
@@ -97,16 +108,16 @@ export const ButtonText = styled.Text`
 `;
 
 export const InfoLabel = styled.Text`
-  color: ${colors.black};
+  color: ${colors.mediumGray};
   /* text-transform: uppercase; */
-  font-size: ${hp(constants.font_size_pc)}px;
+  font-size: ${hp(constants.font_default)}px;
   font-family: ${constants.font_family_semi_bold};
 `;
 
 export const Info = styled.Text`
-  color: ${colors.black};
+  color: ${colors.mediumGray};
   text-transform: uppercase;
-  font-size: ${hp(constants.font_size_pc)}px;
+  font-size: ${hp(constants.font_default)}px;
   font-family: ${constants.font_family};
   padding-left: ${wp('4%')}px;
 `;

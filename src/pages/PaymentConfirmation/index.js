@@ -21,6 +21,7 @@ import {
   ButtonSubmit,
   Spacer,
   Row,
+  Column,
   Info,
   InfoLabel,
   Numbers,
@@ -37,6 +38,7 @@ export default function PaymentConfirmation({ navigation }) {
   const name = useSelector(s => s.gameForm.name);
 
   const cardNumber = useSelector(s => s.paymentForm.cardNumber);
+  const cardFlag = useSelector(s => s.paymentForm.cardFlag);
   const expireDate = useSelector(s => s.paymentForm.expireDate);
   const securityCode = useSelector(s => s.paymentForm.securityCode);
   const cardholderName = useSelector(s => s.paymentForm.cardholderName);
@@ -108,44 +110,60 @@ export default function PaymentConfirmation({ navigation }) {
     <>
       <Scroll>
         <Container>
-          <TopHeader tittle={'Confirmar pagamento'} />
+          <TopHeader tittle={'Confirmar dados'} />
           <Content>
             <Row>
-              <InfoLabel>Nome do jogo:</InfoLabel>
-              <Info>{name}</Info>
+              <Column>
+                <InfoLabel>Nome do jogo:</InfoLabel>
+                <Info>{name}</Info>
+              </Column>
             </Row>
             <Row>
-              <InfoLabel>Números selecionados: </InfoLabel>
-              <Numbers>
-                {selectedNumbers.map((number, index) => {
-                  return (
-                    <NumberSquare key={index}>
-                      <NumbersText>{number}</NumbersText>
-                    </NumberSquare>
-                  );
-                })}
-              </Numbers>
+              <Column>
+                <InfoLabel>Números selecionados: </InfoLabel>
+                <Numbers>
+                  {selectedNumbers.map((number, index) => {
+                    return (
+                      <NumberSquare key={index}>
+                        <NumbersText>{number}</NumbersText>
+                      </NumberSquare>
+                    );
+                  })}
+                </Numbers>
+              </Column>
             </Row>
             <Row>
-              <InfoLabel>Número do cartão:</InfoLabel>
-              <Info>{cardNumber}</Info>
+              <Column>
+                <InfoLabel>Número do cartão:</InfoLabel>
+                <Info>{cardNumber}</Info>
+              </Column>
+              <Column>
+                <InfoLabel>Número do cartão:</InfoLabel>
+                <Info>{cardFlag}</Info>
+              </Column>
             </Row>
             <Row>
-              <InfoLabel>Validade do cartão:</InfoLabel>
-              <Info>{expireDate}</Info>
+              <Column>
+                <InfoLabel>Validade:</InfoLabel>
+                <Info>{expireDate}</Info>
+              </Column>
+              <Column>
+                <InfoLabel>Número de segurança: </InfoLabel>
+                <Info>{securityCode}</Info>
+              </Column>
             </Row>
+
             <Row>
-              <InfoLabel>Número de segurança: </InfoLabel>
-              <Info>{securityCode}</Info>
+              <Column>
+                <InfoLabel>Nome no cartão:</InfoLabel>
+                <Info>{cardholderName}</Info>
+              </Column>
+              <Column>
+                <InfoLabel>CPF:</InfoLabel>
+                <Info>{identificationNumber}</Info>
+              </Column>
             </Row>
-            <Row>
-              <InfoLabel>Nome no cartão:</InfoLabel>
-              <Info>{cardholderName}</Info>
-            </Row>
-            <Row>
-              <InfoLabel>CPF:</InfoLabel>
-              <Info>{identificationNumber}</Info>
-            </Row>
+
             {/* <Row>
               <InfoLabel>Token:</InfoLabel>
               <Info>{token}</Info>

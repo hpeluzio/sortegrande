@@ -22,6 +22,7 @@ const constants = {
   font_size_pc: '2%',
   font_size_md_pc: '2.3%',
   font_size_xl_pc: '3%',
+  font_default: '1.75%',
 };
 
 export default constants;

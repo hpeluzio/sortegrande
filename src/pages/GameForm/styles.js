@@ -70,7 +70,7 @@ export const GradientClear = styled(LinearGradient).attrs({
 `;
 
 export const GradientSendBlocked = styled(LinearGradient).attrs({
-  colors: [colors.newLightBlack, colors.lightGray],
+  colors: [colors.mediumGray, colors.lightGray],
   start: { x: 0, y: 1 },
   end: { x: 1, y: 0 },
 })`

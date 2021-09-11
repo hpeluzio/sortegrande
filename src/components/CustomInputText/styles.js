@@ -25,7 +25,7 @@ export const LabelView = styled.View`
 export const LabelText = styled.Text`
   font-size: ${hp(constants.font_size_pc_two)}px;
   font-family: ${constants.font_family_bold};
-  color: ${colors.newLightBlack};
+  color: ${colors.mediumGray};
 `;
 
 export const InputView = styled.View`
@@ -33,7 +33,7 @@ export const InputView = styled.View`
   align-items: center;
   justify-content: center;
   border-bottom-width: ${hp('0.1%')}px;
-  border-color: ${colors.newLightBlack};
+  border-color: ${colors.mediumGray};
   /* background-color: green; */
 `;
 
