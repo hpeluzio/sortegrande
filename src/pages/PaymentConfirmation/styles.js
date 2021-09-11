@@ -3,13 +3,7 @@ import {
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
 import styled from 'styled-components';
-import { TextInputMask } from 'react-native-masked-text';
-import { Input as InputElements } from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
-
-import Entypo from 'react-native-vector-icons/Entypo';
-import Fontisto from 'react-native-vector-icons/Fontisto';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { colors, constants } from '~/styles';
 

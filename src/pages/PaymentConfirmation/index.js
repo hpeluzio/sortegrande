@@ -55,18 +55,22 @@ export default function PaymentConfirmation({ navigation }) {
     if (loading === false) {
       setLoading(true);
 
+      const cpf = identificationNumber.split('.').join('').split('-').join('');
+
       const response = await GameService.create({
         numbers: selectedNumbers,
         name: name,
         token: token,
+        identificationNumber: cpf.toString(),
+        cardFlag: cardFlag,
       });
 
       console.tron.log('response.data: ', response.data);
 
       if (response.status === 200) {
         setLoading(false);
-        dispatch(setGameNameForm({ name: '' }));
-        dispatch(setGameForm({ selectedNumbers: [] }));
+        // dispatch(setGameNameForm({ name: '' }));
+        // dispatch(setGameForm({ selectedNumbers: [] }));
         gameCreatedAlert();
       } else {
         setLoading(false);
@@ -75,10 +79,12 @@ export default function PaymentConfirmation({ navigation }) {
     }
   }, [
     loading,
-    dispatch,
+    // dispatch,
     selectedNumbers,
     name,
     token,
+    identificationNumber,
+    cardFlag,
     gameCreatedAlert,
     gameErrorAlert,
   ]);
@@ -114,12 +120,6 @@ export default function PaymentConfirmation({ navigation }) {
           <Content>
             <Row>
               <Column>
-                <InfoLabel>Nome do jogo:</InfoLabel>
-                <Info>{name}</Info>
-              </Column>
-            </Row>
-            <Row>
-              <Column>
                 <InfoLabel>Números selecionados: </InfoLabel>
                 <Numbers>
                   {selectedNumbers.map((number, index) => {
@@ -130,6 +130,12 @@ export default function PaymentConfirmation({ navigation }) {
                     );
                   })}
                 </Numbers>
+              </Column>
+            </Row>
+            <Row>
+              <Column>
+                <InfoLabel>Nome do jogo:</InfoLabel>
+                <Info>{name}</Info>
               </Column>
             </Row>
             <Row>
