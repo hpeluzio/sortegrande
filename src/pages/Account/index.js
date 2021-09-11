@@ -1,6 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setSession } from '~/redux/actions/session/sessionActions';
+import { setPaymentClearForm } from '~/redux/actions/paymentForm/paymentFormActions';
+import { setGameClearForm } from '~/redux/actions/gameForm/gameFormActions';
 import { setUser } from '~/redux/actions/session/sessionActions';
 
 import SessionService from '~/services/SessionService';
@@ -140,7 +142,11 @@ export default function Account({ navigation }) {
       },
       {
         text: 'Sim',
-        onPress: () => dispatch(setSession({ user: {}, token: null })),
+        onPress: () => {
+          dispatch(setSession({ user: {}, token: null }));
+          dispatch(setPaymentClearForm());
+          dispatch(setGameClearForm());
+        },
       },
     ]);
   }, [dispatch]);

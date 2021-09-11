@@ -5,6 +5,7 @@ import { SET_PAYMENT_CARDHOLDERNAME_FORM } from './paymentFormActionTypes';
 import { SET_PAYMENT_IDENTIFICATIONNUMBER_FORM } from './paymentFormActionTypes';
 import { SET_PAYMENT_TOKEN_FORM } from './paymentFormActionTypes';
 import { SET_PAYMENT_CARDFLAG_FORM } from './paymentFormActionTypes';
+import { SET_CLEAR_FORM } from './paymentFormActionTypes';
 
 export const setPaymentCardNumberForm = cardNumber => ({
   type: SET_PAYMENT_CARDNUMBER_FORM,
@@ -41,4 +42,8 @@ export const setPaymentTokenForm = ({ token }) => ({
 export const setPaymentCardFlagForm = ({ cardFlag }) => ({
   type: SET_PAYMENT_CARDFLAG_FORM,
   payload: { cardFlag },
+});
+
+export const setPaymentClearForm = () => ({
+  type: SET_CLEAR_FORM,
 });

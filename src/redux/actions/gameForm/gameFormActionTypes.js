@@ -1,2 +1,3 @@
 export const SET_GAME_FORM = 'SET_GAME_FORM';
 export const SET_GAME_NAME_FORM = 'SET_GAME_NAME_FORM';
+export const SET_CLEAR_FORM = 'SET_CLEAR_FORM';
