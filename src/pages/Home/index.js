@@ -7,12 +7,12 @@ import {
   Container,
   Content,
   Row,
-  Games,
   Item,
   ItemName,
   List,
   BookIcon,
-  CreditCardIcon,
+  // CreditCardIcon,
+  CloverIcon,
 } from './styles';
 
 export default function Home({ navigation }) {
@@ -25,23 +25,23 @@ export default function Home({ navigation }) {
       <TopHeader tittle={'Tela inicial'} />
       <Content>
         <Row>
-          <Games onPress={() => navigation.navigate('MyGames')}>
-            <List />
-            <ItemName>Meus jogos</ItemName>
-          </Games>
-        </Row>
-        <Row>
           <Item onPress={() => navigation.navigate('Login')}>
             <BookIcon />
-            <ItemName>Sorteios cadastrados</ItemName>
+            <ItemName>Apostas cadastradas</ItemName>
           </Item>
-          <Item onPress={() => navigation.navigate('PaymentForm')}>
+          {/* <Item onPress={() => navigation.navigate('PaymentForm')}>
             <CreditCardIcon />
             <ItemName>Cadastrar pagamento</ItemName>
+          </Item> */}
+        </Row>
+        <Row>
+          <Item onPress={() => navigation.navigate('GameForm')}>
+            <CloverIcon />
+            <ItemName>Fazer um jogo</ItemName>
           </Item>
         </Row>
       </Content>
-      <MenuFooter />
+      {/* <MenuFooter /> */}
     </Container>
   );
 }

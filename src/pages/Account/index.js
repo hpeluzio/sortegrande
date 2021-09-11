@@ -15,6 +15,8 @@ import {
   Loader,
   ButtonText,
   InputContainer,
+  InputRow,
+  InputRowLogout,
   Container,
   Content,
   Button,
@@ -130,7 +132,17 @@ export default function Account({ navigation }) {
   }, [validateForm, dispatch, email, password, confirmPassword, user]);
 
   const logout = useCallback(() => {
-    dispatch(setSession({ user: {}, token: null }));
+    Alert.alert('Deseja encerrar a sessão?', '', [
+      {
+        text: 'Não',
+        onPress: () => {},
+        style: 'cancel',
+      },
+      {
+        text: 'Sim',
+        onPress: () => dispatch(setSession({ user: {}, token: null })),
+      },
+    ]);
   }, [dispatch]);
 
   return (
@@ -138,40 +150,44 @@ export default function Account({ navigation }) {
       <TopHeader tittle={'Perfil'} />
       <Content>
         <InputContainer>
-          <CustomInputText
-            label={'E-mail:'}
-            placeholder={'E-mail'}
-            value={email}
-            errorMessage={errorEmail}
-            onChangeText={text => setEmail(text)}
-            onBlur={validateFieldEmail}
-            type={'Entypo'}
-            icon={'mail'}
-          />
-
-          <CustomInputText
-            label={'Senha:'}
-            placeholder={'Senha'}
-            value={password}
-            errorMessage={errorPassword}
-            onChangeText={text => setPassword(text)}
-            onBlur={validateFieldPassword}
-            type={'FontAwesome'}
-            icon={'lock'}
-            secureTextEntry={true}
-          />
-
-          <CustomInputText
-            label={'Confirmar senha:'}
-            placeholder={'Confirmar senha'}
-            value={confirmPassword}
-            errorMessage={errorConfirmPassword}
-            onChangeText={text => setConfirmPassword(text)}
-            onBlur={validateFieldConfirmPassword}
-            type={'FontAwesome'}
-            icon={'lock'}
-            secureTextEntry={true}
-          />
+          <InputRow>
+            <CustomInputText
+              label={'E-mail:'}
+              placeholder={'E-mail'}
+              value={email}
+              errorMessage={errorEmail}
+              onChangeText={text => setEmail(text)}
+              onBlur={validateFieldEmail}
+              type={'Entypo'}
+              icon={'mail'}
+            />
+          </InputRow>
+          <InputRow>
+            <CustomInputText
+              label={'Senha:'}
+              placeholder={'Senha'}
+              value={password}
+              errorMessage={errorPassword}
+              onChangeText={text => setPassword(text)}
+              onBlur={validateFieldPassword}
+              type={'FontAwesome'}
+              icon={'lock'}
+              secureTextEntry={true}
+            />
+          </InputRow>
+          <InputRow>
+            <CustomInputText
+              label={'Confirmar senha:'}
+              placeholder={'Confirmar senha'}
+              value={confirmPassword}
+              errorMessage={errorConfirmPassword}
+              onChangeText={text => setConfirmPassword(text)}
+              onBlur={validateFieldConfirmPassword}
+              type={'FontAwesome'}
+              icon={'lock'}
+              secureTextEntry={true}
+            />
+          </InputRow>
           <Spacer />
           <ButtonSubmit onPress={update}>
             <Gradient>
@@ -180,10 +196,14 @@ export default function Account({ navigation }) {
             </Gradient>
           </ButtonSubmit>
           <Spacer />
-          <Button onPress={logout}>
-            <Logout />
-            <Label>Logout</Label>
-          </Button>
+          <Spacer />
+          <Spacer />
+          <InputRowLogout>
+            <Button onPress={logout}>
+              <Logout />
+              <Label>Encerrar sessão</Label>
+            </Button>
+          </InputRowLogout>
         </InputContainer>
       </Content>
     </Container>

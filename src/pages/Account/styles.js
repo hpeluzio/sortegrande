@@ -30,8 +30,13 @@ export const Content = styled.View`
 `;
 
 export const Button = styled.TouchableOpacity`
-  padding: 0 ${wp('5%')}px;
+  padding: ${hp('2%')}px;
+  height: ${hp('12%')}px;
+  width: ${wp('25%')}px;
   align-items: center;
+  justify-content: center;
+  /* align-self: flex-end; */
+  /* background-color: red; */
 `;
 
 export const ButtonSubmit = styled.TouchableOpacity`
@@ -41,8 +46,8 @@ export const ButtonSubmit = styled.TouchableOpacity`
   overflow: hidden;
   /* margin: ${wp('10%')}px ${wp('1%')}px; */
   text-align: center;
-  background: ${colors.primary};
   align-self: center;
+  background-color: ${colors.primary};
 `;
 
 export const Logout = styled(AntDesign).attrs({
@@ -64,15 +69,31 @@ export const Label = styled.Text`
 export const InputContainer = styled.SafeAreaView`
   flex: 1;
   flex-direction: column;
+  /* height: ${hp('75%')}px; */
   /* justify-content: flex-start; */
-  align-items: center;
+  /* align-items: center; */
   background: ${colors.white};
   margin: ${hp('0%')}px ${hp('4%')}px ${hp('25%')}px ${hp('4%')}px;
-  /* background: orange; */
+  /* background: tomato; */
 `;
 
+export const InputRow = styled.View`
+  /* flex: 1; */
+  flex-direction: row;
+  justify-content: flex-start;
+  border-radius: ${hp('1%')}px;
+  /* background-color: red; */
+`;
+
+export const InputRowLogout = styled.View`
+  /* flex: 1; */
+  flex-direction: row;
+  justify-content: center;
+  border-radius: ${hp('1%')}px;
+  /* background-color: red; */
+`;
 export const Back = styled.View`
-  height: ${hp('100%')}px;
+  /* height: ${hp('100%')}px; */
   width: ${wp('100%')}px;
   background: ${colors.primary};
   position: absolute;
@@ -91,33 +112,6 @@ export const InputLabel = styled.Text`
   margin-top: ${hp('1%')}px;
 `;
 
-// export const Email = styled(Input).attrs({
-//   keyboardType: 'email-address',
-//   leftIcon: {
-//     type: 'Entypo',
-//     name: 'mail',
-//     color: colors.mediumGray,
-//     size: wp('8%'),
-//   },
-// })`
-//   font-family: ${constants.font_family};
-//   color: ${colors.mediumGray};
-// `;
-
-// export const Password = styled(Input).attrs({
-//   secureTextEntry: true,
-//   leftIcon: {
-//     type: 'FontAwesome',
-//     name: 'lock',
-//     color: colors.mediumGray,
-//     size: wp('8%'),
-//   },
-// })`
-//   font-family: ${constants.font_family};
-//   color: ${colors.mediumGray};
-// `;
-
-//Account
 export const AccountContainer = styled.View`
   flex: 1;
   flex-direction: row;
@@ -167,7 +161,7 @@ export const ButtonText = styled.Text`
 
 export const Spacer = styled.View`
   flex-direction: column;
-  height: ${hp('10%')}px;
+  height: ${hp('5%')}px;
   background: ${colors.white};
   align-items: center;
   justify-content: center;

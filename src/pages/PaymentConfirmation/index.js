@@ -2,10 +2,10 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { Alert } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
-import {
-  setGameForm,
-  setGameNameForm,
-} from '~/redux/actions/gameForm/gameFormActions';
+// import {
+//   setGameForm,
+//   setGameNameForm,
+// } from '~/redux/actions/gameForm/gameFormActions';
 
 import GameService from '~/services/GameService';
 import TopHeader from '~/components/TopHeader';
@@ -30,7 +30,7 @@ import {
 } from './styles';
 
 export default function PaymentConfirmation({ navigation }) {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const [loading, setLoading] = useState(false);
 
