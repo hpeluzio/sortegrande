@@ -50,7 +50,7 @@ export const InputLabel = styled.Text`
 
 export const SubmitButton = styled.TouchableOpacity`
   height: ${hp(constants.height_small_pc)}px;
-  width: ${wp('18%')}px;
+  width: ${wp('26%')}px;
   border-radius: ${wp('1%')}px;
   overflow: hidden;
   margin-left: ${wp('5%')}px;
@@ -92,7 +92,7 @@ export const GradientSend = styled(LinearGradient).attrs({
 export const ButtonText = styled.Text`
   color: ${colors.white};
   text-transform: uppercase;
-  font-size: ${hp(constants.font_size_pc)};
+  font-size: ${hp(constants.font_default)}px;
   font-family: ${constants.font_family_semi_bold};
 `;
 

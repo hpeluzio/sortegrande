@@ -104,7 +104,7 @@ export default function PaymentProcessing({ navigation }) {
   //Rendering
   return (
     <>
-      <TopHeader tittle={'Processando pagamento'} />
+      <TopHeader tittle={'Verificando dados'} />
       <Container>
         <LoadingGif />
 

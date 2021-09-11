@@ -186,7 +186,7 @@ export default function GameForm({ navigation }) {
             ) : (
               <SubmitButton onPress={submitAlert}>
                 <GradientSend>
-                  <ButtonText>Enviar</ButtonText>
+                  <ButtonText>Avançar</ButtonText>
                 </GradientSend>
               </SubmitButton>
             )}

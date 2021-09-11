@@ -177,7 +177,7 @@ export default function PaymentConfirmation({ navigation }) {
             <Spacer />
             <ButtonSubmit onPress={submitConfirmation}>
               <Gradient>
-                {!loading && <ButtonText>Enviar</ButtonText>}
+                {!loading && <ButtonText>Efetuar pagamento</ButtonText>}
                 {loading && <Loader />}
               </Gradient>
             </ButtonSubmit>

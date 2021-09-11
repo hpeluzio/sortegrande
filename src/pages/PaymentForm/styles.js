@@ -75,7 +75,7 @@ export const Loader = styled.ActivityIndicator.attrs({
 export const ButtonText = styled.Text`
   color: ${colors.white};
   text-transform: uppercase;
-  font-size: ${hp(constants.font_size_pc)}px;
+  font-size: ${hp(constants.font_default)}px;
   font-family: ${constants.font_family_semi_bold};
 `;
 

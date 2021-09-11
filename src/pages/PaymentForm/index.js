@@ -306,7 +306,7 @@ export default function PaymentForm({ navigation }) {
           <Spacer />
           <ButtonSubmit onPress={confirmForm}>
             <Gradient>
-              {!loading && <ButtonText>Enviar</ButtonText>}
+              {!loading && <ButtonText>Avançar</ButtonText>}
               {loading && <Loader />}
             </Gradient>
           </ButtonSubmit>
