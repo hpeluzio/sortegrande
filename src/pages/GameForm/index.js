@@ -149,7 +149,7 @@ export default function GameForm({ navigation }) {
       <ScrollView>
         <Content>
           <CustomInputText
-            label={'Nome do jogo:'}
+            label={'Nome/apelido do jogo:'}
             placeholder={'Nome do jogo'}
             errorMessage={errorName}
             onChangeText={n => dispatch(setGameNameForm({ name: n }))}

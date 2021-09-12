@@ -34,10 +34,11 @@ export default function PaymentForm({ navigation }) {
   const dispatch = useDispatch();
 
   const [loading, setLoading] = useState(false);
+  const [securityCode, setSecurityCode] = useState('');
 
   const cardNumber = useSelector(s => s.paymentForm.cardNumber);
   const expireDate = useSelector(s => s.paymentForm.expireDate);
-  const securityCode = useSelector(s => s.paymentForm.securityCode);
+  // const securityCode = useSelector(s => s.paymentForm.securityCode);
   const cardholderName = useSelector(s => s.paymentForm.cardholderName);
   const identificationNumber = useSelector(
     s => s.paymentForm.identificationNumber,
@@ -131,6 +132,8 @@ export default function PaymentForm({ navigation }) {
 
   const confirmForm = useCallback(async () => {
     if (validateForm) {
+      dispatch(setPaymentSecurityCodeForm({ securityCode: securityCode }));
+
       const cardFlag = getCardFlag(cardNumber);
       dispatch(setPaymentCardFlagForm({ cardFlag: cardFlag }));
 
@@ -241,9 +244,7 @@ export default function PaymentForm({ navigation }) {
               placeholder={'CVV'}
               value={securityCode}
               errorMessage={errorSecurityCode}
-              onChangeText={n =>
-                dispatch(setPaymentSecurityCodeForm({ securityCode: n }))
-              }
+              onChangeText={cvv => setSecurityCode(cvv)}
               onBlur={validateFieldSecurityCode}
               type={'Entypo'}
               icon={'credit-card'}

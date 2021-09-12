@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import moment from 'moment';
 import {
   setGameForm,
@@ -48,7 +48,7 @@ export default function MyGames({ navigation }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log('games: ', games);
+    // console.log('games: ', games);
     games.map(game => {
       game.won = verifyGameWon(game);
     });
