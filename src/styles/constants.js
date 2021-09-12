@@ -19,6 +19,7 @@ const constants = {
   height_fifty_pc: '45%',
   font_size_sm_pc: '1.8%',
   font_size_pc_two: '1.6%',
+  font_1_5: '1.5%',
   font_size_pc: '2%',
   font_size_md_pc: '2.3%',
   font_size_xl_pc: '3%',

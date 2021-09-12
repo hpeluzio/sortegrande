@@ -13,8 +13,8 @@ import TopHeader from '~/components/TopHeader';
 import '~/config/reactotron';
 
 import getCardFlag from '~/utils/getCardFlag';
-
 import valid from 'card-validator';
+import { cpf } from 'cpf-cnpj-validator';
 
 import {
   InputRow,
@@ -117,8 +117,13 @@ export default function PaymentForm({ navigation }) {
   }, [cardholderName]);
 
   const validateFieldIdentificationNumber = useCallback(() => {
+    console.tron.log('validateFieldIdentificationNumber');
     if (identificationNumber === '') {
       setErrorIdentificationNumber('CPF exigido.');
+      return false;
+    } else if (!cpf.isValid(identificationNumber)) {
+      console.tron.log('!cpf.isValid');
+      setErrorIdentificationNumber('CPF inválido.');
       return false;
     } else {
       setErrorIdentificationNumber('');
@@ -147,7 +152,7 @@ export default function PaymentForm({ navigation }) {
   ]);
 
   const confirmForm = useCallback(async () => {
-    console.tron.log(validateForm(), 'kkkk');
+    console.tron.log(validateForm());
     if (validateForm() === true) {
       dispatch(setPaymentSecurityCodeForm({ securityCode: securityCode }));
 

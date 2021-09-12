@@ -32,7 +32,7 @@ export default function GameForm({ navigation }) {
   const name = useSelector(s => s.gameForm.name);
   const dispatch = useDispatch();
 
-  const [errorName, setErrorName] = useState(null);
+  const [errorName, setErrorName] = useState('');
 
   const addNumber = useCallback(
     n => {
@@ -65,7 +65,7 @@ export default function GameForm({ navigation }) {
 
   const validateFieldName = useCallback(() => {
     name !== ''
-      ? setErrorName(null)
+      ? setErrorName('')
       : setErrorName('Forneça um nome para o jogo.');
     return name !== '';
   }, [name]);

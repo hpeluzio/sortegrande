@@ -111,6 +111,13 @@ export default function PaymentConfirmation({ navigation }) {
     ]);
   }, []);
 
+  const maskCard = useCallback(num => {
+    return num.replace(
+      /([0-9]{4})[ ]([0-9]{4})[ ]([0-9]{4})[ ]([0-9]{4})/,
+      '$1 **** **** $4',
+    );
+  }, []);
+
   //Rendering
   return (
     <>
@@ -141,7 +148,7 @@ export default function PaymentConfirmation({ navigation }) {
             <Row>
               <Column>
                 <InfoLabel>Número do cartão:</InfoLabel>
-                <Info>{cardNumber}</Info>
+                <Info>{maskCard(cardNumber)}</Info>
               </Column>
               <Column>
                 <InfoLabel>Número do cartão:</InfoLabel>
