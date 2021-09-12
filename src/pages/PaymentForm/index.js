@@ -14,6 +14,8 @@ import '~/config/reactotron';
 
 import getCardFlag from '~/utils/getCardFlag';
 
+import valid from 'card-validator';
+
 import {
   InputRow,
   Gradient,
@@ -60,53 +62,67 @@ export default function PaymentForm({ navigation }) {
   //   console.tron.log('identificationNumber:::: ', identificationNumber);
   // }, [identificationNumber]);
 
-  const validateFieldCardNumber = useCallback(async () => {
-    if (cardNumber !== '') {
+  const validateFieldCardNumber = useCallback(() => {
+    var numberValidation = valid.number(cardNumber);
+    // console.tron.log(numberValidation);
+    // console.tron.log(numberValidation.card.type);
+    if (cardNumber === '') {
+      setErrorCardNumber('Número do cartão exigido.');
+      return false;
+    }
+
+    if (numberValidation.isPotentiallyValid === true) {
       setErrorCardNumber('');
-    } else {
-      setErrorCardNumber('Número de cartão exigido.');
+      return true;
     }
   }, [cardNumber]);
 
-  const validateFieldExpireDate = useCallback(async () => {
-    if (expireDate !== '') {
-      setErrorExpireDate('');
-    } else {
+  const validateFieldExpireDate = useCallback(() => {
+    const month = Number(expireDate.split('/')[0]);
+    const year = Number(expireDate.split('/')[1]);
+
+    if (expireDate === '') {
       setErrorExpireDate('Data exigida.');
-      // return validCard(expireDate);
+      return false;
+    } else if (month < 1 || month > 12) {
+      setErrorExpireDate('Mẽs inválido.');
+      return false;
+    } else if (year < 2020) {
+      setErrorExpireDate('Ano expirado.');
+      return false;
+    } else {
+      setErrorExpireDate('');
+      return true;
     }
   }, [expireDate]);
 
-  const validateFieldSecurityCode = useCallback(async () => {
-    if (securityCode.length !== 3) {
-      setErrorSecurityCode('3 números exigidos.');
-    }
-
+  const validateFieldSecurityCode = useCallback(() => {
     if (securityCode === '') {
       setErrorSecurityCode('CVV exigido.');
-    }
-
-    if (securityCode !== '' && securityCode.length === 3) {
+      return false;
+    } else {
       setErrorSecurityCode('');
-      // return validCard(expireDate);
+      return true;
     }
   }, [securityCode]);
 
-  const validateFieldCardholderName = useCallback(async () => {
-    if (cardholderName !== '') {
-      setErrorCardholderName('');
-    } else {
+  const validateFieldCardholderName = useCallback(() => {
+    if (cardholderName === '') {
       setErrorCardholderName('Nome exigido.');
-      // return validCard(expireDate);
+      return false;
+    } else {
+      setErrorCardholderName('');
+      return true;
     }
   }, [cardholderName]);
 
-  const validateFieldIdentificationNumber = useCallback(async () => {
-    if (identificationNumber !== '') {
-      setErrorIdentificationNumber('');
-    } else {
+  const validateFieldIdentificationNumber = useCallback(() => {
+    if (identificationNumber === '') {
       setErrorIdentificationNumber('CPF exigido.');
-      // return validCard(expireDate);
+      return false;
+    } else {
+      setErrorIdentificationNumber('');
+      return true;
     }
   }, [identificationNumber]);
 
@@ -131,21 +147,17 @@ export default function PaymentForm({ navigation }) {
   ]);
 
   const confirmForm = useCallback(async () => {
-    if (validateForm) {
+    console.tron.log(validateForm(), 'kkkk');
+    if (validateForm() === true) {
       dispatch(setPaymentSecurityCodeForm({ securityCode: securityCode }));
 
       const cardFlag = getCardFlag(cardNumber);
       dispatch(setPaymentCardFlagForm({ cardFlag: cardFlag }));
 
-      console.tron.log(cardFlag);
-
       //Setting expire month and year
       const date = expireDate.split('/');
       setCardExpirationMonth(date[0]);
       setCardExpirationYear(date[1]);
-
-      // console.tron.log('cardNumber: ', cardNumber);
-      // console.tron.log('cardNumber: ', cardNumber.split(' ').join(''));
 
       Alert.alert('Continuar', 'O processamento pode levar alguns segundos', [
         {

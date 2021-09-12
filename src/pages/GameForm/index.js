@@ -128,20 +128,22 @@ export default function GameForm({ navigation }) {
   );
 
   const submitAlert = useCallback(() => {
-    Alert.alert('Continuar', 'Deseja prosseguir com este jogo?', [
-      {
-        text: 'Cancelar',
-        onPress: () => {},
-        style: 'cancel',
-      },
-      {
-        text: 'Ok',
-        onPress: () => {
-          submitForm();
+    if (validateFieldName()) {
+      Alert.alert('Continuar', 'Deseja prosseguir com este jogo?', [
+        {
+          text: 'Cancelar',
+          onPress: () => {},
+          style: 'cancel',
         },
-      },
-    ]);
-  }, [submitForm]);
+        {
+          text: 'Ok',
+          onPress: () => {
+            submitForm();
+          },
+        },
+      ]);
+    }
+  }, [submitForm, validateFieldName]);
 
   return (
     <Container>
