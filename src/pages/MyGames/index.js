@@ -10,6 +10,8 @@ import GameService from '~/services/GameService';
 
 import TopHeader from '~/components/TopHeader';
 
+import '~/config/reactotron';
+
 import {
   ScrollView,
   Container,
@@ -27,6 +29,8 @@ import {
   NameSquareLeft,
   NameSquareRight,
   WonSquare,
+  NotCheckedSquare,
+  CheckedSquare,
   NameText,
   WonText,
   RepeatIcon,
@@ -34,12 +38,14 @@ import {
   RefreshControl,
   Button,
   LoadingGif,
+  Loader,
 } from './styles';
 
 import { Alert } from 'react-native';
 
 export default function MyGames({ navigation }) {
   const [loading, setLoading] = useState(false);
+  const [loadingCheck, setLoadingCheck] = useState(false);
   const [games, setGames] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
 
@@ -48,51 +54,25 @@ export default function MyGames({ navigation }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // console.log('games: ', games);
-    games.map(game => {
-      game.won = verifyGameWon(game);
-    });
-  }, [games, verifyGameWon]);
-
-  useEffect(() => {
     getMyGames();
   }, [getMyGames]);
 
-  const verifyGameWon = useCallback(
-    game => {
-      // console.log('verifyGameWon: ', game);
+  const countGameHits = useCallback(game => {
+    if (game.raffle.numbers === null) {
+      return 0;
+    }
 
-      if (game.raffle.numbers === null) {
-        return 0;
-      } else if (game.raffle.numbers !== null) {
-        const luckNumbers = game.raffle.numbers.split(',');
-        const gameNumbers = game.numbers.split(',');
+    const luckNumbers = game.raffle.numbers.split(',');
+    const gameNumbers = game.numbers.split(',');
 
-        const won = arrayContainsAll(luckNumbers, gameNumbers);
-
-        // console.log(luckNumbers, gameNumbers);
-        console.log('won: ', won);
-
-        if (won) {
-          return 2;
-        } else {
-          return 1;
-        }
-      } else {
-        return 0;
-      }
-    },
-    [arrayContainsAll],
-  );
-
-  const arrayContainsAll = useCallback((luckNumbers, gameNumbers) => {
+    let hits = 0;
     for (let i = 0; i < luckNumbers.length; i++) {
-      if (gameNumbers.indexOf(luckNumbers[i]) === -1) {
-        return false;
+      if (gameNumbers.indexOf(luckNumbers[i]) !== -1) {
+        hits += 1;
       }
     }
 
-    return true;
+    return hits;
   }, []);
 
   const getMyGames = useCallback(async () => {
@@ -112,18 +92,18 @@ export default function MyGames({ navigation }) {
     setRefreshing(false);
   }, [getMyGames]);
 
-  const onDeleteGame = useCallback(
-    async game_id => {
-      setLoading(true);
-      const { status, data } = await GameService.delete(game_id);
-      // console.log('status', status, data);
+  // const onDeleteGame = useCallback(
+  //   async game_id => {
+  //     setLoading(true);
+  //     const { status, data } = await GameService.delete(game_id);
+  //     // console.log('status', status, data);
 
-      await getMyGames();
+  //     await getMyGames();
 
-      setLoading(false);
-    },
-    [getMyGames],
-  );
+  //     setLoading(false);
+  //   },
+  //   [getMyGames],
+  // );
 
   const onEditGame = useCallback(
     async game => {
@@ -144,24 +124,24 @@ export default function MyGames({ navigation }) {
     [dispatch, navigation],
   );
 
-  const onDeleteAlert = useCallback(
-    game_id => {
-      Alert.alert('Excluir jogo', 'Deseja realmente excluir o jogo?', [
-        {
-          text: 'Cancelar',
-          onPress: () => {},
-          style: 'cancel',
-        },
-        {
-          text: 'excluir',
-          onPress: () => {
-            onDeleteGame(game_id);
-          },
-        },
-      ]);
-    },
-    [onDeleteGame],
-  );
+  // const onDeleteAlert = useCallback(
+  //   game_id => {
+  //     Alert.alert('Excluir jogo', 'Deseja realmente excluir o jogo?', [
+  //       {
+  //         text: 'Cancelar',
+  //         onPress: () => {},
+  //         style: 'cancel',
+  //       },
+  //       {
+  //         text: 'excluir',
+  //         onPress: () => {
+  //           onDeleteGame(game_id);
+  //         },
+  //       },
+  //     ]);
+  //   },
+  //   [onDeleteGame],
+  // );
 
   const onEditAlert = useCallback(
     game => {
@@ -192,6 +172,26 @@ export default function MyGames({ navigation }) {
       return raffleNumbers.includes(number);
     }
   }, []);
+
+  const checkGame = useCallback(
+    async id => {
+      setLoadingCheck(true);
+      // console.tron.log(id);
+      const { status, data } = await GameService.check({ id });
+
+      if (status === 200) {
+        const gamesUpdated = games.map(game => {
+          if (game.id === id) {
+            game.status = 'checked';
+          }
+          return game;
+        });
+        setGames(gamesUpdated);
+        setLoadingCheck(false);
+      }
+    },
+    [games],
+  );
 
   if (loading) {
     return (
@@ -231,11 +231,42 @@ export default function MyGames({ navigation }) {
               {games.map(game => {
                 return (
                   <GameCard key={game.id}>
-                    {verifyGameWon(game) === 2 && (
+                    {game.status === 'notchecked' &&
+                      game.raffle.numbers === null && (
+                        <Row>
+                          <NotCheckedSquare toCheck={false}>
+                            <WonText>
+                              Será realizado no dia{' '}
+                              {moment(game.raffle.end).format('DD/MM')}
+                            </WonText>
+                          </NotCheckedSquare>
+                        </Row>
+                      )}
+                    {game.status === 'notchecked' &&
+                      game.raffle.numbers !== null && (
+                        <Row>
+                          <NotCheckedSquare
+                            toCheck={true}
+                            onPress={() => checkGame(game.id)}>
+                            {!loadingCheck && (
+                              <WonText>Conferir este jogo</WonText>
+                            )}
+                            {loadingCheck && <Loader />}
+                          </NotCheckedSquare>
+                        </Row>
+                      )}
+                    {countGameHits(game) < 6 && game.status === 'checked' && (
                       <Row>
-                        <WonSquare won={verifyGameWon(game)}>
+                        <CheckedSquare won={false}>
+                          <WonText>{countGameHits(game)} acertos</WonText>
+                        </CheckedSquare>
+                      </Row>
+                    )}
+                    {countGameHits(game) === 6 && game.status === 'checked' && (
+                      <Row>
+                        <CheckedSquare won={true}>
                           <WonText>Jogo sorteado!</WonText>
-                        </WonSquare>
+                        </CheckedSquare>
                       </Row>
                     )}
                     <Row>
