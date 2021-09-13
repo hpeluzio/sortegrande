@@ -40,23 +40,23 @@ export default function Account({ navigation }) {
   const [loading, setLoading] = useState(false);
 
   //Form validation fields
-  const [errorEmail, setErrorEmail] = useState(null);
-  const [errorPassword, setErrorPassword] = useState(null);
-  const [errorConfirmPassword, setErrorConfirmPassword] = useState(null);
+  const [errorEmail, setErrorEmail] = useState('');
+  const [errorPassword, setErrorPassword] = useState('');
+  const [errorConfirmPassword, setErrorConfirmPassword] = useState('');
 
   useEffect(() => {
     setEmail(user.email);
   }, [user.email]);
 
   useEffect(() => {
-    if (token === null) {
+    if (token === '') {
       navigation.navigate('Login');
     }
   }, [navigation, token, user]);
 
   const validateFieldEmail = useCallback(async () => {
     if (validateEmail(email)) {
-      setErrorEmail(null);
+      setErrorEmail('');
 
       if (email !== user.email) {
         console.log('E-mail diferente');
@@ -74,14 +74,14 @@ export default function Account({ navigation }) {
 
   const validateFieldPassword = useCallback(() => {
     password.length >= 6
-      ? setErrorPassword(null)
+      ? setErrorPassword('')
       : setErrorPassword('Forneça uma senha com 6 dígitos ou maior.');
     return password.length >= 6;
   }, [password]);
 
   const validateFieldConfirmPassword = useCallback(() => {
     confirmPassword === password
-      ? setErrorConfirmPassword(null)
+      ? setErrorConfirmPassword('')
       : setErrorConfirmPassword('As senhas não conferem.');
     return confirmPassword === password;
   }, [password, confirmPassword]);
