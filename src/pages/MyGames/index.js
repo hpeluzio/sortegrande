@@ -166,7 +166,11 @@ export default function MyGames({ navigation }) {
     [onEditGame],
   );
 
-  const isThisNumberInRaffle = useCallback((number, raffleNumbers) => {
+  const isThisNumberInRaffle = useCallback((number, raffleNumbers, status) => {
+    if (status === 'notchecked') {
+      return false;
+    }
+
     if (raffleNumbers !== null) {
       raffleNumbers = raffleNumbers.split(',');
       return raffleNumbers.includes(number);
@@ -317,6 +321,7 @@ export default function MyGames({ navigation }) {
                                 color={isThisNumberInRaffle(
                                   number,
                                   game.raffle.numbers,
+                                  game.status,
                                 )}>
                                 <NumbersText>{number}</NumbersText>
                               </NumberSquare>

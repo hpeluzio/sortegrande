@@ -26,7 +26,7 @@ export default function Home({ navigation }) {
       <TopHeader tittle={'Tela inicial'} />
       <Content>
         <Row>
-          <Item onPress={() => navigation.navigate('Login')}>
+          <Item onPress={() => {}}>
             <BookIcon />
             <ItemName>Jogos cadastrados</ItemName>
           </Item>
