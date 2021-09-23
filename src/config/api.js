@@ -8,7 +8,9 @@ var instance = axios.create({
   // baseURL: 'http://192.168.1.15:3333',
   // baseURL: 'http://10.0.2.2:3333',
   // baseURL: 'http://10.0.2.2:3000',
-  baseURL: API_URL,
+  // baseURL: API_URL,
+  // baseURL: 'https://bolaodasorte.online:3333/',
+  baseURL: 'http://18.222.78.105:3333',
   // baseURL: 'http://192.168.0.103:3333',
   timeout: 25000,
 });

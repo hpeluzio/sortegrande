@@ -10,8 +10,6 @@ import { Container, HiddenWebView, LoadingGif } from './styles';
 import LoadIndicator from '~/components/LoadIndicator';
 import '~/config/reactotron';
 
-// import { CREATE_TOKEN_URL } from '@env';
-
 export default function PaymentProcessing({ navigation }) {
   const dispatch = useDispatch();
 
