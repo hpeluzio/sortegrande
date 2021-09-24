@@ -28,7 +28,7 @@ import {
   NumbersText,
   NameSquareLeft,
   NameSquareRight,
-  WonSquare,
+  // WonSquare,
   NotCheckedSquare,
   CheckedSquare,
   NameText,
@@ -39,6 +39,7 @@ import {
   Button,
   LoadingGif,
   Loader,
+  EmptyAnimation,
 } from './styles';
 
 import { Alert } from 'react-native';
@@ -225,6 +226,7 @@ export default function MyGames({ navigation }) {
           {games.length === 0 ? (
             <Content>
               <EmptyGameCard>
+                <EmptyAnimation />
                 <EmptyGameText>
                   Você ainda não possui nenhum jogo cadastrado.{' '}
                 </EmptyGameText>

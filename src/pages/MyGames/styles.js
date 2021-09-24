@@ -10,6 +10,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import { colors, constants } from '~/styles';
 
 import Spinner from '~/images/spinner.gif';
+import Empty from '~/images/empty.gif';
 
 export const ScrollView = styled.ScrollView`
   flex: 1;
@@ -269,17 +270,18 @@ export const EmptyGameCard = styled.View`
   align-items: center;
   justify-content: center;
   width: ${wp('95%')}px;
-  height: ${hp('30%')}px;
-  border-radius: ${wp('3%')}px;
-  margin-bottom: ${hp('3%')}px;
-  border-width: ${wp('0.5%')}px;
-  border-color: ${colors.mediumGray};
+  /* height: ${hp('30%')}px; */
+  /* border-radius: ${wp('3%')}px; */
+  /* margin-bottom: ${hp('3%')}px; */
+  /* border-width: ${wp('0.1%')}px; */
+  /* border-color: ${colors.mediumGray}; */
   /* background: ${colors.white}; */
+  padding: ${hp('3%')}px;
   /* background: orange; */
 `;
 
 export const EmptyGameText = styled.Text`
-  color: ${colors.black};
+  color: ${colors.mediumGray};
   /* text-transform: uppercase; */
   font-size: ${hp(constants.font_size_pc)}px;
   font-family: ${constants.font_family_semi_bold};
@@ -301,3 +303,13 @@ export const Loader = styled.ActivityIndicator.attrs({
   size: 'small',
   color: '#fff',
 })``;
+
+export const EmptyAnimation = styled.Image.attrs({
+  source: Empty,
+  resizeMode: 'contain',
+})`
+  height: ${hp('20%')}px;
+  justify-content: center;
+  /* padding-top: ${hp('35%')}px; */
+  background-color: rgba(0, 0, 0, 0);
+`;
