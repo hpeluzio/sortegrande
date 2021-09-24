@@ -128,6 +128,24 @@ export default function GameForm({ navigation }) {
   );
 
   const submitAlert = useCallback(() => {
+    if (selectedNumbers.length !== 21) {
+      Alert.alert('Aviso', 'Você pode jogar até 21 números.', [
+        {
+          text: 'Cancelar',
+          onPress: () => {},
+          style: 'cancel',
+        },
+        {
+          text: 'Ok',
+          onPress: () => {
+            submitForm();
+          },
+        },
+      ]);
+
+      return;
+    }
+
     if (validateFieldName()) {
       Alert.alert('Continuar', 'Deseja prosseguir com este jogo?', [
         {
@@ -143,7 +161,7 @@ export default function GameForm({ navigation }) {
         },
       ]);
     }
-  }, [submitForm, validateFieldName]);
+  }, [selectedNumbers, submitForm, validateFieldName]);
 
   return (
     <Container>
@@ -180,7 +198,7 @@ export default function GameForm({ navigation }) {
             </SubmitButton>
 
             {selectedNumbers.length !== 21 ? (
-              <SubmitButton>
+              <SubmitButton onPress={submitAlert}>
                 <GradientSendBlocked>
                   <ButtonText>Enviar</ButtonText>
                 </GradientSendBlocked>

@@ -32,11 +32,11 @@ export const Content = styled.View`
 export const Button = styled.TouchableOpacity`
   padding: ${hp('2%')}px;
   height: ${hp('12%')}px;
-  width: ${wp('25%')}px;
+  width: ${wp('40%')}px;
   align-items: center;
   justify-content: center;
   /* align-self: flex-end; */
-  /* background-color: red; */
+  background-color: red;
 `;
 
 export const ButtonSubmit = styled.TouchableOpacity`

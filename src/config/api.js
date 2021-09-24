@@ -1,14 +1,14 @@
 import axios from 'axios';
 
 import { store } from '~/redux/store';
-import { API_URL } from '@env';
+// import { API_URL } from '@env';
 
 var instance = axios.create({
   // baseURL: 'http://localhost:3333',
   // baseURL: 'http://192.168.1.15:3333',
   // baseURL: 'http://10.0.2.2:3333',
-  baseURL: API_URL,
-  // baseURL: 'https://bolaodasorte.online',
+  // baseURL: API_URL,
+  baseURL: 'https://api.bolaodasorte.online',
   timeout: 25000,
 });
 
