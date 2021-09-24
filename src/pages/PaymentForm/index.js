@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   setPaymentCardNumberForm,
@@ -10,7 +10,7 @@ import {
 } from '~/redux/actions/paymentForm/paymentFormActions';
 
 import TopHeader from '~/components/TopHeader';
-import '~/config/reactotron';
+// import '~/config/reactotron';
 
 import getCardFlag from '~/utils/getCardFlag';
 import valid from 'card-validator';
@@ -47,8 +47,8 @@ export default function PaymentForm({ navigation }) {
   );
   const identificationType = 'CPF';
 
-  const [cardExpirationMonth, setCardExpirationMonth] = useState('11');
-  const [cardExpirationYear, setCardExpirationYear] = useState('2025');
+  const [cardExpirationMonth, setCardExpirationMonth] = useState('');
+  const [cardExpirationYear, setCardExpirationYear] = useState('');
 
   //Form validation fields
   const [errorCardNumber, setErrorCardNumber] = useState('');
@@ -117,12 +117,12 @@ export default function PaymentForm({ navigation }) {
   }, [cardholderName]);
 
   const validateFieldIdentificationNumber = useCallback(() => {
-    console.tron.log('validateFieldIdentificationNumber');
+    // console.tron.log('validateFieldIdentificationNumber');
     if (identificationNumber === '') {
       setErrorIdentificationNumber('CPF exigido.');
       return false;
     } else if (!cpf.isValid(identificationNumber)) {
-      console.tron.log('!cpf.isValid');
+      // console.tron.log('!cpf.isValid');
       setErrorIdentificationNumber('CPF inválido.');
       return false;
     } else {
@@ -152,7 +152,7 @@ export default function PaymentForm({ navigation }) {
   ]);
 
   const confirmForm = useCallback(async () => {
-    console.tron.log(validateForm());
+    // console.tron.log(validateForm());
     if (validateForm() === true) {
       dispatch(setPaymentSecurityCodeForm({ securityCode: securityCode }));
 

@@ -9,7 +9,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import GameService from '~/services/GameService';
 import TopHeader from '~/components/TopHeader';
-import '~/config/reactotron';
+// import '~/config/reactotron';
 
 import {
   Scroll,
@@ -47,9 +47,9 @@ export default function PaymentConfirmation({ navigation }) {
   );
   const token = useSelector(s => s.paymentForm.token);
 
-  useEffect(() => {
-    console.tron.log('Confirm payment token: ', token);
-  }, [token]);
+  // useEffect(() => {
+  //   console.tron.log('Confirm payment token: ', token);
+  // }, [token]);
 
   const submitConfirmation = useCallback(async () => {
     if (loading === false) {
@@ -65,7 +65,7 @@ export default function PaymentConfirmation({ navigation }) {
         cardFlag: cardFlag,
       });
 
-      console.tron.log('response.data: ', response.data);
+      // console.tron.log('response.data: ', response.data);
 
       if (response.status === 200) {
         setLoading(false);

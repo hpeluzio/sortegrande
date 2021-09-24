@@ -8,7 +8,7 @@ import { setPaymentTokenForm } from '~/redux/actions/paymentForm/paymentFormActi
 import TopHeader from '~/components/TopHeader';
 import { Container, HiddenWebView, LoadingGif } from './styles';
 import LoadIndicator from '~/components/LoadIndicator';
-import '~/config/reactotron';
+// import '~/config/reactotron';
 
 export default function PaymentProcessing({ navigation }) {
   const dispatch = useDispatch();
@@ -52,7 +52,7 @@ export default function PaymentProcessing({ navigation }) {
 
   const onMessage = useCallback(
     async event => {
-      console.tron.log('onMessage: ', JSON.parse(event.nativeEvent.data).token);
+      // console.tron.log('onMessage: ', JSON.parse(event.nativeEvent.data).token);
 
       const tokenObj = JSON.parse(event.nativeEvent.data).token;
 

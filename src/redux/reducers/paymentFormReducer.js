@@ -8,11 +8,11 @@ import { SET_PAYMENT_CARDFLAG_FORM } from '../actions/paymentForm/paymentFormAct
 import { SET_CLEAR_FORM } from '../actions/paymentForm/paymentFormActionTypes';
 
 const initialState = {
-  cardNumber: '4235 6477 2802 5682',
-  expireDate: '11/2025',
-  securityCode: '123',
-  cardholderName: 'Cardholder Name',
-  identificationNumber: '835.359.240-14',
+  cardNumber: '',
+  expireDate: '',
+  securityCode: '',
+  cardholderName: '',
+  identificationNumber: '',
   token: '',
   cardFlag: '',
 };
