@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import {
@@ -60,9 +60,19 @@ export default function PaymentForm({ navigation }) {
   const [errorIdentificationNumber, setErrorIdentificationNumber] =
     useState('');
 
-  // useEffect(() => {
-  //   console.tron.log('identificationNumber:::: ', identificationNumber);
-  // }, [identificationNumber]);
+  const [issuer, setIssuer] = useState('visa-or-mastercard');
+
+  useEffect(() => {
+    console.log('issuer:', issuer);
+  }, [issuer]);
+
+  useEffect(() => {
+    if (getCardFlag(cardNumber) === 'amex') {
+      setIssuer('amex');
+    } else {
+      setIssuer('visa-or-mastercard');
+    }
+  }, [cardNumber]);
 
   const validateFieldCardNumber = useCallback(() => {
     var numberValidation = valid.number(cardNumber);
@@ -231,6 +241,13 @@ export default function PaymentForm({ navigation }) {
     expireDate,
   ]);
 
+  const issuerMaskCredit = useCallback(async () => {
+    // if (flag === 'visa' || flag === 'master') return 'visa-or-mastercard';
+    return 'visa-or-mastercard';
+    // const cardFlag = getCardFlag(cardNumber);
+    // return cardFlag;
+  }, []);
+
   //Rendering
   return (
     <Container>
@@ -254,7 +271,7 @@ export default function PaymentForm({ navigation }) {
                 type: 'credit-card',
                 options: {
                   obfuscated: false,
-                  // issuer: 'amex',
+                  issuer: issuer,
                 },
               }}
             />
