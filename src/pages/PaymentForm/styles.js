@@ -52,8 +52,9 @@ export const InputContainer = styled.SafeAreaView`
 export const InputRow = styled.View`
   /* flex: 1; */
   flex-direction: row;
-  justify-content: flex-start;
   border-radius: ${hp('1%')}px;
+  align-items: center;
+  justify-content: center;
   /* background-color: red; */
 `;
 

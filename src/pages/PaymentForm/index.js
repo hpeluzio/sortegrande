@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+
 import {
   setPaymentCardNumberForm,
   setPaymentExpireDateForm,
@@ -13,6 +14,7 @@ import TopHeader from '~/components/TopHeader';
 // import '~/config/reactotron';
 
 import getCardFlag from '~/utils/getCardFlag';
+// import cardFlagsMP from '~/utils/cardFlagsMP';
 import valid from 'card-validator';
 import { cpf } from 'cpf-cnpj-validator';
 
@@ -26,7 +28,7 @@ import {
   Container,
   Content,
   ButtonSubmit,
-  Spacer,
+  // Spacer,
 } from './styles';
 
 import { Alert } from 'react-native';
@@ -151,20 +153,42 @@ export default function PaymentForm({ navigation }) {
     validateFieldIdentificationNumber,
   ]);
 
-  const confirmForm = useCallback(async () => {
-    // console.tron.log(validateForm());
-    if (validateForm() === true) {
-      dispatch(setPaymentSecurityCodeForm({ securityCode: securityCode }));
+  const confirmFlag = useCallback(async () => {
+    const cardFlag = getCardFlag(cardNumber);
+    console.log('cardFlag: ', cardFlag);
 
-      const cardFlag = getCardFlag(cardNumber);
+    if (cardFlag === false) {
+      Alert.alert(
+        'Bandeiras não encontrada.',
+        'Bandeiras aceitas: \nMaster Card, Visa, American Express, Elo e Hypercard.',
+        [
+          {
+            text: 'Ok',
+            onPress: () => {
+              return;
+            },
+          },
+        ],
+      );
+    } else {
       dispatch(setPaymentCardFlagForm({ cardFlag: cardFlag }));
+      confirmForm();
+    }
+  }, [dispatch, cardNumber, confirmForm]);
+
+  const confirmForm = useCallback(async () => {
+    if (validateForm() === true) {
+      //Flag
+
+      //Security
+      dispatch(setPaymentSecurityCodeForm({ securityCode: securityCode }));
 
       //Setting expire month and year
       const date = expireDate.split('/');
       setCardExpirationMonth(date[0]);
       setCardExpirationYear(date[1]);
 
-      Alert.alert('Continuar', 'O processamento pode levar alguns segundos', [
+      Alert.alert('Continuar', 'O processamento pode levar alguns segundos.', [
         {
           text: 'Não',
           onPress: () => {},
@@ -278,7 +302,7 @@ export default function PaymentForm({ navigation }) {
                    * * - accept all, EXCEPT white space.
                    */
                   // mask: '999 AAA SSS ***',
-                  mask: '999',
+                  mask: '9999',
                 },
               }}
             />
@@ -321,8 +345,8 @@ export default function PaymentForm({ navigation }) {
             />
           </InputRow>
 
-          <Spacer />
-          <ButtonSubmit onPress={confirmForm}>
+          {/* <Spacer /> */}
+          <ButtonSubmit onPress={confirmFlag}>
             <Gradient>
               {!loading && <ButtonText>Avançar</ButtonText>}
               {loading && <Loader />}
