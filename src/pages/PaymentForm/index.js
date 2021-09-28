@@ -1,5 +1,8 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+
+import { WebView } from 'react-native-webview';
+import LoadIndicator from '~/components/LoadIndicator';
 
 import {
   setPaymentCardNumberForm,
@@ -7,13 +10,13 @@ import {
   setPaymentSecurityCodeForm,
   setPaymentCardHolderNameForm,
   setPaymentIdentificationNumberForm,
-  setPaymentCardFlagForm,
+  setPaymentMethods,
 } from '~/redux/actions/paymentForm/paymentFormActions';
 
 import TopHeader from '~/components/TopHeader';
 // import '~/config/reactotron';
 
-import getCardFlag from '~/utils/getCardFlag';
+// import getCardFlag from '~/utils/getCardFlag';
 // import cardFlagsMP from '~/utils/cardFlagsMP';
 import valid from 'card-validator';
 import { cpf } from 'cpf-cnpj-validator';
@@ -28,6 +31,7 @@ import {
   Container,
   Content,
   ButtonSubmit,
+  HiddenWebView,
   // Spacer,
 } from './styles';
 
@@ -36,11 +40,13 @@ import { Alert } from 'react-native';
 
 export default function PaymentForm({ navigation }) {
   const dispatch = useDispatch();
+  const webviewRef = useRef(null);
 
   const [loading, setLoading] = useState(false);
   const [securityCode, setSecurityCode] = useState('');
 
   const cardNumber = useSelector(s => s.paymentForm.cardNumber);
+  const paymentMethods = useSelector(s => s.paymentForm.paymentMethods);
   const expireDate = useSelector(s => s.paymentForm.expireDate);
   // const securityCode = useSelector(s => s.paymentForm.securityCode);
   const cardholderName = useSelector(s => s.paymentForm.cardholderName);
@@ -63,16 +69,16 @@ export default function PaymentForm({ navigation }) {
   const [issuer, setIssuer] = useState('visa-or-mastercard');
 
   useEffect(() => {
-    console.log('issuer:', issuer);
-  }, [issuer]);
+    console.log('paymentMethods:::', paymentMethods);
+  }, [paymentMethods]);
 
   useEffect(() => {
-    if (getCardFlag(cardNumber) === 'amex') {
+    if (paymentMethods.results[0].id === 'amex') {
       setIssuer('amex');
     } else {
       setIssuer('visa-or-mastercard');
     }
-  }, [cardNumber]);
+  }, [paymentMethods]);
 
   const validateFieldCardNumber = useCallback(() => {
     var numberValidation = valid.number(cardNumber);
@@ -82,6 +88,13 @@ export default function PaymentForm({ navigation }) {
       setErrorCardNumber('Número do cartão exigido.');
       return false;
     }
+
+    // if (getCardFlag(cardNumber) === false) {
+    //   setErrorCardNumber(
+    //     'Bandeira não encontrada. \nBandeiras aceitas: Master Card, Visa, American Express, Elo e Hypercard.',
+    //   );
+    //   return false;
+    // }
 
     if (numberValidation.isPotentiallyValid === true) {
       setErrorCardNumber('');
@@ -109,8 +122,10 @@ export default function PaymentForm({ navigation }) {
   }, [expireDate]);
 
   const validateFieldSecurityCode = useCallback(() => {
+    // console.log('sec: ', securityCode);
+    // console.log('CVV exigido:::', securityCode);
     if (securityCode === '') {
-      setErrorSecurityCode('CVV exigido.');
+      setErrorSecurityCode('CVV exigido');
       return false;
     } else {
       setErrorSecurityCode('');
@@ -163,32 +178,11 @@ export default function PaymentForm({ navigation }) {
     validateFieldIdentificationNumber,
   ]);
 
-  const confirmFlag = useCallback(async () => {
-    const cardFlag = getCardFlag(cardNumber);
-    console.log('cardFlag: ', cardFlag);
-
-    if (cardFlag === false) {
-      Alert.alert(
-        'Bandeiras não encontrada.',
-        'Bandeiras aceitas: \nMaster Card, Visa, American Express, Elo e Hypercard.',
-        [
-          {
-            text: 'Ok',
-            onPress: () => {
-              return;
-            },
-          },
-        ],
-      );
-    } else {
-      dispatch(setPaymentCardFlagForm({ cardFlag: cardFlag }));
-      confirmForm();
-    }
-  }, [dispatch, cardNumber, confirmForm]);
-
-  const confirmForm = useCallback(async () => {
+  const confirmForm = useCallback(() => {
     if (validateForm() === true) {
       //Flag
+      // const cardFlag = getCardFlag(cardNumber);
+      // dispatch(setPaymentCardFlagForm({ cardFlag: cardFlag }));
 
       //Security
       dispatch(setPaymentSecurityCodeForm({ securityCode: securityCode }));
@@ -241,12 +235,50 @@ export default function PaymentForm({ navigation }) {
     expireDate,
   ]);
 
-  const issuerMaskCredit = useCallback(async () => {
-    // if (flag === 'visa' || flag === 'master') return 'visa-or-mastercard';
-    return 'visa-or-mastercard';
-    // const cardFlag = getCardFlag(cardNumber);
-    // return cardFlag;
-  }, []);
+  const html = `
+  <!DOCTYPE html>
+    <html>
+      <head>
+        <title>getPaymentMethods MercadoPago</title>
+        <script src="https://sdk.mercadopago.com/js/v2"></script>
+      </head>
+
+      <body>
+        Processing......
+        <script>
+          
+          const loadPaymentMethods = async () => {
+            const mp = new window.MercadoPago(
+              "TEST-5cfa7891-ec91-488e-9f6a-a27cf73ddec6"
+            );
+
+            const paymentMethods = await mp.getPaymentMethods({
+              bin: '${cardNumber.split(' ').join('')}',
+            });
+
+            // alert(paymentMethods.results[0].id)
+
+            window.ReactNativeWebView.postMessage(JSON.stringify({ paymentMethods: paymentMethods }));
+          };
+
+          loadPaymentMethods();
+        </script>
+      </body>
+    </html>
+  `;
+
+  const onMessage = useCallback(
+    event => {
+      dispatch(
+        setPaymentMethods({
+          paymentMethods: JSON.parse(event.nativeEvent.data).paymentMethods,
+        }),
+      );
+      // console.log('-----');
+      // console.log('paymentMethods:', payMethods);
+    },
+    [dispatch],
+  );
 
   //Rendering
   return (
@@ -363,13 +395,30 @@ export default function PaymentForm({ navigation }) {
           </InputRow>
 
           {/* <Spacer /> */}
-          <ButtonSubmit onPress={confirmFlag}>
+          <ButtonSubmit onPress={confirmForm}>
             <Gradient>
               {!loading && <ButtonText>Avançar</ButtonText>}
               {loading && <Loader />}
             </Gradient>
           </ButtonSubmit>
         </InputContainer>
+        {cardNumber !== '' && (
+          <HiddenWebView>
+            <WebView
+              // source={{
+              //   uri: 'https://github.com/react-native-webview/react-native-webview',
+              // }}
+              source={{ html: html }}
+              renderLoading={LoadIndicator}
+              startInLoadingState={true}
+              // injectedJavaScript={runFirst}
+              // injectedJavaScriptBeforeContentLoaded={runFirst}
+              onMessage={event => onMessage(event)}
+              ref={webviewRef}
+            />
+          </HiddenWebView>
+        )}
+        {/* {cardNumber && loadPaymentMethods()} */}
       </Content>
     </Container>
   );

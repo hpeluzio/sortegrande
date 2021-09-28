@@ -6,6 +6,7 @@ import { SET_PAYMENT_IDENTIFICATIONNUMBER_FORM } from '../actions/paymentForm/pa
 import { SET_PAYMENT_TOKEN_FORM } from '../actions/paymentForm/paymentFormActionTypes';
 import { SET_PAYMENT_CARDFLAG_FORM } from '../actions/paymentForm/paymentFormActionTypes';
 import { SET_CLEAR_FORM } from '../actions/paymentForm/paymentFormActionTypes';
+import { SET_PAYMENT_METHODS_FORM } from '../actions/paymentForm/paymentFormActionTypes';
 
 const initialState = {
   cardNumber: '',
@@ -15,6 +16,7 @@ const initialState = {
   identificationNumber: '',
   token: '',
   cardFlag: '',
+  paymentMethods: {},
 };
 
 export const paymentFormReducer = (state = initialState, action) => {
@@ -39,6 +41,8 @@ export const paymentFormReducer = (state = initialState, action) => {
       return { ...state, token: action.payload.token };
     case SET_PAYMENT_CARDFLAG_FORM:
       return { ...state, cardFlag: action.payload.cardFlag };
+    case SET_PAYMENT_METHODS_FORM:
+      return { ...state, paymentMethods: action.payload.paymentMethods };
     case SET_CLEAR_FORM:
       return {
         cardNumber: '',
@@ -48,6 +52,7 @@ export const paymentFormReducer = (state = initialState, action) => {
         identificationNumber: '',
         token: '',
         cardFlag: '',
+        paymentMethods: {},
       };
     default:
       return state;

@@ -92,3 +92,13 @@ export const Spacer = styled.View`
 export const SimpleButton = styled.TouchableOpacity`
   flex-direction: row;
 `;
+
+export const HiddenWebView = styled.SafeAreaView`
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+  height: ${hp('0.1%')}px;
+  width: ${hp('0.1%')}px;
+  flex-direction: column;
+  background: ${colors.white};
+`;

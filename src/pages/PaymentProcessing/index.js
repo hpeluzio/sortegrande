@@ -30,7 +30,7 @@ export default function PaymentProcessing({ navigation }) {
   } = navigation.getParam('data');
 
   const sendPayment = useCallback(
-    async tokenParam => {
+    tokenParam => {
       dispatch(setPaymentTokenForm({ token: tokenParam.id }));
 
       navigation.navigate('PaymentConfirmation');
@@ -49,17 +49,6 @@ export default function PaymentProcessing({ navigation }) {
   //     // window.cardExpirationYear = '${cardExpirationYear}';
   //     true;
   //   `;
-
-  const onMessage = useCallback(
-    async event => {
-      // console.tron.log('onMessage: ', JSON.parse(event.nativeEvent.data).token);
-
-      const tokenObj = JSON.parse(event.nativeEvent.data).token;
-
-      sendPayment(tokenObj);
-    },
-    [sendPayment],
-  );
 
   const html = `
   <!DOCTYPE html>
@@ -98,6 +87,14 @@ export default function PaymentProcessing({ navigation }) {
       </body>
     </html>
   `;
+
+  const onMessage = useCallback(
+    event => {
+      const tokenObj = JSON.parse(event.nativeEvent.data).token;
+      sendPayment(tokenObj);
+    },
+    [sendPayment],
+  );
 
   //Rendering
   return (

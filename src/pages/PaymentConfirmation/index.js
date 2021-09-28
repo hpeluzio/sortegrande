@@ -22,6 +22,7 @@ import {
   Spacer,
   Row,
   Column,
+  SingleColumn,
   Info,
   InfoLabel,
   Numbers,
@@ -38,7 +39,8 @@ export default function PaymentConfirmation({ navigation }) {
   const name = useSelector(s => s.gameForm.name);
 
   const cardNumber = useSelector(s => s.paymentForm.cardNumber);
-  const cardFlag = useSelector(s => s.paymentForm.cardFlag);
+  // const cardFlag = useSelector(s => s.paymentForm.cardFlag);
+  const paymentMethods = useSelector(s => s.paymentForm.paymentMethods);
   const expireDate = useSelector(s => s.paymentForm.expireDate);
   const securityCode = useSelector(s => s.paymentForm.securityCode);
   const cardholderName = useSelector(s => s.paymentForm.cardholderName);
@@ -48,8 +50,8 @@ export default function PaymentConfirmation({ navigation }) {
   const token = useSelector(s => s.paymentForm.token);
 
   // useEffect(() => {
-  //   console.tron.log('Confirm payment token: ', token);
-  // }, [token]);
+  //   console.log('paymentMethods: ', paymentMethods);
+  // }, [paymentMethods]);
 
   const submitConfirmation = useCallback(async () => {
     if (loading === false) {
@@ -62,7 +64,7 @@ export default function PaymentConfirmation({ navigation }) {
         name: name,
         token: token,
         identificationNumber: cpf.toString(),
-        cardFlag: cardFlag,
+        cardFlag: paymentMethods.results[0].id,
       });
 
       // console.tron.log('response.data: ', response.data);
@@ -84,7 +86,8 @@ export default function PaymentConfirmation({ navigation }) {
     name,
     token,
     identificationNumber,
-    cardFlag,
+    // cardFlag,
+    paymentMethods,
     gameCreatedAlert,
     gameErrorAlert,
   ]);
@@ -126,7 +129,7 @@ export default function PaymentConfirmation({ navigation }) {
           <TopHeader tittle={'Confirmar dados'} />
           <Content>
             <Row>
-              <Column>
+              <SingleColumn>
                 <InfoLabel>Números selecionados: </InfoLabel>
                 <Numbers>
                   {selectedNumbers.map((number, index) => {
@@ -137,7 +140,7 @@ export default function PaymentConfirmation({ navigation }) {
                     );
                   })}
                 </Numbers>
-              </Column>
+              </SingleColumn>
             </Row>
             <Row>
               <Column>
@@ -151,8 +154,8 @@ export default function PaymentConfirmation({ navigation }) {
                 <Info>{maskCard(cardNumber)}</Info>
               </Column>
               <Column>
-                <InfoLabel>Número do cartão:</InfoLabel>
-                <Info>{cardFlag}</Info>
+                <InfoLabel>Bandeira:</InfoLabel>
+                <Info>{paymentMethods.results[0].name}</Info>
               </Column>
             </Row>
             <Row>

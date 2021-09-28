@@ -62,6 +62,18 @@ export const Column = styled.View`
   justify-content: flex-start;
 `;
 
+export const SingleColumn = styled.View`
+  flex: 1;
+  flex-direction: column;
+  background-color: ${colors.white};
+  border-radius: ${hp('2%')}px;
+  align-items: center;
+  justify-content: center;
+  padding: ${hp('1%')}px;
+  margin: ${hp('0.5%')}px;
+  justify-content: flex-start;
+`;
+
 export const Numbers = styled.View`
   flex-direction: row;
   flex-wrap: wrap;
