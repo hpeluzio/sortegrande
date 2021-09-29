@@ -48,6 +48,7 @@ export const ButtonSubmit = styled.TouchableOpacity`
   text-align: center;
   align-self: center;
   background-color: ${colors.primary};
+  background-color: red;
 `;
 
 export const Logout = styled(AntDesign).attrs({
@@ -67,8 +68,8 @@ export const Label = styled.Text`
 `;
 
 export const InputContainer = styled.SafeAreaView`
-  flex: 1;
-  flex-direction: column;
+  /* flex: 1; */
+  /* flex-direction: column; */
   /* height: ${hp('75%')}px; */
   /* justify-content: flex-start; */
   /* align-items: center; */

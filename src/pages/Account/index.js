@@ -100,36 +100,52 @@ export default function Account({ navigation }) {
 
   const update = useCallback(async () => {
     if (validateForm()) {
-      setLoading(true);
-      console.log('update: ', email, password);
-      const response = await UserService.update({
-        email,
-        password,
-        confirm_password: confirmPassword,
-      });
+      Alert.alert('Continuar', 'Deseja atualizar seus dados?', [
+        {
+          text: 'Não',
+          onPress: () => {},
+          style: 'cancel',
+        },
+        {
+          text: 'Sim',
+          onPress: async () => {
+            setLoading(true);
+            console.log('update: ', email, password);
+            const response = await UserService.update({
+              email,
+              password,
+              confirm_password: confirmPassword,
+            });
 
-      // console.log('response: ', response);
-      console.log('response: ', response);
+            // console.log('response: ', response);
+            // console.log('response: ', response);
 
-      if (response.status === 200) {
-        user.email = email;
-        dispatch(setUser({ user: user }));
-        Alert.alert('Perfil atualizado', 'Atualização feita com sucesso.', [
-          {
-            text: 'Ok',
-            onPress: () => {},
+            if (response.status === 200) {
+              user.email = email;
+              dispatch(setUser({ user: user }));
+              Alert.alert(
+                'Perfil atualizado',
+                'Atualização feita com sucesso.',
+                [
+                  {
+                    text: 'Ok',
+                    onPress: () => {},
+                  },
+                ],
+              );
+            } else if (response.status !== 200) {
+              Alert.alert('Ocorreu algum erro', '', [
+                {
+                  text: 'Ok',
+                  onPress: () => {},
+                },
+              ]);
+            }
+
+            setLoading(false);
           },
-        ]);
-      } else if (response.status !== 200) {
-        Alert.alert('Ocorreu algum erro', '', [
-          {
-            text: 'Ok',
-            onPress: () => {},
-          },
-        ]);
-      }
-
-      setLoading(false);
+        },
+      ]);
     }
   }, [validateForm, dispatch, email, password, confirmPassword, user]);
 

@@ -68,12 +68,15 @@ export default function PaymentForm({ navigation }) {
 
   const [issuer, setIssuer] = useState('visa-or-mastercard');
 
-  useEffect(() => {
-    console.log('paymentMethods:::', paymentMethods);
-  }, [paymentMethods]);
+  // useEffect(() => {
+  //   console.log('paymentMethods:::', paymentMethods);
+  // }, [paymentMethods]);
 
   useEffect(() => {
-    if (paymentMethods.results[0].id === 'amex') {
+    if (
+      Object.keys(paymentMethods).length > 0 &&
+      paymentMethods.results[0].id === 'amex'
+    ) {
       setIssuer('amex');
     } else {
       setIssuer('visa-or-mastercard');

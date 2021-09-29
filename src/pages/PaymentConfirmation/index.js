@@ -104,7 +104,7 @@ export default function PaymentConfirmation({ navigation }) {
   }, [navigation]);
 
   const gameErrorAlert = useCallback((data = null) => {
-    Alert.alert('Algo não ocorreu bem', 'Tente novamente', [
+    Alert.alert('Congestionamento na rede', 'Tentar novamente.', [
       {
         text: 'Ok',
         onPress: () => {
