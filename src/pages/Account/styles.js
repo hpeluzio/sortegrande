@@ -36,7 +36,7 @@ export const Button = styled.TouchableOpacity`
   align-items: center;
   justify-content: center;
   /* align-self: flex-end; */
-  background-color: red;
+  /* background-color: red; */
 `;
 
 export const ButtonSubmit = styled.TouchableOpacity`
