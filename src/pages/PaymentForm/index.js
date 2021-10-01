@@ -85,21 +85,14 @@ export default function PaymentForm({ navigation }) {
 
   const validateFieldCardNumber = useCallback(() => {
     var numberValidation = valid.number(cardNumber);
-    // console.tron.log(numberValidation);
-    // console.tron.log(numberValidation.card.type);
+
     if (cardNumber === '') {
       setErrorCardNumber('Número do cartão exigido.');
       return false;
-    }
-
-    // if (getCardFlag(cardNumber) === false) {
-    //   setErrorCardNumber(
-    //     'Bandeira não encontrada. \nBandeiras aceitas: Master Card, Visa, American Express, Elo e Hypercard.',
-    //   );
-    //   return false;
-    // }
-
-    if (numberValidation.isPotentiallyValid === true) {
+    } else if (numberValidation.isValid === false) {
+      setErrorCardNumber('Cartão inválido');
+      return false;
+    } else {
       setErrorCardNumber('');
       return true;
     }

@@ -55,6 +55,10 @@ export default function MyGames({ navigation }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    console.log('games', games);
+  }, [games]);
+
+  useEffect(() => {
     getMyGames();
   }, [getMyGames]);
 
@@ -143,6 +147,18 @@ export default function MyGames({ navigation }) {
   //   },
   //   [onDeleteGame],
   // );
+
+  const paymentStatus = useCallback(status => {
+    if (status === 'approved') {
+      return 'Aprovado';
+    }
+    if (status === 'in_process') {
+      return 'Processando pagamento';
+    }
+    if (status === 'rejected') {
+      return 'Pagamento rejeitado';
+    }
+  }, []);
 
   const onEditAlert = useCallback(
     game => {
@@ -301,6 +317,16 @@ export default function MyGames({ navigation }) {
                       <NameSquareRight>
                         <NameText>
                           {moment(game.date).format('DD/MM HH:mm')}
+                        </NameText>
+                      </NameSquareRight>
+                    </Row>
+                    <Row>
+                      <NameSquareLeft>
+                        <NameText>Status: </NameText>
+                      </NameSquareLeft>
+                      <NameSquareRight>
+                        <NameText>
+                          {paymentStatus(game.payment.status)}
                         </NameText>
                       </NameSquareRight>
                     </Row>
