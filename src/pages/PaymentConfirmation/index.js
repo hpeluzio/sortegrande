@@ -67,13 +67,13 @@ export default function PaymentConfirmation({ navigation }) {
         cardFlag: paymentMethods.results[0].id,
       });
 
-      // console.tron.log('response.data: ', response.data);
+      // console.log('response.data: ', response.data);
 
       if (response.status === 200) {
         setLoading(false);
         // dispatch(setGameNameForm({ name: '' }));
         // dispatch(setGameForm({ selectedNumbers: [] }));
-        gameCreatedAlert();
+        gameCreatedAlert(response.data);
       } else {
         setLoading(false);
         gameErrorAlert(response.data);
@@ -92,19 +92,40 @@ export default function PaymentConfirmation({ navigation }) {
     gameErrorAlert,
   ]);
 
-  const gameCreatedAlert = useCallback(() => {
-    Alert.alert('Jogo criado!', 'Seu jogo foi criado com sucesso!', [
-      {
-        text: 'Ok',
-        onPress: () => {
-          navigation.navigate('Home');
-        },
-      },
-    ]);
-  }, [navigation]);
+  const gameCreatedAlert = useCallback(
+    gamePayment => {
+      if (gamePayment.status === 'approved') {
+        Alert.alert('Jogo criado!', 'Seu jogo foi criado com sucesso!', [
+          {
+            text: 'Ok',
+            onPress: () => {
+              navigation.navigate('Home');
+            },
+          },
+        ]);
+      }
+      if (gamePayment.status === 'in_process') {
+        Alert.alert(
+          'Pagamento em processo!',
+          'Seu pagamento está sendo processado com sucesso!',
+          [
+            {
+              text: 'Ok',
+              onPress: () => {
+                navigation.navigate('Home');
+              },
+            },
+          ],
+        );
+      }
+    },
+    [navigation],
+  );
 
   const gameErrorAlert = useCallback((data = null) => {
-    Alert.alert('Congestionamento na rede', 'Tentar novamente.', [
+    console.log('data', data);
+
+    Alert.alert('Falha no pagamento ', `${data.message}`, [
       {
         text: 'Ok',
         onPress: () => {
