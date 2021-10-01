@@ -54,9 +54,9 @@ export default function MyGames({ navigation }) {
   // const name = useSelector(s => s.gameForm.name);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    console.log('games', games);
-  }, [games]);
+  // useEffect(() => {
+  //   console.log('games', games);
+  // }, [games]);
 
   useEffect(() => {
     getMyGames();

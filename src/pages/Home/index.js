@@ -14,6 +14,7 @@ import {
   BookIcon,
   // CreditCardIcon,
   CloverIcon,
+  PencilSignIcon,
 } from './styles';
 
 export default function Home({ navigation }) {
@@ -26,10 +27,10 @@ export default function Home({ navigation }) {
       <TopHeader tittle={'Tela inicial'} />
       <Content>
         <Row>
-          <Item onPress={() => {}}>
+          {/* <Item onPress={() => {}}>
             <BookIcon />
             <ItemName>Jogos cadastrados</ItemName>
-          </Item>
+          </Item> */}
           {/* <Item onPress={() => navigation.navigate('PaymentForm')}>
             <CreditCardIcon />
             <ItemName>Cadastrar pagamento</ItemName>
@@ -41,6 +42,12 @@ export default function Home({ navigation }) {
             <ItemName>Meus jogos</ItemName>
           </Item>
         </Row>
+        {/* <Row>
+          <Item onPress={() => {}}>
+            <PencilSignIcon />
+            <ItemName>Fazer assinatura de um jogo</ItemName>
+          </Item>
+        </Row> */}
         <Row>
           <Item onPress={() => navigation.navigate('GameForm')}>
             <CloverIcon />

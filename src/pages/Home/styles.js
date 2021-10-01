@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 import { colors, constants } from '~/styles';
 
@@ -82,6 +83,14 @@ export const CloverIcon = styled(MaterialCommunityIcons).attrs({
   name: 'clover',
   color: colors.primary,
   size: hp('10%'),
+})`
+  background-color: ${colors.white};
+`;
+
+export const PencilSignIcon = styled(FontAwesome).attrs({
+  name: 'pencil-square-o',
+  color: colors.primary,
+  size: hp('9%'),
 })`
   background-color: ${colors.white};
 `;
