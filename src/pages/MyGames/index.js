@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import moment from 'moment';
 import {
-  setGameForm,
+  setGameFormNumbers,
   setGameNameForm,
 } from '~/redux/actions/gameForm/gameFormActions';
 
@@ -119,7 +119,7 @@ export default function MyGames({ navigation }) {
       // console.log('arrayNumbersInteger: ', arrayNumbersInteger);
 
       dispatch(
-        setGameForm({
+        setGameFormNumbers({
           selectedNumbers: arrayNumbersInteger,
         }),
       );

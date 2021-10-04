@@ -42,14 +42,18 @@ export default function Home({ navigation }) {
             <ItemName>Meus jogos</ItemName>
           </Item>
         </Row>
-        {/* <Row>
-          <Item onPress={() => {}}>
-            <PencilSignIcon />
-            <ItemName>Fazer assinatura de um jogo</ItemName>
-          </Item>
-        </Row> */}
         <Row>
-          <Item onPress={() => navigation.navigate('GameForm')}>
+          <Item
+            onPress={() =>
+              navigation.navigate('GameForm', { type: 'signature' })
+            }>
+            <PencilSignIcon />
+            <ItemName>Fazer assinatura mensal de um jogo</ItemName>
+          </Item>
+        </Row>
+        <Row>
+          <Item
+            onPress={() => navigation.navigate('GameForm', { type: 'single' })}>
             <CloverIcon />
             <ItemName>Fazer um jogo</ItemName>
           </Item>

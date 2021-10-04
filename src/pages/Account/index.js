@@ -110,7 +110,7 @@ export default function Account({ navigation }) {
           text: 'Sim',
           onPress: async () => {
             setLoading(true);
-            console.log('update: ', email, password);
+            console.log('Updating: ', email, password);
             const response = await UserService.update({
               email,
               password,
@@ -172,7 +172,7 @@ export default function Account({ navigation }) {
       <TopHeader tittle={'Perfil'} />
       <Content>
         <InputContainer>
-          <InputRow>
+          {/* <InputRow>
             <CustomInputText
               label={'E-mail:'}
               placeholder={'E-mail'}
@@ -183,7 +183,7 @@ export default function Account({ navigation }) {
               type={'Entypo'}
               icon={'mail'}
             />
-          </InputRow>
+          </InputRow> */}
           <InputRow>
             <CustomInputText
               label={'Senha:'}
@@ -213,7 +213,7 @@ export default function Account({ navigation }) {
           <Spacer />
           <ButtonSubmit onPress={update}>
             <Gradient>
-              {!loading && <ButtonText>Enviar</ButtonText>}
+              {!loading && <ButtonText>Confirmar</ButtonText>}
               {loading && <Loader />}
             </Gradient>
           </ButtonSubmit>

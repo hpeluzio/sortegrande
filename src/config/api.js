@@ -3,11 +3,17 @@ import axios from 'axios';
 import { store } from '~/redux/store';
 // import { API_URL } from '@env';
 
+// console.log('NODE_ENV', process.env.NODE_ENV);
+
 var instance = axios.create({
   // baseURL: 'http://localhost:3333',
   // baseURL: 'http://192.168.1.15:3333',
   // baseURL: API_URL,
-  baseURL: 'http://10.0.2.2:3333',
+  baseURL:
+    process.env.NODE_ENV === 'development'
+      ? 'http://10.0.2.2:3333'
+      : 'https://api.bolaodasorte.online',
+  // baseURL: 'http://10.0.2.2:3333',
   // baseURL: 'https://api.bolaodasorte.online',
   timeout: 25000,
 });

@@ -45,14 +45,19 @@ export const Item = styled.TouchableOpacity`
   height: ${hp('20%')}px;
   border-radius: ${hp(constants.height_small_pc)}px;
   margin: ${hp('1%')}px ${hp('1%')}px ${hp('1%')}px ${hp('1%')}px;
+  padding-left: ${wp('22.5%')}px;
+  padding-right: ${wp('22.5%')}px;
+  /* background: orange; */
 `;
 
 export const ItemName = styled.Text`
   text-align: center;
   font-size: ${hp(constants.font_default)}px;
   font-family: ${constants.font_family_semi_bold};
+  flex-wrap: wrap;
   color: ${colors.mediumGray};
   flex-wrap: wrap;
+  /* background: purple; */
 `;
 
 export const List = styled(Ionicons).attrs({

@@ -96,6 +96,13 @@ export const ButtonText = styled.Text`
   font-family: ${constants.font_family_semi_bold};
 `;
 
+export const GameType = styled.Text`
+  color: ${colors.mediumGray};
+  text-transform: uppercase;
+  font-size: ${hp(constants.font_default)}px;
+  font-family: ${constants.font_family_semi_bold};
+`;
+
 export const NumbersContainer = styled.View`
   /* flex: 1; */
   flex-direction: row;
@@ -130,4 +137,12 @@ export const TextNumber = styled.Text`
   /* color: ${colors.mediumGray}; */
   color: ${props =>
     props.isNumberSelected ? colors.white : colors.primaryDark};
+`;
+
+export const Spacer = styled.View`
+  flex-direction: column;
+  height: ${hp('2%')}px;
+  background: ${colors.white};
+  align-items: center;
+  justify-content: center;
 `;

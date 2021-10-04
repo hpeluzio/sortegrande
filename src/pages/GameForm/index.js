@@ -1,7 +1,8 @@
 import React, { useCallback, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  setGameForm,
+  setGameFormType,
+  setGameFormNumbers,
   setGameNameForm,
 } from '~/redux/actions/gameForm/gameFormActions';
 
@@ -23,11 +24,14 @@ import {
   NumberSquare,
   TextNumber,
   CustomInputText,
+  GameType,
+  Spacer,
 } from './styles';
 
 import { Alert } from 'react-native';
 
 export default function GameForm({ navigation }) {
+  const type = navigation.getParam('type');
   const selectedNumbers = useSelector(s => s.gameForm.selectedNumbers);
   const name = useSelector(s => s.gameForm.name);
   const dispatch = useDispatch();
@@ -38,7 +42,7 @@ export default function GameForm({ navigation }) {
     n => {
       if (selectedNumbers.includes(n)) {
         dispatch(
-          setGameForm({
+          setGameFormNumbers({
             selectedNumbers: [...selectedNumbers].filter(numberToBeDeleted => {
               if (numberToBeDeleted === n) {
                 return false;
@@ -52,7 +56,7 @@ export default function GameForm({ navigation }) {
 
       if (validateNumber(n)) {
         dispatch(
-          setGameForm({
+          setGameFormNumbers({
             selectedNumbers: [...selectedNumbers, n].sort((a, b) => {
               return a - b;
             }),
@@ -64,10 +68,18 @@ export default function GameForm({ navigation }) {
   );
 
   const validateFieldName = useCallback(() => {
-    name !== ''
-      ? setErrorName('')
-      : setErrorName('Forneça um nome para o jogo.');
-    return name !== '';
+    if (name === '') {
+      setErrorName('Forneça um nome para o seu jogo.');
+      return false;
+    }
+
+    if (name.length < 3) {
+      setErrorName('Forneça um nome maior para o seu jogo.');
+      return false;
+    }
+
+    setErrorName('');
+    return true;
   }, [name]);
 
   const validateNumber = useCallback(
@@ -97,12 +109,13 @@ export default function GameForm({ navigation }) {
       {
         text: 'Limpar',
         onPress: () => {
-          dispatch(setGameForm({ selectedNumbers: [] }));
+          dispatch(setGameFormType({ gameFormType: type }));
+          dispatch(setGameFormNumbers({ selectedNumbers: [] }));
           dispatch(setGameNameForm({ name: '' }));
         },
       },
     ]);
-  }, [dispatch]);
+  }, [type, dispatch]);
 
   const submitForm = useCallback(async () => {
     if (validateFieldName()) {
@@ -163,11 +176,22 @@ export default function GameForm({ navigation }) {
     }
   }, [selectedNumbers, submitForm, validateFieldName]);
 
+  const gameTypeTittle = useCallback(() => {
+    if (type === 'signature') {
+      return 'Criar assinatura de um jogo';
+    }
+    if (type === 'single') {
+      return 'Criar um jogo único';
+    }
+  }, [type]);
+
   return (
     <Container>
       <TopHeader selectedNumbers={selectedNumbers} />
       <ScrollView>
         <Content>
+          <GameType>{gameTypeTittle()}</GameType>
+          <Spacer />
           <CustomInputText
             label={'Nome/apelido do jogo:'}
             placeholder={'Nome do jogo'}

@@ -3,7 +3,7 @@ import { Alert } from 'react-native';
 import { useSelector } from 'react-redux';
 
 // import {
-//   setGameForm,
+//   setGameFormNumbers,
 //   setGameNameForm,
 // } from '~/redux/actions/gameForm/gameFormActions';
 
@@ -72,7 +72,7 @@ export default function PaymentConfirmation({ navigation }) {
       if (response.status === 200) {
         setLoading(false);
         // dispatch(setGameNameForm({ name: '' }));
-        // dispatch(setGameForm({ selectedNumbers: [] }));
+        // dispatch(setGameFormNumbers({ selectedNumbers: [] }));
         gameCreatedAlert(response.data);
       } else {
         setLoading(false);
