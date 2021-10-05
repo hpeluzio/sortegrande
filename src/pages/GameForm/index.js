@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   setGameFormType,
@@ -31,12 +31,19 @@ import {
 import { Alert } from 'react-native';
 
 export default function GameForm({ navigation }) {
-  const type = navigation.getParam('type');
   const selectedNumbers = useSelector(s => s.gameForm.selectedNumbers);
+  const gameFormType = useSelector(s => s.gameForm.gameFormType);
   const name = useSelector(s => s.gameForm.name);
   const dispatch = useDispatch();
-
   const [errorName, setErrorName] = useState('');
+
+  dispatch(setGameFormType({ gameFormType: navigation.getParam('type') }));
+
+  // useEffect(() => {
+  //   // console.log('type: ', type);
+  //   console.log('gameFormType: ', gameFormType);
+  //   dispatch(setGameFormType({ gameFormType: type }));
+  // }, [type, dispatch]);
 
   const addNumber = useCallback(
     n => {
@@ -109,13 +116,13 @@ export default function GameForm({ navigation }) {
       {
         text: 'Limpar',
         onPress: () => {
-          dispatch(setGameFormType({ gameFormType: type }));
+          dispatch(setGameFormType({ gameFormType: '' }));
           dispatch(setGameFormNumbers({ selectedNumbers: [] }));
           dispatch(setGameNameForm({ name: '' }));
         },
       },
     ]);
-  }, [type, dispatch]);
+  }, [dispatch]);
 
   const submitForm = useCallback(async () => {
     if (validateFieldName()) {
@@ -177,13 +184,13 @@ export default function GameForm({ navigation }) {
   }, [selectedNumbers, submitForm, validateFieldName]);
 
   const gameTypeTittle = useCallback(() => {
-    if (type === 'signature') {
+    if (gameFormType === 'signature') {
       return 'Criar assinatura de um jogo';
     }
-    if (type === 'single') {
+    if (gameFormType === 'single') {
       return 'Criar um jogo único';
     }
-  }, [type]);
+  }, [gameFormType]);
 
   return (
     <Container>

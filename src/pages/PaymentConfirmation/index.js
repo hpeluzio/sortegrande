@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Alert } from 'react-native';
 import { useSelector } from 'react-redux';
 
@@ -35,8 +35,9 @@ export default function PaymentConfirmation({ navigation }) {
 
   const [loading, setLoading] = useState(false);
 
-  const selectedNumbers = useSelector(s => s.gameForm.selectedNumbers);
+  const gameFormType = useSelector(s => s.gameForm.gameFormType);
   const name = useSelector(s => s.gameForm.name);
+  const selectedNumbers = useSelector(s => s.gameForm.selectedNumbers);
 
   const cardNumber = useSelector(s => s.paymentForm.cardNumber);
   // const cardFlag = useSelector(s => s.paymentForm.cardFlag);
@@ -49,9 +50,9 @@ export default function PaymentConfirmation({ navigation }) {
   );
   const token = useSelector(s => s.paymentForm.token);
 
-  // useEffect(() => {
-  //   console.log('paymentMethods: ', paymentMethods);
-  // }, [paymentMethods]);
+  useEffect(() => {
+    console.log('gameFormType: ', gameFormType);
+  }, [gameFormType]);
 
   const submitConfirmation = useCallback(async () => {
     if (loading === false) {
@@ -62,6 +63,7 @@ export default function PaymentConfirmation({ navigation }) {
       const response = await GameService.create({
         numbers: selectedNumbers,
         name: name,
+        type: gameFormType,
         token: token,
         identificationNumber: cpf.toString(),
         cardFlag: paymentMethods.results[0].id,
@@ -84,6 +86,7 @@ export default function PaymentConfirmation({ navigation }) {
     // dispatch,
     selectedNumbers,
     name,
+    gameFormType,
     token,
     identificationNumber,
     // cardFlag,
