@@ -49,7 +49,7 @@ export default function PaymentConfirmation({ navigation }) {
     s => s.paymentForm.identificationNumber,
   );
   const token = useSelector(s => s.paymentForm.token);
-
+  console.log('token: ', token);
   useEffect(() => {
     console.log('gameFormType: ', gameFormType);
   }, [gameFormType]);

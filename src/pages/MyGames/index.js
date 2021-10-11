@@ -124,7 +124,7 @@ export default function MyGames({ navigation }) {
         }),
       );
       dispatch(setGameNameForm({ name: game.name }));
-      navigation.navigate('GameForm');
+      navigation.navigate('GameForm', { type: 'single' });
     },
     [dispatch, navigation],
   );
@@ -164,7 +164,7 @@ export default function MyGames({ navigation }) {
     game => {
       Alert.alert(
         `Repetir este jogo: ${game.name}?`,
-        `Deseja fazer outro jogo igual a este: ${game.name}?`,
+        `Deseja fazer um jogo único jogo igual a este: ${game.name}?`,
         [
           {
             text: 'Cancelar',
@@ -213,6 +213,15 @@ export default function MyGames({ navigation }) {
     },
     [games],
   );
+
+  const paymentType = useCallback(type => {
+    if (type === 'single') {
+      return 'Jogo único';
+    }
+    if (type === 'in_process') {
+      return 'Jogo assinatura';
+    }
+  }, []);
 
   if (loading) {
     return (
@@ -328,6 +337,14 @@ export default function MyGames({ navigation }) {
                         <NameText>
                           {paymentStatus(game.payment.status)}
                         </NameText>
+                      </NameSquareRight>
+                    </Row>
+                    <Row>
+                      <NameSquareLeft>
+                        <NameText>Tipo: </NameText>
+                      </NameSquareLeft>
+                      <NameSquareRight>
+                        <NameText>{paymentType(game.payment.type)}</NameText>
                       </NameSquareRight>
                     </Row>
 
