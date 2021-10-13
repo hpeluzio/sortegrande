@@ -185,10 +185,10 @@ export default function GameForm({ navigation }) {
 
   const gameTypeTittle = useCallback(() => {
     if (gameFormType === 'signature') {
-      return 'Criar assinatura de um jogo';
+      return 'Fazer assinatura de um jogo';
     }
     if (gameFormType === 'single') {
-      return 'Criar um jogo único';
+      return 'Fazer um jogo único';
     }
   }, [gameFormType]);
 
@@ -198,7 +198,7 @@ export default function GameForm({ navigation }) {
       <ScrollView>
         <Content>
           <GameType>{gameTypeTittle()}</GameType>
-          <Spacer />
+          {/* <Spacer /> */}
           <CustomInputText
             label={'Nome/apelido do jogo:'}
             placeholder={'Nome do jogo'}

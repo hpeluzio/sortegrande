@@ -48,14 +48,14 @@ export default function Home({ navigation }) {
               navigation.navigate('GameForm', { type: 'signature' })
             }>
             <PencilSignIcon />
-            <ItemName>Fazer assinatura mensal de um jogo</ItemName>
+            <ItemName>Fazer assinatura semanal de um jogo</ItemName>
           </Item>
         </Row>
         <Row>
           <Item
             onPress={() => navigation.navigate('GameForm', { type: 'single' })}>
             <CloverIcon />
-            <ItemName>Fazer um jogo</ItemName>
+            <ItemName>Fazer um jogo único</ItemName>
           </Item>
         </Row>
       </Content>

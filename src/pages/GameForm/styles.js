@@ -101,6 +101,11 @@ export const GameType = styled.Text`
   text-transform: uppercase;
   font-size: ${hp(constants.font_default)}px;
   font-family: ${constants.font_family_semi_bold};
+  border-radius: ${hp('1%')}px;
+  border-color: ${colors.lightGray};
+  padding: ${hp('0.5%')}px ${hp('5%')}px ${hp('0.5%')}px ${hp('5%')}px;
+  color: ${colors.white};
+  background: ${colors.primary};
 `;
 
 export const NumbersContainer = styled.View`
