@@ -14,10 +14,8 @@ import {
 } from '~/redux/actions/paymentForm/paymentFormActions';
 
 import TopHeader from '~/components/TopHeader';
-// import '~/config/reactotron';
+import { PUBLIC_KEY } from '~/config/env';
 
-// import getCardFlag from '~/utils/getCardFlag';
-// import cardFlagsMP from '~/utils/cardFlagsMP';
 import valid from 'card-validator';
 import { cpf } from 'cpf-cnpj-validator';
 
@@ -40,7 +38,7 @@ import { Alert } from 'react-native';
 
 export default function PaymentForm({ navigation }) {
   const dispatch = useDispatch();
-  const webviewRef = useRef(null);
+  let webviewRef = useRef();
 
   const [loading, setLoading] = useState(false);
   const [securityCode, setSecurityCode] = useState('');
@@ -68,12 +66,17 @@ export default function PaymentForm({ navigation }) {
 
   const [issuer, setIssuer] = useState('visa-or-mastercard');
 
-  // useEffect(() => {
-  //   console.log('paymentMethods:::', paymentMethods);
-  // }, [paymentMethods]);
+  useEffect(() => {
+    console.log('paymentMethods:::', paymentMethods);
+  }, [paymentMethods]);
+
+  useEffect(() => {
+    webviewRef.reload();
+  }, [cardNumber]);
 
   useEffect(() => {
     if (
+      paymentMethods &&
       Object.keys(paymentMethods).length > 0 &&
       paymentMethods.results[0].id === 'amex'
     ) {
@@ -231,36 +234,27 @@ export default function PaymentForm({ navigation }) {
     expireDate,
   ]);
 
-  const html = `
-  <!DOCTYPE html>
-    <html>
-      <head>
-        <title>getPaymentMethods MercadoPago</title>
-        <script src="https://sdk.mercadopago.com/js/v2"></script>
-      </head>
+  const JAVASCRIPT_TO_BE_INJECTED = `
+    const loadPaymentMethods = async () => {
+      
+      const mp = new window.MercadoPago(
+        '${PUBLIC_KEY}',
+      );
+        
+      console.log('cardNumber: ', ${cardNumber.split(' ').join('')});
+        
+      const paymentMethods = await mp.getPaymentMethods({
+        bin: '${cardNumber.split(' ').join('')}',
+      });
+        
+      window.ReactNativeWebView.postMessage(
+        JSON.stringify({ paymentMethods: paymentMethods }),
+      );
+          
+    };
+    loadPaymentMethods();
 
-      <body>
-        Processing......
-        <script>
-          console.log('Processing......');
-          const loadPaymentMethods = async () => {
-            const mp = new window.MercadoPago(
-              "APP_USR-9a1c0abd-ff0f-4b98-a66a-3d2a9e9a0197"
-            );
-
-            const paymentMethods = await mp.getPaymentMethods({
-              bin: '${cardNumber.split(' ').join('')}',
-            });
-
-            // alert(paymentMethods.results[0].id)
-
-            window.ReactNativeWebView.postMessage(JSON.stringify({ paymentMethods: paymentMethods }));
-          };
-
-          loadPaymentMethods();
-        </script>
-      </body>
-    </html>
+    true;
   `;
 
   const onMessage = useCallback(
@@ -270,8 +264,6 @@ export default function PaymentForm({ navigation }) {
           paymentMethods: JSON.parse(event.nativeEvent.data).paymentMethods,
         }),
       );
-      // console.log('-----');
-      // console.log('paymentMethods:', payMethods);
     },
     [dispatch],
   );
@@ -398,22 +390,27 @@ export default function PaymentForm({ navigation }) {
             </Gradient>
           </ButtonSubmit>
         </InputContainer>
-        {cardNumber !== '' && (
-          <HiddenWebView>
-            <WebView
-              // source={{
-              //   uri: 'https://github.com/react-native-webview/react-native-webview',
-              // }}
-              source={{ html: html }}
-              renderLoading={LoadIndicator}
-              startInLoadingState={true}
-              // injectedJavaScript={runFirst}
-              // injectedJavaScriptBeforeContentLoaded={runFirst}
-              onMessage={event => onMessage(event)}
-              ref={webviewRef}
-            />
-          </HiddenWebView>
-        )}
+        {/* {cardNumber !== '' && ( */}
+        <HiddenWebView>
+          <WebView
+            // source={{
+            //   uri: 'https://github.com/react-native-webview/react-native-webview',
+            // }}
+            source={{ uri: 'http://10.0.2.2:4444' }}
+            renderLoading={LoadIndicator}
+            // startInLoadingState={true}
+            // injectedJavaScript={INJECTED_JAVASCRIPT}
+            // injectedJavaScriptBeforeContentLoaded={INJECTED_JAVASCRIPT}
+            onMessage={event => onMessage(event)}
+            onLoadEnd={e => {
+              // console.log('end:', e.nativeEvent);
+              webviewRef.injectJavaScript(JAVASCRIPT_TO_BE_INJECTED);
+              // console.log(webviewRef);
+            }}
+            ref={ref => (webviewRef = ref)}
+          />
+        </HiddenWebView>
+        {/* )} */}
         {/* {cardNumber && loadPaymentMethods()} */}
       </Content>
     </Container>

@@ -8,12 +8,13 @@ import { setPaymentTokenForm } from '~/redux/actions/paymentForm/paymentFormActi
 import TopHeader from '~/components/TopHeader';
 import { Container, HiddenWebView, LoadingGif } from './styles';
 import LoadIndicator from '~/components/LoadIndicator';
-// import '~/config/reactotron';
+
+import { PUBLIC_KEY } from '~/config/env';
 
 export default function PaymentProcessing({ navigation }) {
   const dispatch = useDispatch();
 
-  const webviewRef = useRef(null);
+  let webviewRef = useRef();
 
   if (!navigation.getParam('data')) {
     navigation.navigate('Payment');
@@ -38,55 +39,31 @@ export default function PaymentProcessing({ navigation }) {
     [dispatch, navigation],
   );
 
-  // const runFirst = `
-  //     window.teste = 'teste';
-  //     // window.cardNumber = ${cardNumber};
-  //     // window.cardholderName = '${cardholderName}';
-  //     // window.identificationType = '${identificationType}';
-  //     // window.identificationNumber = '${identificationNumber}';
-  //     // window.securityCode = '${securityCode}';
-  //     // window.cardExpirationMonth = '${cardExpirationMonth}';
-  //     // window.cardExpirationYear = '${cardExpirationYear}';
-  //     true;
-  //   `;
+  const JAVASCRIPT_TO_BE_INJECTED = `
+      const createToken = async () => {
+        const mp = new window.MercadoPago(
+          '${PUBLIC_KEY}',
+        );
 
-  const html = `
-  <!DOCTYPE html>
-    <html>
-      <head>
-        <title>Create Token MercadoPago</title>
-        <script src="https://sdk.mercadopago.com/js/v2"></script>
-      </head>
+        const token = await mp.createCardToken({
+          cardNumber: '${cardNumber.split(' ').join('')}',
+          cardholderName: '${cardholderName}',
+          identificationType: '${identificationType}',
+          identificationNumber: '${identificationNumber}',
+          securityCode: '${securityCode}',
+          cardExpirationMonth: '${cardExpirationMonth}',
+          cardExpirationYear: '${cardExpirationYear}',
+        });
 
-      <body>
-        Processing......
-        <script>
-          
-          const createToken = async () => {
-            const mp = new window.MercadoPago(
-              "APP_USR-9a1c0abd-ff0f-4b98-a66a-3d2a9e9a0197"
-            );
+        console.log('Token: ', token);
 
-            const token = await mp.createCardToken({
-              cardNumber: '${cardNumber}',
-              cardholderName: '${cardholderName}',
-              identificationType: '${identificationType}',
-              identificationNumber: '${identificationNumber}',
-              securityCode: '${securityCode}',
-              cardExpirationMonth: '${cardExpirationMonth}',
-              cardExpirationYear: '${cardExpirationYear}',
-            });
+        window.ReactNativeWebView.postMessage(JSON.stringify({ token: token }));
+      };
 
-            // alert(token.id)
+      createToken();
 
-            window.ReactNativeWebView.postMessage(JSON.stringify({ token: token }));
-          };
-
-          createToken();
-        </script>
-      </body>
-    </html>
-  `;
+      true;
+    `;
 
   const onMessage = useCallback(
     event => {
@@ -108,13 +85,18 @@ export default function PaymentProcessing({ navigation }) {
             // source={{
             //   uri: 'https://github.com/react-native-webview/react-native-webview',
             // }}
-            source={{ html: html }}
+            source={{ uri: 'http://10.0.2.2:4445' }}
             renderLoading={LoadIndicator}
-            startInLoadingState={true}
-            // injectedJavaScript={runFirst}
-            // injectedJavaScriptBeforeContentLoaded={runFirst}
+            // startInLoadingState={true}
+            // injectedJavaScript={INJECTED_JAVASCRIPT}
+            // injectedJavaScriptBeforeContentLoaded={INJECTED_JAVASCRIPT}
+            onLoadEnd={e => {
+              // console.log('end:', e.nativeEvent);
+              webviewRef.injectJavaScript(JAVASCRIPT_TO_BE_INJECTED);
+              // console.log(webviewRef);
+            }}
             onMessage={event => onMessage(event)}
-            ref={webviewRef}
+            ref={ref => (webviewRef = ref)}
           />
         </HiddenWebView>
       </Container>
