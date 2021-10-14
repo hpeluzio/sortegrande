@@ -19,6 +19,8 @@ import { PUBLIC_KEY } from '~/config/env';
 import valid from 'card-validator';
 import { cpf } from 'cpf-cnpj-validator';
 
+import { PAYMENT_METHODS_URL } from '~/config/env';
+
 import {
   InputRow,
   Gradient,
@@ -71,6 +73,7 @@ export default function PaymentForm({ navigation }) {
   }, [paymentMethods]);
 
   useEffect(() => {
+    console.log('CHANGE');
     webviewRef.reload();
   }, [cardNumber]);
 
@@ -235,24 +238,9 @@ export default function PaymentForm({ navigation }) {
   ]);
 
   const JAVASCRIPT_TO_BE_INJECTED = `
-    const loadPaymentMethods = async () => {
-      
-      const mp = new window.MercadoPago(
-        '${PUBLIC_KEY}',
-      );
-        
-      console.log('cardNumber: ', ${cardNumber.split(' ').join('')});
-        
-      const paymentMethods = await mp.getPaymentMethods({
-        bin: '${cardNumber.split(' ').join('')}',
-      });
-        
-      window.ReactNativeWebView.postMessage(
-        JSON.stringify({ paymentMethods: paymentMethods }),
-      );
-          
-    };
-    loadPaymentMethods();
+  
+    window.PUBLIC_KEY = '${PUBLIC_KEY}';
+    window.cardNumber = '${cardNumber.split(' ').join('')}';
 
     true;
   `;
@@ -396,13 +384,13 @@ export default function PaymentForm({ navigation }) {
             // source={{
             //   uri: 'https://github.com/react-native-webview/react-native-webview',
             // }}
-            source={{ uri: 'http://10.0.2.2:4444' }}
+            source={{ uri: PAYMENT_METHODS_URL }}
             renderLoading={LoadIndicator}
             // startInLoadingState={true}
             // injectedJavaScript={INJECTED_JAVASCRIPT}
             // injectedJavaScriptBeforeContentLoaded={INJECTED_JAVASCRIPT}
             onMessage={event => onMessage(event)}
-            onLoadEnd={e => {
+            onLoadStart={e => {
               // console.log('end:', e.nativeEvent);
               webviewRef.injectJavaScript(JAVASCRIPT_TO_BE_INJECTED);
               // console.log(webviewRef);
