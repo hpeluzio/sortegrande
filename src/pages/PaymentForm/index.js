@@ -242,10 +242,10 @@ export default function PaymentForm({ navigation }) {
       <body>
         Processing......
         <script>
-          
+          console.log('Processing......');
           const loadPaymentMethods = async () => {
             const mp = new window.MercadoPago(
-              "TEST-5cfa7891-ec91-488e-9f6a-a27cf73ddec6"
+              "APP_USR-9a1c0abd-ff0f-4b98-a66a-3d2a9e9a0197"
             );
 
             const paymentMethods = await mp.getPaymentMethods({
