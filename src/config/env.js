@@ -1,26 +1,21 @@
-// API_URL=http://10.0.2.2:3333
-// API_URL=https://api.bolaodasorte.online
+/*
+ * Test enviroment
+ */
+export const API_URL =
+  process.env.NODE_ENV === 'development'
+    ? 'http://10.0.2.2:3333'
+    : 'https://api.bolaodasorte.online';
+export const PUBLIC_KEY = 'TEST-448447ef-4eeb-4828-9af9-18ec47f9bbb1';
 
-export const API_URL = 'https://api.bolaodasorte.online';
+/*
+ * Production enviroment
+ */
+// export const API_URL = 'https://api.bolaodasorte.online';
+// export const PUBLIC_KEY = '';
 
-// export const API_URL =
-//   process.env.NODE_ENV === 'development'
-//     ? 'http://10.0.2.2:3333'
-//     : 'https://api.bolaodasorte.online';
-
-export const PUBLIC_KEY = 'TEST-5cfa7891-ec91-488e-9f6a-a27cf73ddec6';
-
+/*
+ * PAYMENT_METHODS_URL and CREATE_CARD_TOKEN_URL
+ */
 export const PAYMENT_METHODS_URL = 'https://paymentmethods.bolaodasorte.online';
-
 export const CREATE_CARD_TOKEN_URL =
   'https://createcardtoken.bolaodasorte.online';
-
-// export const PAYMENT_METHODS_URL =
-//   process.env.NODE_ENV === 'development'
-//     ? 'http://10.0.2.2:4444'
-//     : 'https://paymentmethods.bolaodasorte.online';
-
-// export const CREATE_CARD_TOKEN_URL =
-//   process.env.NODE_ENV === 'development'
-//     ? 'http://10.0.2.2:4445'
-//     : 'https://createcardtoken.bolaodasorte.online';
