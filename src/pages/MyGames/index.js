@@ -152,8 +152,14 @@ export default function MyGames({ navigation }) {
     if (status === 'approved') {
       return 'Aprovado';
     }
+    if (status === 'authorized') {
+      return 'Autorizado';
+    }
     if (status === 'in_process') {
       return 'Processando pagamento';
+    }
+    if (status === 'pending') {
+      return 'Pendente';
     }
     if (status === 'rejected') {
       return 'Pagamento rejeitado';
@@ -216,10 +222,10 @@ export default function MyGames({ navigation }) {
 
   const paymentType = useCallback(type => {
     if (type === 'single') {
-      return 'Jogo único';
+      return 'Único';
     }
-    if (type === 'in_process') {
-      return 'Jogo assinatura';
+    if (type === 'signature') {
+      return 'Assinatura';
     }
   }, []);
 
