@@ -9,6 +9,7 @@ import {
 import GameService from '~/services/GameService';
 
 import TopHeader from '~/components/TopHeader';
+import CheckButton from './components/CheckButton';
 
 import '~/config/reactotron';
 
@@ -268,7 +269,12 @@ export default function MyGames({ navigation }) {
               {games.map(game => {
                 return (
                   <GameCard key={game.id}>
-                    {game.status === 'notchecked' &&
+                    <CheckButton
+                      game={game}
+                      games={games}
+                      setGames={setGames}
+                    />
+                    {/* {game.status === 'notchecked' &&
                       game.raffle.numbers === null && (
                         <Row>
                           <NotCheckedSquare toCheck={false}>
@@ -305,7 +311,7 @@ export default function MyGames({ navigation }) {
                           <WonText>Jogo sorteado!</WonText>
                         </CheckedSquare>
                       </Row>
-                    )}
+                    )} */}
                     <Row>
                       <NameSquareLeft>
                         <NameText>Sorteio: </NameText>
