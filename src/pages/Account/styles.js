@@ -105,7 +105,7 @@ export const Back = styled.View`
 
 //Input
 export const InputLabel = styled.Text`
-  font-size: ${hp(constants.font_size_pc)};
+  font-size: ${hp(constants.font_size_pc)}px;
   font-family: ${constants.font_family_medium};
   color: ${colors.primaryDark};
   margin-bottom: ${hp('0.25%')}px;
@@ -122,7 +122,7 @@ export const AccountContainer = styled.View`
 `;
 
 export const AccountLabel = styled.Text`
-  font-size: ${hp(constants.font_size_pc)};
+  font-size: ${hp(constants.font_size_pc)}px;
   font-family: ${constants.font_family_medium};
   color: ${colors.mediumGray};
   margin-bottom: ${hp('0.25%')}px;
@@ -156,7 +156,7 @@ export const Loader = styled.ActivityIndicator.attrs({
 export const ButtonText = styled.Text`
   color: ${colors.white};
   text-transform: uppercase;
-  font-size: ${hp(constants.font_size_pc)};
+  font-size: ${hp(constants.font_size_pc)}px;
   font-family: ${constants.font_family_semi_bold};
 `;
 
