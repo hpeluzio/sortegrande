@@ -274,44 +274,6 @@ export default function MyGames({ navigation }) {
                       games={games}
                       setGames={setGames}
                     />
-                    {/* {game.status === 'notchecked' &&
-                      game.raffle.numbers === null && (
-                        <Row>
-                          <NotCheckedSquare toCheck={false}>
-                            <WonText>
-                              Será realizado no dia{' '}
-                              {moment(game.raffle.end).format('DD/MM')}
-                            </WonText>
-                          </NotCheckedSquare>
-                        </Row>
-                      )}
-                    {game.status === 'notchecked' &&
-                      game.raffle.numbers !== null && (
-                        <Row>
-                          <NotCheckedSquare
-                            toCheck={true}
-                            onPress={() => checkGame(game.id)}>
-                            {!loadingCheck && (
-                              <WonText>Conferir este jogo</WonText>
-                            )}
-                            {loadingCheck && <Loader />}
-                          </NotCheckedSquare>
-                        </Row>
-                      )}
-                    {countGameHits(game) < 6 && game.status === 'checked' && (
-                      <Row>
-                        <CheckedSquare won={false}>
-                          <WonText>{countGameHits(game)} acertos</WonText>
-                        </CheckedSquare>
-                      </Row>
-                    )}
-                    {countGameHits(game) === 6 && game.status === 'checked' && (
-                      <Row>
-                        <CheckedSquare won={true}>
-                          <WonText>Jogo sorteado!</WonText>
-                        </CheckedSquare>
-                      </Row>
-                    )} */}
                     <Row>
                       <NameSquareLeft>
                         <NameText>Sorteio: </NameText>

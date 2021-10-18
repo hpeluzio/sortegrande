@@ -15,9 +15,7 @@ import {
 } from './styles';
 
 export default function MyGames({ game, games, setGames }) {
-  const [loading, setLoading] = useState(false);
   const [loadingCheck, setLoadingCheck] = useState(false);
-  // const [games, setGames] = useState([]);
 
   // useEffect(() => {
   //   console.log('games', games);
@@ -44,7 +42,6 @@ export default function MyGames({ game, games, setGames }) {
   const checkGame = useCallback(
     async id => {
       setLoadingCheck(true);
-      // console.tron.log(id);
       const { status } = await GameService.check({ id });
 
       if (status === 200) {
