@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "398922692310",
+    "project_id": "bolaodasorte-f6592",
+    "storage_bucket": "bolaodasorte-f6592.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:398922692310:android:5a4dac29589507483dbb77",
+        "android_client_info": {
+          "package_name": "com.sortegrande"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "398922692310-bonlvsr8ogev0tsij3uv1m9llpst3v6n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAwozSfLZCO2ZaKgQ9HGTAlC112SF9sd88"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "398922692310-bonlvsr8ogev0tsij3uv1m9llpst3v6n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

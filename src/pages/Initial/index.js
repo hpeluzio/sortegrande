@@ -9,8 +9,6 @@ export default function Initial({ navigation }) {
   const token = useSelector(s => s.session.token);
 
   useEffect(() => {
-    // console.log('token:: ', token);
-    // console.log('navigation', navigation);
     if (token !== null) {
       navigation.navigate('Home');
     } else {

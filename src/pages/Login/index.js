@@ -1,7 +1,11 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import messaging from '@react-native-firebase/messaging';
+
 import { setSession } from '~/redux/actions/session/sessionActions';
+
 import SessionService from '~/services/SessionService';
+import PushNotificationService from '~/services/PushNotificationService';
 
 import { validateEmail } from '~/utils/validateEmail';
 
@@ -37,17 +41,35 @@ export default function Login({ navigation }) {
   const [errorPassword, setErrorPassword] = useState(null);
   const [errorLog, setErrorLog] = useState('');
 
-  useEffect(() => {
-    console.log('session: ', session);
-  }, [session]);
+  // useEffect(() => {
+  //   console.log('session: ', session);
+  // }, [session]);
 
   useEffect(() => {
     if (token !== null) {
+      // Requesting FCM firebase permission
+      requestUserPermission();
+
       navigation.navigate('Home');
     } else {
       navigation.navigate('Login');
     }
-  }, [navigation, token, session]);
+  }, [navigation, token, session, requestUserPermission]);
+
+  const requestUserPermission = useCallback(async () => {
+    const authStatus = await messaging().requestPermission();
+    const enabled =
+      authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+      authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+
+    if (enabled) {
+      console.log('Authorization status:', authStatus);
+    }
+
+    const fcmToken = await messaging().getToken();
+    console.log('FcmToken: ', fcmToken);
+    PushNotificationService.addFcmToken({ fcmToken });
+  }, []);
 
   const validateFieldEmail = useCallback(() => {
     validateEmail(email)
