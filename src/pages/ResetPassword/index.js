@@ -22,22 +22,19 @@ import {
 import { Alert } from 'react-native';
 
 export default function Register({ navigation }) {
-  console.log(navigation.state.params);
   const [token, setToken] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
   //Form validation fields
-
   const [errorToken, setErrorToken] = useState(null);
   const [errorPassword, setErrorPassword] = useState(null);
   const [errorConfirmPassword, setErrorConfirmPassword] = useState(null);
 
   useEffect(() => {
-    if (navigation.state.params.token !== undefined) {
-      console.log('navigation.state.params.token');
-      console.log(navigation.state.params.token);
+    if (navigation.state.params !== undefined) {
+      console.log('token: ', navigation.state.params.token);
       setToken(navigation.state.params.token);
     } else {
       setToken('');
