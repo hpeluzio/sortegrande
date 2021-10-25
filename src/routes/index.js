@@ -17,7 +17,11 @@ import PaymentConfirmation from '~/pages/PaymentConfirmation';
 export default () => {
   return createAppContainer(
     createStackNavigator({
-      Initial: { screen: Initial, navigationOptions: { headerShown: false } },
+      Initial: {
+        screen: Initial,
+        path: '',
+        navigationOptions: { headerShown: false },
+      },
       Login: { screen: Login, navigationOptions: { headerShown: false } },
       Register: { screen: Register, navigationOptions: { headerShown: false } },
       ForgotPassword: {
@@ -26,6 +30,7 @@ export default () => {
       },
       ResetPassword: {
         screen: ResetPassword,
+        path: 'resetpassword/:token',
         navigationOptions: { headerShown: false },
       },
       Home: { screen: Home, navigationOptions: { headerShown: false } },

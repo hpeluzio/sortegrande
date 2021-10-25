@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import SessionService from '~/services/SessionService';
 
 import TopHeader from '~/components/TopHeader';
@@ -22,6 +22,7 @@ import {
 import { Alert } from 'react-native';
 
 export default function Register({ navigation }) {
+  console.log(navigation.state.params);
   const [token, setToken] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -32,6 +33,16 @@ export default function Register({ navigation }) {
   const [errorToken, setErrorToken] = useState(null);
   const [errorPassword, setErrorPassword] = useState(null);
   const [errorConfirmPassword, setErrorConfirmPassword] = useState(null);
+
+  useEffect(() => {
+    if (navigation.state.params.token !== undefined) {
+      console.log('navigation.state.params.token');
+      console.log(navigation.state.params.token);
+      setToken(navigation.state.params.token);
+    } else {
+      setToken('');
+    }
+  }, [navigation.state]);
 
   const validateFieldToken = useCallback(async () => {
     if (token !== null) {
