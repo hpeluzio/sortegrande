@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 
 import TopHeader from '~/components/TopHeader';
-// import MenuFooter from '~/components/MenuFooter';
+
 import CloverBackground from '~/components/CloverBackground';
+import messaging from '@react-native-firebase/messaging';
 
 import {
   Container,
@@ -11,16 +12,21 @@ import {
   Item,
   ItemName,
   List,
-  BookIcon,
+  // BookIcon,
   // CreditCardIcon,
   CloverIcon,
   PencilSignIcon,
 } from './styles';
 
 export default function Home({ navigation }) {
-  // useEffect(() => {
-  //   console.log('navigation', navigation);
-  // }, [navigation]);
+  useEffect(() => {
+    showFcmToken();
+  }, [showFcmToken]);
+
+  const showFcmToken = useCallback(async () => {
+    const fcmToken = await messaging().getToken();
+    console.log('fcmToken: ', fcmToken);
+  }, []);
 
   return (
     <Container>
