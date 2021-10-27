@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
 import TopHeader from '~/components/TopHeader';
-
 import CloverBackground from '~/components/CloverBackground';
 import messaging from '@react-native-firebase/messaging';
 
@@ -19,7 +19,10 @@ import {
 } from './styles';
 
 export default function Home({ navigation }) {
+  const role = useSelector(s => s.session.user.role);
+
   useEffect(() => {
+    console.log('role', role);
     showFcmToken();
   }, [showFcmToken]);
 
@@ -48,15 +51,17 @@ export default function Home({ navigation }) {
             <ItemName>Meus jogos</ItemName>
           </Item>
         </Row>
-        <Row>
-          <Item
-            onPress={() =>
-              navigation.navigate('GameForm', { type: 'signature' })
-            }>
-            <PencilSignIcon />
-            <ItemName>Fazer assinatura semanal de um jogo</ItemName>
-          </Item>
-        </Row>
+        {role === 'admin' && (
+          <Row>
+            <Item
+              onPress={() =>
+                navigation.navigate('GameForm', { type: 'signature' })
+              }>
+              <PencilSignIcon />
+              <ItemName>Fazer assinatura semanal de um jogo</ItemName>
+            </Item>
+          </Row>
+        )}
         <Row>
           <Item
             onPress={() => navigation.navigate('GameForm', { type: 'single' })}>
