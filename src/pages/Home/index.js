@@ -22,7 +22,6 @@ export default function Home({ navigation }) {
   const role = useSelector(s => s.session.user.role);
 
   useEffect(() => {
-    console.log('role', role);
     showFcmToken();
   }, [showFcmToken]);
 
