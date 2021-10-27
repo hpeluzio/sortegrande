@@ -29,6 +29,20 @@ export const Content = styled.View`
   /* background: orange; */
 `;
 
+export const UserInfo = styled.Text`
+  color: ${colors.mediumGray};
+  text-transform: uppercase;
+  font-size: ${hp(constants.font_default)}px;
+  font-family: ${constants.font_family_semi_bold};
+  border-radius: ${hp('1%')}px;
+  border-color: ${colors.lightGray};
+  padding: ${hp('0.5%')}px ${hp('5%')}px ${hp('0.5%')}px ${hp('5%')}px;
+  margin: ${hp('2%')}px ${hp('5%')}px ${hp('0.5%')}px ${hp('5%')}px;
+  color: ${colors.white};
+  text-align: center;
+  background: ${colors.primary};
+`;
+
 export const Button = styled.TouchableOpacity`
   padding: ${hp('2%')}px;
   height: ${hp('12%')}px;

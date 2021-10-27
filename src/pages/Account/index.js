@@ -21,6 +21,7 @@ import {
   InputRowLogout,
   Container,
   Content,
+  UserInfo,
   Button,
   ButtonSubmit,
   Logout,
@@ -171,6 +172,7 @@ export default function Account({ navigation }) {
     <Container>
       <TopHeader tittle={'Perfil'} />
       <Content>
+        <UserInfo>Logado como: {email}</UserInfo>
         <InputContainer>
           {/* <InputRow>
             <CustomInputText
