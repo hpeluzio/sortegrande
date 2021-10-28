@@ -18,14 +18,47 @@ export const Container = styled.SafeAreaView`
   /* background: red; */
 `;
 
+export const ScrollView = styled.ScrollView`
+  flex: 1;
+  background-color: ${colors.background};
+  /* background-color: blue; */
+`;
+
+export const RefreshControl = styled.RefreshControl``;
+
 export const Content = styled.View`
   flex: 1;
   flex-direction: column;
   /* margin-top: ${hp('2%')}px; */
   margin: ${hp('4%')}px ${hp('4%')}px ${hp('4%')}px ${hp('4%')}px;
-  justify-content: center;
+  justify-content: flex-start;
   background: rgba(0, 0, 0, 0);
   /* background: orange; */
+`;
+
+export const TotalPrizeRow = styled.View`
+  flex-direction: row;
+  justify-content: center;
+  /* margin: ${hp('1%')}px ${hp('0%')}px ${hp('0%')}px ${hp('0%')}px; */
+  background: rgba(0, 0, 0, 0);
+  /* background: purple; */
+`;
+
+export const ItemPrize = styled.View`
+  flex: 1;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding-left: ${hp('10%')}px;
+  padding-right: ${hp('10%')}px;
+  height: ${hp('6%')}px;
+  border-radius: ${hp('2.5%')}px;
+  margin: ${hp('1%')}px ${hp('1%')}px ${hp('1%')}px ${hp('1%')}px;
+  /* padding-left: ${wp('22.5%')}px; */
+  /* padding-right: ${wp('22.5%')}px; */
+  background: orange;
+  background: rgba(0, 0, 0, 0);
+  background-color: ${colors.white};
 `;
 
 export const Row = styled.View`
@@ -56,6 +89,26 @@ export const ItemName = styled.Text`
   font-family: ${constants.font_family_semi_bold};
   flex-wrap: wrap;
   color: ${colors.mediumGray};
+  flex-wrap: wrap;
+  /* background: purple; */
+`;
+
+export const TextAcumulated = styled.Text`
+  text-align: center;
+  font-size: ${hp(constants.font_size_pc)}px;
+  font-family: ${constants.font_family_semi_bold};
+  flex-wrap: wrap;
+  color: ${colors.mediumGray};
+  flex-wrap: wrap;
+  /* background: purple; */
+`;
+
+export const ValueAcumulated = styled.Text`
+  text-align: center;
+  font-size: ${hp(constants.font_size_md_pc)}px;
+  font-family: ${constants.font_family_bold};
+  flex-wrap: wrap;
+  color: ${colors.primaryDark};
   flex-wrap: wrap;
   /* background: purple; */
 `;

@@ -4,7 +4,7 @@ import moment from 'moment';
 
 import GameService from '~/services/GameService';
 
-import '~/config/reactotron';
+// import '~/config/reactotron';
 
 import {
   Row,

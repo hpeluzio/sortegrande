@@ -201,25 +201,25 @@ export default function MyGames({ navigation }) {
     }
   }, []);
 
-  const checkGame = useCallback(
-    async id => {
-      setLoadingCheck(true);
-      // console.tron.log(id);
-      const { status, data } = await GameService.check({ id });
+  // const checkGame = useCallback(
+  //   async id => {
+  //     setLoadingCheck(true);
+  //     // console.tron.log(id);
+  //     const { status, data } = await GameService.check({ id });
 
-      if (status === 200) {
-        const gamesUpdated = games.map(game => {
-          if (game.id === id) {
-            game.status = 'checked';
-          }
-          return game;
-        });
-        setGames(gamesUpdated);
-        setLoadingCheck(false);
-      }
-    },
-    [games],
-  );
+  //     if (status === 200) {
+  //       const gamesUpdated = games.map(game => {
+  //         if (game.id === id) {
+  //           game.status = 'checked';
+  //         }
+  //         return game;
+  //       });
+  //       setGames(gamesUpdated);
+  //       setLoadingCheck(false);
+  //     }
+  //   },
+  //   [games],
+  // );
 
   const paymentType = useCallback(type => {
     if (type === 'single') {
