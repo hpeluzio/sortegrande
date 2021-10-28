@@ -36,6 +36,11 @@ export const Content = styled.View`
   /* background: orange; */
 `;
 
+export const Loader = styled.ActivityIndicator.attrs({
+  size: 'small',
+  color: colors.primary,
+})``;
+
 export const TotalPrizeRow = styled.View`
   flex-direction: row;
   justify-content: center;

@@ -11,6 +11,7 @@ import {
   Container,
   ScrollView,
   RefreshControl,
+  Loader,
   Content,
   TotalPrizeRow,
   ItemPrize,
@@ -73,7 +74,11 @@ export default function Home({ navigation }) {
           <ItemPrize>
             {/* <BookIcon /> */}
             <TextAcumulated>Total acumulado: </TextAcumulated>
-            {loading && <ValueAcumulated>Loading</ValueAcumulated>}
+            {loading && (
+              <ValueAcumulated>
+                <Loader />
+              </ValueAcumulated>
+            )}
             {!loading && <ValueAcumulated>{total} R$ </ValueAcumulated>}
           </ItemPrize>
           {/* <Item onPress={() => navigation.navigate('PaymentForm')}>
