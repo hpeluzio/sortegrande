@@ -20,8 +20,8 @@ export const Container = styled.SafeAreaView`
 
 export const ScrollView = styled.ScrollView`
   flex: 1;
-  background-color: ${colors.background};
   /* background-color: blue; */
+  background: rgba(0, 0, 0, 0);
 `;
 
 export const RefreshControl = styled.RefreshControl``;
@@ -29,9 +29,9 @@ export const RefreshControl = styled.RefreshControl``;
 export const Content = styled.View`
   flex: 1;
   flex-direction: column;
-  /* margin-top: ${hp('2%')}px; */
+  height: ${hp('60%')}px;
   margin: ${hp('4%')}px ${hp('4%')}px ${hp('4%')}px ${hp('4%')}px;
-  justify-content: flex-start;
+  justify-content: flex-end;
   background: rgba(0, 0, 0, 0);
   /* background: orange; */
 `;

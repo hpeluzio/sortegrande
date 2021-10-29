@@ -73,13 +73,17 @@ export default function Home({ navigation }) {
         <TotalPrizeRow>
           <ItemPrize>
             {/* <BookIcon /> */}
-            <TextAcumulated>Total acumulado: </TextAcumulated>
+            <TextAcumulated>Prêmio acumulado: </TextAcumulated>
             {loading && (
               <ValueAcumulated>
                 <Loader />
               </ValueAcumulated>
             )}
-            {!loading && <ValueAcumulated>{total} R$ </ValueAcumulated>}
+            {!loading && (
+              <ValueAcumulated>
+                {total.toFixed(2).replace(/\./g, ',')} R${' '}
+              </ValueAcumulated>
+            )}
           </ItemPrize>
           {/* <Item onPress={() => navigation.navigate('PaymentForm')}>
             <CreditCardIcon />
@@ -125,8 +129,9 @@ export default function Home({ navigation }) {
           </Row>
         </Content>
         {/* <MenuFooter /> */}
-        <CloverBackground />
+        {/* <CloverBackground /> */}
       </ScrollView>
+      <CloverBackground />
     </Container>
   );
 }

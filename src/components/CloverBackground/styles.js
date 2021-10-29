@@ -8,10 +8,9 @@ import { colors } from '~/styles';
 
 export const Container = styled.View`
   position: absolute;
-  top: ${hp('5%')}px;
-  left: ${wp('-42.5%')}px;
-  width: ${wp('200%')}px;
-  z-index: -1;
+  width: ${wp('100%')}px;
+  height: ${hp('100%')}px;
+  z-index: 0;
   /* flex-direction: row; */
   /* align-items: center; */
   /* justify-content: flex-end; */
@@ -24,9 +23,12 @@ export const Container = styled.View`
 
 export const Clover = styled(MaterialCommunityIcons).attrs({
   name: 'clover',
-  size: hp('95%'),
+  size: wp('100%'),
 })`
-  /* background-color: ${colors.white}; */
-
+  position: absolute;
+  z-index: -1;
+  bottom: ${hp('-15%')}px;
+  /* right: ${wp('0%')}px; */
   color: rgba(74, 211, 149, 0.075);
+  /* background-color: purple; */
 `;
