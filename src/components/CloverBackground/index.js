@@ -6,9 +6,9 @@ import { Container, Clover } from './styles';
 
 function CloverBackground({ navigation }) {
   return (
-    // <Container>
-    <Clover />
-    // </Container>
+    <Container>
+      <Clover />
+    </Container>
   );
 }
 export default CloverBackground;

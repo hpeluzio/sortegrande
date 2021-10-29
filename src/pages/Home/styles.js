@@ -29,9 +29,9 @@ export const RefreshControl = styled.RefreshControl``;
 export const Content = styled.View`
   flex: 1;
   flex-direction: column;
-  height: ${hp('60%')}px;
-  margin: ${hp('4%')}px ${hp('4%')}px ${hp('4%')}px ${hp('4%')}px;
-  justify-content: flex-end;
+  height: ${hp('80%')}px;
+  margin: ${hp('0%')}px ${hp('4%')}px ${hp('0%')}px ${hp('4%')}px;
+  justify-content: center;
   background: rgba(0, 0, 0, 0);
   /* background: orange; */
 `;
