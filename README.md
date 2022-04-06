@@ -1,3 +1,4 @@
 # sortegrande
 
-![image](https://user-images.githubusercontent.com/12173947/161981740-8906a923-0629-4967-baea-515802878861.png)
+![image](https://user-images.githubusercontent.com/12173947/161981874-d87c2fd4-4307-4ad4-840f-264f51f338ac.png)
+
